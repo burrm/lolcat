@@ -1,9 +1,9 @@
 Package: lolcat
 Type: Package
 Title: Miscellaneous Useful Functions
-Version: 1.0
+Version: 1.1
 Date: 2015-09-14
 Author: Mike Burr
 Maintainer: Mike Burr <michael.burr@colorado.edu>
-Description: Miscellaneous functions written/ported by Mike
-License: What license is it under?
+Description: Miscellaneous statistical functions written/ported by Mike Burr
+License: MIT License
