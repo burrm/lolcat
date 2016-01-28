@@ -224,6 +224,8 @@ summary.impl <- function(fx
     agg
   })
   
+  #print(d.summary)
+  
   #TODO - better way to post process :(
   #Post-process to correct format 
   #   - multi-return aggregate puts a matrix into data frame :/
@@ -236,7 +238,7 @@ summary.impl <- function(fx
     d.final <- d.summary
   }
   
-  d.final<-as.data.frame(d.final[[1]])
+  #d.final<-as.data.frame(d.final[[1]])
   
   #Final post-processing - delete/reformat a few columns
   # - shape testing - if eq 1 and all gp size, then delete
@@ -284,9 +286,14 @@ summary.impl <- function(fx
   }
     
   if (length(iv.names) > 0) {
-    # Sort by independent variables
-    d.final<-d.final[do.call(order,d.final[,1:length(iv.names)]),]
-    rownames(d.final)<-1:nrow(d.final)
+    if (length(iv.names) > 1) {
+      # Sort by independent variables
+      d.final<-d.final[do.call(order,d.final[,1:length(iv.names)]),]
+      rownames(d.final)<-1:nrow(d.final)
+    } else {
+      d.final<-d.final[order(d.final[,1]),]
+      rownames(d.final)<-1:nrow(d.final)
+    }
     
     # Perform formatting stuff...
     if (format.generate.cellcodes) {
