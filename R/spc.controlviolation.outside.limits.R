@@ -1,9 +1,9 @@
 spc.controlviolation.outside.ucl <- function(x, upper.control.limit = NA, ...) {
-  x > ucl
+  x > upper.control.limit
 }
 
 spc.controlviolation.outside.lcl <- function(x, lower.control.limit = NA, ...) {
-  x < lcl
+  x < lower.control.limit
 }
 
 spc.controlviolation.outside.limits <- function(x, lower.control.limit = NA, upper.control.limit = NA, ...) {
