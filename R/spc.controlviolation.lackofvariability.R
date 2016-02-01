@@ -3,7 +3,8 @@ spc.controlviolation.lackofvariability <- function(x
                                                    ,center.line
                                                    ,standard.error
                                                    ,lower.bound = center.line - standard.error
-                                                   ,upper.bound = center.line + standard.error) {
+                                                   ,upper.bound = center.line + standard.error,
+                                                   ...) {
   
   
   ret <- logical(0)
