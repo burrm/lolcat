@@ -38,6 +38,7 @@ cor.point.biserial <- function(discrete_var,
     retval<-list(data.name   = "continuous variable and dichotomized variable",
                statistic   = r_test$statistic, 
                estimate    = c(r_pbi = r_pbi
+                               ,r_test$estimate[2]
                                ,mean.g1 = mean.g1 
                                ,sd.g1 = sd.g1 
                                ,n.g1 = n1

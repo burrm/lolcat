@@ -33,7 +33,7 @@ summary.impl <- function(fx
                          ,stat.true.mode   = F
                           
                          #Shape Testing
-                         ,stat.shape.rejection.alpha = NA #0 < p < 1
+                         ,stat.shape.rejection.conf.level = NA #0 < p < 1
                          ,stat.shape.text.rej = "Reject"
                          ,stat.shape.text.ftr = ""
                          ,stat.ad.test   = 0  # 0 = off, 1 = if n<25, 2 = on
@@ -134,7 +134,7 @@ summary.impl <- function(fx
         t.res <- anderson.darling.test(clean_x)
         agg<-c(agg,adtest = t.res$statistic)
         agg<-c(agg,adtest.p  = t.res$p.value)
-        agg<-c(agg,adtest.d  = t.res$p.value < stat.shape.rejection.alpha)
+        agg<-c(agg,adtest.d  = t.res$p.value < 1-stat.shape.rejection.conf.level)
     } else if (stat.ad.test > 0) {
         agg<-c(agg,adtest.AA = NA)
         agg<-c(agg,adtest.p = NA)
@@ -145,7 +145,7 @@ summary.impl <- function(fx
         t.res <- shapiro.test(clean_x)
         agg<-c(agg,swtest = t.res$statistic)
         agg<-c(agg,swtest.p  = t.res$p.value)
-        agg<-c(agg,swtest.d  = t.res$p.value < stat.shape.rejection.alpha)
+        agg<-c(agg,swtest.d  = t.res$p.value < 1-stat.shape.rejection.conf.level)
     } else if (stat.sw.test > 0) {
         agg<-c(agg,swtest.W = NA)
         agg<-c(agg,swtest.p = NA)
@@ -156,7 +156,7 @@ summary.impl <- function(fx
         t.res <- skewness.test(clean_x)
         agg<-c(agg,g3        = t.res$statistic)
         agg<-c(agg,g3test.p  = t.res$p.value)
-        agg<-c(agg,g3test.d  = t.res$p.value < stat.shape.rejection.alpha)
+        agg<-c(agg,g3test.d  = t.res$p.value < 1-stat.shape.rejection.conf.level)
     } else if (stat.skew.test > 0) {
         agg<-c(agg,g3.skewness = NA)
         agg<-c(agg,g3test.p  = NA)
@@ -167,7 +167,7 @@ summary.impl <- function(fx
         t.res <- kurtosis.test(clean_x)
         agg<-c(agg,g4        = t.res$statistic)
         agg<-c(agg,g4test.p  = t.res$p.value)
-        agg<-c(agg,g4test.d  = t.res$p.value < stat.shape.rejection.alpha)
+        agg<-c(agg,g4test.d  = t.res$p.value < 1-stat.shape.rejection.conf.level)
     } else if (stat.kurt.test > 0) {
         agg<-c(agg,g4.kurtosis = NA)
         agg<-c(agg,g4test.p  = NA)
@@ -178,7 +178,7 @@ summary.impl <- function(fx
       t.res <- poisson.dist.test(clean_x)
       agg<-c(agg,pois.test        = t.res$statistic)
       agg<-c(agg,pois.test.p      = t.res$p.value)
-      agg<-c(agg,pois.test.d      = t.res$p.value < stat.shape.rejection.alpha)
+      agg<-c(agg,pois.test.d      = t.res$p.value < 1-stat.shape.rejection.conf.level)
     } else if (stat.pois.test) {
       agg<-c(agg,pois.test.chi.square = NA)
       agg<-c(agg,pois.test.p  = NA)
@@ -224,7 +224,7 @@ summary.impl <- function(fx
     agg
   })
   
-  #print(d.summary)
+  #print(str(d.summary))
   
   #TODO - better way to post process :(
   #Post-process to correct format 
@@ -235,7 +235,7 @@ summary.impl <- function(fx
     d.final<-cbind(d.final,d.summary[[(length(iv.names)+1)]])
     names(d.final)[(length(iv.names)+1):ncol(d.final)]<-dimnames(d.summary[[(length(iv.names)+1)]])[[2]]
   } else {
-    d.final <- d.summary
+    d.final <- as.data.frame(d.summary[[response]])
   }
   
   #d.final<-as.data.frame(d.final[[1]])
@@ -269,7 +269,7 @@ summary.impl <- function(fx
     d.final[["swtest.d"]] <- NULL
   }
 
-  if (is.na(stat.shape.rejection.alpha)) {
+  if (is.na(stat.shape.rejection.conf.level)) {
     d.final[["g3test.d"]] <- NULL
     d.final[["g4test.d"]] <- NULL
     d.final[["adtest.d"]] <- NULL
@@ -320,6 +320,8 @@ summary.impl <- function(fx
       d.final[["cell.code"]]<-factor(d.final[["cell.code"]], levels=d.final[["cell.code"]])
     }
   } else {
+    #d.final <- as.data.frame(d.final[1,2])
+    
     for (i in ncol(d.final):1) {
       d.final[[i+1]]<-d.final[[i]]
       names(d.final)[i+1]<-names(d.final)[i]
@@ -332,32 +334,3 @@ summary.impl <- function(fx
   d.final
 }
 
-summary.continuous <-function(fx
-                              ,data
-                              ,stat.n=T
-                              ,stat.total.n=F
-                              ,stat.miss=T
-                              ,stat.mean=T
-                              ,stat.var=T
-                              ,stat.ad.test   = 1  # 0 = off, 1 = if n<25, 2 = on
-                              ,stat.sw.test   = 1  # 0 = off, 1 = if n<25, 2 = on
-                              ,stat.skew.test = 1  # 0 = off, 1 = if n >= 20, 2 = on
-                              ,stat.kurt.test = 1  # 0 = off, 1 = if n >= 20, 2 = on
-                              ,stat.pois.test = F
-                              
-                              ,...) {
-  summary.impl(fx
-               ,data
-               ,stat.n         = stat.n
-               ,stat.total.n   = stat.total.n
-               ,stat.miss      = stat.miss
-               ,stat.mean      = stat.mean
-               ,stat.var       = stat.var
-               ,stat.ad.test   = stat.ad.test
-               ,stat.sw.test   = stat.sw.test
-               ,stat.skew.test = stat.skew.test
-               ,stat.kurt.test = stat.kurt.test
-               ,stat.pois.test = stat.pois.test
-               ,...
-  )
-}
