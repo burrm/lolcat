@@ -32,12 +32,14 @@ spc.individuals.chart<-function(x
                                 ,mrchart.center.line.col   = "lightblue"
                                 ,mrchart.control.limit.col = "orange"
                                 
-                                ,combine.charts   = c("separate", "combine.charts")
+                                ,combine.charts   = c("separate", "combine.charts", "leave.par.alone")
                                 
                                 ,...) {
   par.backup <- par()
 
-  if (display.xchart & display.mrchart & combine.charts[1] == "combine.charts") {
+  if (combine.charts[1] == "leave.par.alone") {
+    
+  } else if (display.xchart & display.mrchart & combine.charts[1] == "combine.charts") {
     par(mfrow=c(2,1))
   } else {
     par(mfrow=c(1,1))

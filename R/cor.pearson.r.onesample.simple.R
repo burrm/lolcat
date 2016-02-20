@@ -72,6 +72,7 @@ cor.pearson.r.onesample.simple <- function(
                statistic   = statistic, 
                estimate    = c(estimate,
                                sample.size = n,
+                               r.squared = r^2,
                                z_r.lowerci = z_r.lowerci,
                                z_r = z_r,
                                z_r.upperci = z_r.upperci

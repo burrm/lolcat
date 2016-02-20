@@ -4,7 +4,7 @@ function(x
          #,type = 2
          )
 {
-    n = length(x)
+    n = as.double(length(x))
     meanX = mean(x)
     s =  sqrt(mean((x-meanX)**2))
     a4 = mean((x-meanX)**4)/s**4

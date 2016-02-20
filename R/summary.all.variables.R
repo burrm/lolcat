@@ -4,10 +4,14 @@ summary.all.variables <- function(data, summary.default = summary.continuous , .
   fx <- eval(parse(text=paste(var.names[1],"~ 1")))
   ret <- summary.default(fx, data=data, ...)
   
+  #print(ret)
+  
   if (length(var.names) > 1) {
     for (i in 2:length(var.names)) {
       fx <- eval(parse(text=paste(var.names[i],"~ 1")))
-      ret <- rbind(ret, summary.default(fx, data=data, ...))
+      ret2 <- summary.default(fx, data=data, ...)
+      #print(ret2)
+      ret <- rbind(ret, ret2)
     }
   }
   

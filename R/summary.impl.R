@@ -58,7 +58,12 @@ summary.impl <- function(fx
                          
                          #Formatting Stuff
                          ,format.generate.cellcodes = F
+                         
+                         
+                         ,...
 ) {
+  argss <- c(as.list(environment()), list(...))
+  
   
   fx.terms<-terms(fx)
   
@@ -67,159 +72,21 @@ summary.impl <- function(fx
   
   d.samplesizes<-as.integer(aggregate(fx,data = data, function(x) {length(na.omit(x))})[,(length(iv.names)+1)])
   
-  
+
   #Process statistics selections
-  d.summary<-aggregate(fx, data = data, function(x) {
-    agg<-numeric(0)
+  d.summary<-aggregate(fx, data = data, na.action = na.pass, FUN = function(x) {
+    #agg<-numeric(0)
     clean_x <- na.omit(x)
 
-    saved.n    <- length(clean_x)
-    saved.mean <- mean(clean_x)
-    saved.var  <- var(clean_x)
-    saved.sd   <- sqrt(saved.var)
-    saved.iqr  <- IQR(clean_x)
-    
-    #Basic Stuff
-    if (stat.n)       { agg<-c(agg,n       = saved.n) }
-    if (stat.total.n) { agg<-c(agg,total.n = length(x)) }
-    if (stat.miss)    { agg<-c(agg,missing = sum(is.na(x))) }
-    if (stat.sum)     { agg<-c(agg,sum     = sum(clean_x)) }
-    if (stat.mean)    { agg<-c(agg,mean    = saved.mean) }
-    if (stat.var)     { agg<-c(agg,var     = saved.var) }
-    if (stat.sd)      { agg<-c(agg,sd      = saved.sd) } 
-    if (stat.mean.ADA) { agg <- c(agg,mean.ADA = mean(dispersion.ADA(clean_x))) }
-    if (stat.mean.ADM) { agg <- c(agg,mean.ADM = mean(dispersion.ADM(clean_x))) }
-    if (stat.mean.ADMn1) { agg <- c(agg,mean.ADMn1 = mean(dispersion.ADMn1(clean_x))) }
-    
-    #Ordinal Stuff
-    if (stat.min | stat.five.number)  { agg<-c(agg,min=min(clean_x)) }
-    if (stat.q1 | stat.five.number) { 
-      tv <- quantile(clean_x, probs = .25) 
-      names(tv)<-NULL
-      agg<-c(agg,quartile.1 = tv)
-    }
-    if (stat.median | stat.five.number)  { agg<-c(agg,median  = median(clean_x)) }
-    if (stat.q3 | stat.five.number) { 
-      tv <- quantile(clean_x, probs = .75) 
-      names(tv)<-NULL
-      agg<-c(agg,quartile.3      = tv)
-    }
-    if (stat.max | stat.five.number)  { agg<-c(agg,max=max(clean_x)) }
-    if (length(stat.quantiles) > 0) {
-      quantiles.t <- quantile(clean_x,probs=stat.quantiles)
-      names(quantiles.t)<-sapply(stat.quantiles, FUN = function(p) { paste("percentile.", p*100, sep="")  })
-      for (i in 1:length(quantiles.t)) {
-        tv <- quantiles.t[i]
-        names(tv)<-names(quantiles.t)[i]
-        agg<-c(agg,tv)
-      }
-    }
-    if (stat.range) { agg<-c(agg,range=max(clean_x)-min(clean_x))}
-    if (stat.iqr)  { agg<-c(agg,iqr=IQR(clean_x)) }
-    if (stat.psd) { agg<-c(agg,psd=saved.iqr/1.35)  }
-    if (stat.sir) { agg<-c(agg,sir=saved.iqr/2) } 
-    if (stat.coefvar) { agg<-c(agg,coefvar=saved.sd/saved.mean) }   
-    
-    #Nominal stuff
-    if (stat.distinct) { agg<-c(agg,distinct=length(table(clean_x))) }
-    if (stat.distinct.withna) { agg<-c(agg,distinct.withna=length(table(x, useNA="ifany"))) }
-    
-    #Misc stuff
-    if (stat.true.mode) { agg <-c(agg,true.mode = true.mode(clean_x))}
-    
-    
-    #Shape testing
-    
-    if (stat.ad.test > 0 & saved.n > 1) {
-        t.res <- anderson.darling.test(clean_x)
-        agg<-c(agg,adtest = t.res$statistic)
-        agg<-c(agg,adtest.p  = t.res$p.value)
-        agg<-c(agg,adtest.d  = t.res$p.value < 1-stat.shape.rejection.conf.level)
-    } else if (stat.ad.test > 0) {
-        agg<-c(agg,adtest.AA = NA)
-        agg<-c(agg,adtest.p = NA)
-        agg<-c(agg,adtest.d = NA)
-    }
-    
-    if (stat.sw.test > 0 & saved.n > 2) {
-        t.res <- shapiro.test(clean_x)
-        agg<-c(agg,swtest = t.res$statistic)
-        agg<-c(agg,swtest.p  = t.res$p.value)
-        agg<-c(agg,swtest.d  = t.res$p.value < 1-stat.shape.rejection.conf.level)
-    } else if (stat.sw.test > 0) {
-        agg<-c(agg,swtest.W = NA)
-        agg<-c(agg,swtest.p = NA)
-        agg<-c(agg,swtest.d = NA)
-    }
-    
-    if (stat.skew.test > 0 & saved.n > 3) {
-        t.res <- skewness.test(clean_x)
-        agg<-c(agg,g3        = t.res$statistic)
-        agg<-c(agg,g3test.p  = t.res$p.value)
-        agg<-c(agg,g3test.d  = t.res$p.value < 1-stat.shape.rejection.conf.level)
-    } else if (stat.skew.test > 0) {
-        agg<-c(agg,g3.skewness = NA)
-        agg<-c(agg,g3test.p  = NA)
-        agg<-c(agg,g3test.d  = NA)
-    }
+    argss$x <- x
+    argss$clean_x <- clean_x
+    argss$agg <- numeric(0)
 
-    if (stat.kurt.test > 0 & saved.n > 4) {
-        t.res <- kurtosis.test(clean_x)
-        agg<-c(agg,g4        = t.res$statistic)
-        agg<-c(agg,g4test.p  = t.res$p.value)
-        agg<-c(agg,g4test.d  = t.res$p.value < 1-stat.shape.rejection.conf.level)
-    } else if (stat.kurt.test > 0) {
-        agg<-c(agg,g4.kurtosis = NA)
-        agg<-c(agg,g4test.p  = NA)
-        agg<-c(agg,g4test.d  = NA)
+    if (is.factor(clean_x) | ! is.numeric(clean_x)) {
+      agg <- do.call(.summary.impl.factor, list(argss))
+    } else {
+      agg <- do.call(.summary.impl.numeric, list(argss))
     }
-    
-    if (stat.pois.test & saved.n > 2) {
-      t.res <- poisson.dist.test(clean_x)
-      agg<-c(agg,pois.test        = t.res$statistic)
-      agg<-c(agg,pois.test.p      = t.res$p.value)
-      agg<-c(agg,pois.test.d      = t.res$p.value < 1-stat.shape.rejection.conf.level)
-    } else if (stat.pois.test) {
-      agg<-c(agg,pois.test.chi.square = NA)
-      agg<-c(agg,pois.test.p  = NA)
-      agg<-c(agg,pois.test.d  = NA)
-    }
-    
-    if (length(stat.sd.report) > 0) {
-      for ( i in stat.sd.report) {
-        tv<-i*saved.sd
-        names(tv)<-if (i < 0) {
-          paste("sd.x.m",abs(i),sep="")
-        } else {
-          paste("sd.x.",i,sep="")
-        }
-        agg<-c(agg,tv)
-      }
-    }
-    
-    saved.sl.above <- 0
-    saved.sl.below <- 0
-    
-    if (!is.na(stat.lsl)) {
-      agg<-c(agg,spec.lsl  = stat.lsl)
-      saved.sl.below <- sum(as.integer(clean_x < stat.lsl))
-    }        
-    
-    if (!is.na(stat.target)) {
-      agg<-c(agg,spec.tgt  = stat.target)
-    }        
-    
-    if (!is.na(stat.usl)) {
-      agg<-c(agg,spec.usl  = stat.usl)
-      saved.sl.above <- sum(as.integer(clean_x > stat.usl))
-    }
-    
-    if (stat.nonconform.nbelow) { agg<-c(agg, spec.nbelow = saved.sl.below) }
-    if (stat.nonconform.nabove) { agg<-c(agg, spec.nabove = saved.sl.above) }
-    if (stat.nonconform.nout)   { agg<-c(agg, spec.nout = saved.sl.below + saved.sl.above) }
-    if (stat.nonconform.pbelow) { agg<-c(agg, spec.pbelow = saved.sl.below / saved.n) }
-    if (stat.nonconform.pabove) { agg<-c(agg, spec.pabove = saved.sl.above / saved.n) }
-    if (stat.nonconform.pout)   { agg<-c(agg, spec.pout = (saved.sl.below + saved.sl.above) / saved.n) }
     
     agg
   })
@@ -334,3 +201,356 @@ summary.impl <- function(fx
   d.final
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.summary.impl.numeric <- function(...) {
+  argss <- as.list(...)
+  
+  for ( i in names(argss)) {
+    assign(i, argss[[i]])
+  }
+  
+  saved.n    <- length(clean_x)
+  saved.mean <- mean(clean_x)
+  saved.var  <- var(clean_x)
+  saved.sd   <- sqrt(saved.var)
+  saved.iqr  <- IQR(clean_x)
+  
+  #print(paste("length x",length(x), " anyna", anyNA(x)))
+  
+  #Basic Stuff
+  if (stat.n)       { agg<-c(agg,n       = saved.n) }
+  if (stat.total.n) { agg<-c(agg,total.n = length(x)) }
+  if (stat.miss)    { agg<-c(agg,missing = length(x)-saved.n) }
+  if (stat.sum)     { agg<-c(agg,sum     = sum(clean_x)) }
+  if (stat.mean)    { agg<-c(agg,mean    = saved.mean) }
+  if (stat.var)     { agg<-c(agg,var     = saved.var) }
+  if (stat.sd)      { agg<-c(agg,sd      = saved.sd) } 
+  if (stat.mean.ADA) { agg <- c(agg,mean.ADA = mean(dispersion.ADA(clean_x))) }
+  if (stat.mean.ADM) { agg <- c(agg,mean.ADM = mean(dispersion.ADM(clean_x))) }
+  if (stat.mean.ADMn1) { agg <- c(agg,mean.ADMn1 = mean(dispersion.ADMn1(clean_x))) }
+  
+  #Ordinal Stuff
+  if (stat.min | stat.five.number)  { agg<-c(agg,min=min(clean_x)) }
+  if (stat.q1 | stat.five.number) { 
+    tv <- quantile(clean_x, probs = .25) 
+    names(tv)<-NULL
+    agg<-c(agg,quartile.1 = tv)
+  }
+  if (stat.median | stat.five.number)  { agg<-c(agg,median  = median(clean_x)) }
+  if (stat.q3 | stat.five.number) { 
+    tv <- quantile(clean_x, probs = .75) 
+    names(tv)<-NULL
+    agg<-c(agg,quartile.3      = tv)
+  }
+  if (stat.max | stat.five.number)  { agg<-c(agg,max=max(clean_x)) }
+  if (length(stat.quantiles) > 0) {
+    quantiles.t <- quantile(clean_x,probs=stat.quantiles)
+    names(quantiles.t)<-sapply(stat.quantiles, FUN = function(p) { paste("percentile.", p*100, sep="")  })
+    for (i in 1:length(quantiles.t)) {
+      tv <- quantiles.t[i]
+      names(tv)<-names(quantiles.t)[i]
+      agg<-c(agg,tv)
+    }
+  }
+  if (stat.range) { agg<-c(agg,range=max(clean_x)-min(clean_x))}
+  if (stat.iqr)  { agg<-c(agg,iqr=IQR(clean_x)) }
+  if (stat.psd) { agg<-c(agg,psd=saved.iqr/1.35)  }
+  if (stat.sir) { agg<-c(agg,sir=saved.iqr/2) } 
+  if (stat.coefvar) { agg<-c(agg,coefvar=saved.sd/saved.mean) }   
+  
+  #Nominal stuff
+  if (stat.distinct) { agg<-c(agg,distinct=length(table(clean_x))) }
+  if (stat.distinct.withna) { agg<-c(agg,distinct.withna=length(table(x, useNA="ifany"))) }
+  
+  #Misc stuff
+  if (stat.true.mode) { agg <-c(agg,true.mode = true.mode(clean_x))}
+  
+  
+  #Shape testing
+  
+  if (stat.ad.test > 0 & saved.n > 1) {
+    t.res <- anderson.darling.test(clean_x)
+    agg<-c(agg,adtest = t.res$statistic)
+    agg<-c(agg,adtest.p  = t.res$p.value)
+    agg<-c(agg,adtest.d  = t.res$p.value < 1-stat.shape.rejection.conf.level)
+  } else if (stat.ad.test > 0) {
+    agg<-c(agg,adtest.AA = NA)
+    agg<-c(agg,adtest.p = NA)
+    agg<-c(agg,adtest.d = NA)
+  }
+  
+  if (stat.sw.test > 0 & saved.n > 2 & saved.n < 5000) {
+    t.res <- shapiro.test(clean_x)
+    agg<-c(agg,swtest = t.res$statistic)
+    agg<-c(agg,swtest.p  = t.res$p.value)
+    agg<-c(agg,swtest.d  = t.res$p.value < 1-stat.shape.rejection.conf.level)
+  } else if (stat.sw.test > 0) {
+    agg<-c(agg,swtest.W = NA)
+    agg<-c(agg,swtest.p = NA)
+    agg<-c(agg,swtest.d = NA)
+  }
+  
+  if (stat.skew.test > 0 & saved.n > 3) {
+    t.res <- skewness.test(clean_x)
+    agg<-c(agg,g3        = t.res$statistic)
+    agg<-c(agg,g3test.p  = t.res$p.value)
+    agg<-c(agg,g3test.d  = t.res$p.value < 1-stat.shape.rejection.conf.level)
+  } else if (stat.skew.test > 0) {
+    agg<-c(agg,g3.skewness = NA)
+    agg<-c(agg,g3test.p  = NA)
+    agg<-c(agg,g3test.d  = NA)
+  }
+  
+  if (stat.kurt.test > 0 & saved.n > 4) {
+    t.res <- kurtosis.test(clean_x)
+    agg<-c(agg,g4        = t.res$statistic)
+    agg<-c(agg,g4test.p  = t.res$p.value)
+    agg<-c(agg,g4test.d  = t.res$p.value < 1-stat.shape.rejection.conf.level)
+  } else if (stat.kurt.test > 0) {
+    agg<-c(agg,g4.kurtosis = NA)
+    agg<-c(agg,g4test.p  = NA)
+    agg<-c(agg,g4test.d  = NA)
+  }
+  
+  if (stat.pois.test & saved.n > 2) {
+    t.res <- poisson.dist.test(clean_x)
+    agg<-c(agg,pois.test        = t.res$statistic)
+    agg<-c(agg,pois.test.p      = t.res$p.value)
+    agg<-c(agg,pois.test.d      = t.res$p.value < 1-stat.shape.rejection.conf.level)
+  } else if (stat.pois.test) {
+    agg<-c(agg,pois.test.chi.square = NA)
+    agg<-c(agg,pois.test.p  = NA)
+    agg<-c(agg,pois.test.d  = NA)
+  }
+  
+  if (length(stat.sd.report) > 0) {
+    for ( i in stat.sd.report) {
+      tv<-i*saved.sd
+      names(tv)<-if (i < 0) {
+        paste("sd.x.m",abs(i),sep="")
+      } else {
+        paste("sd.x.",i,sep="")
+      }
+      agg<-c(agg,tv)
+    }
+  }
+  
+  saved.sl.above <- 0
+  saved.sl.below <- 0
+  
+  if (!is.na(stat.lsl)) {
+    agg<-c(agg,spec.lsl  = stat.lsl)
+    saved.sl.below <- sum(as.integer(clean_x < stat.lsl))
+  }        
+  
+  if (!is.na(stat.target)) {
+    agg<-c(agg,spec.tgt  = stat.target)
+  }        
+  
+  if (!is.na(stat.usl)) {
+    agg<-c(agg,spec.usl  = stat.usl)
+    saved.sl.above <- sum(as.integer(clean_x > stat.usl))
+  }
+  
+  if (stat.nonconform.nbelow) { agg<-c(agg, spec.nbelow = saved.sl.below) }
+  if (stat.nonconform.nabove) { agg<-c(agg, spec.nabove = saved.sl.above) }
+  if (stat.nonconform.nout)   { agg<-c(agg, spec.nout = saved.sl.below + saved.sl.above) }
+  if (stat.nonconform.pbelow) { agg<-c(agg, spec.pbelow = saved.sl.below / saved.n) }
+  if (stat.nonconform.pabove) { agg<-c(agg, spec.pabove = saved.sl.above / saved.n) }
+  if (stat.nonconform.pout)   { agg<-c(agg, spec.pout = (saved.sl.below + saved.sl.above) / saved.n) }
+
+  agg  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.summary.impl.factor <- function(...) {
+  argss <- as.list(...)
+  
+  for ( i in names(argss)) {
+    assign(i, argss[[i]])
+  }
+  
+  saved.n    <- length(clean_x)
+  saved.mean <- NA
+  saved.var  <- NA
+  saved.sd   <- NA
+  saved.iqr  <- NA
+  
+  #print(paste("length x",length(x), " anyna", anyNA(x)))
+  
+  #Basic Stuff
+  if (stat.n)       { agg<-c(agg,n       = saved.n) }
+  if (stat.total.n) { agg<-c(agg,total.n = length(x)) }
+  if (stat.miss)    { agg<-c(agg,missing = length(x)-saved.n) }
+  if (stat.sum)     { agg<-c(agg,sum     = NA) }
+  if (stat.mean)    { agg<-c(agg,mean    = saved.mean) }
+  if (stat.var)     { agg<-c(agg,var     = saved.var) }
+  if (stat.sd)      { agg<-c(agg,sd      = saved.sd) } 
+  if (stat.mean.ADA) { agg <- c(agg,mean.ADA = NA) }
+  if (stat.mean.ADM) { agg <- c(agg,mean.ADM = NA) }
+  if (stat.mean.ADMn1) { agg <- c(agg,mean.ADMn1 = NA) }
+  
+  #Ordinal Stuff
+  if (stat.min | stat.five.number)  { agg<-c(agg,min=NA) }
+  if (stat.q1 | stat.five.number) { 
+    #tv <- quantile(clean_x, probs = .25) 
+    #names(tv)<-NULL
+    agg<-c(agg,quartile.1 = NA)
+  }
+  if (stat.median | stat.five.number)  { agg<-c(agg,median  = NA) }
+  if (stat.q3 | stat.five.number) { 
+    #tv <- quantile(clean_x, probs = .75) 
+    #names(tv)<-NULL
+    agg<-c(agg,quartile.3      = NA)
+  }
+  if (stat.max | stat.five.number)  { agg<-c(agg,max=NA) }
+  if (length(stat.quantiles) > 0) {
+    quantiles.t <- rep(NA, length(stat.quantiles))
+    names(quantiles.t)<-sapply(stat.quantiles, FUN = function(p) { paste("percentile.", p*100, sep="")  })
+    for (i in 1:length(quantiles.t)) {
+      tv <- quantiles.t[i]
+      names(tv)<-names(quantiles.t)[i]
+      agg<-c(agg,tv)
+    }
+  }
+  if (stat.range) { agg<-c(agg,range=NA)}
+  if (stat.iqr)  { agg<-c(agg,iqr=NA) }
+  if (stat.psd) { agg<-c(agg,psd=NA)  }
+  if (stat.sir) { agg<-c(agg,sir=NA) } 
+  if (stat.coefvar) { agg<-c(agg,coefvar=NA) }   
+  
+  #Nominal stuff
+  if (stat.distinct) { agg<-c(agg,distinct=length(table(clean_x))) }
+  if (stat.distinct.withna) { agg<-c(agg,distinct.withna=length(table(x, useNA="ifany"))) }
+  
+  #Misc stuff
+  if (stat.true.mode) { agg <-c(agg,true.mode = NA)}
+  
+  
+  #Shape testing
+  
+  if (stat.ad.test > 0 & saved.n > 1) {
+    #t.res <- anderson.darling.test(clean_x)
+    agg<-c(agg,adtest.AA = NA)
+    agg<-c(agg,adtest.p  = NA)
+    agg<-c(agg,adtest.d  = NA)
+  } else if (stat.ad.test > 0) {
+    agg<-c(agg,adtest.AA = NA)
+    agg<-c(agg,adtest.p = NA)
+    agg<-c(agg,adtest.d = NA)
+  }
+  
+  if (stat.sw.test > 0 & saved.n > 2 & saved.n < 5000) {
+    #t.res <- shapiro.test(clean_x)
+    agg<-c(agg,swtest.W = NA)
+    agg<-c(agg,swtest.p  = NA)
+    agg<-c(agg,swtest.d  = NA)
+  } else if (stat.sw.test > 0) {
+    agg<-c(agg,swtest.W = NA)
+    agg<-c(agg,swtest.p = NA)
+    agg<-c(agg,swtest.d = NA)
+  }
+  
+  if (stat.skew.test > 0 & saved.n > 3) {
+    #t.res <- skewness.test(clean_x)
+    agg<-c(agg,g3.skewness = NA)
+    agg<-c(agg,g3test.p  = NA)
+    agg<-c(agg,g3test.d  = NA)
+  } else if (stat.skew.test > 0) {
+    agg<-c(agg,g3.skewness = NA)
+    agg<-c(agg,g3test.p  = NA)
+    agg<-c(agg,g3test.d  = NA)
+  }
+  
+  if (stat.kurt.test > 0 & saved.n > 4) {
+    #t.res <- kurtosis.test(clean_x)
+    agg<-c(agg,g4.kurtosis = NA)
+    agg<-c(agg,g4test.p  = NA)
+    agg<-c(agg,g4test.d  = NA)
+  } else if (stat.kurt.test > 0) {
+    agg<-c(agg,g4.kurtosis = NA)
+    agg<-c(agg,g4test.p  = NA)
+    agg<-c(agg,g4test.d  = NA)
+  }
+  
+  if (stat.pois.test & saved.n > 2) {
+    #t.res <- poisson.dist.test(clean_x)
+    agg<-c(agg,pois.test.chi.square = NA)
+    agg<-c(agg,pois.test.p      = NA)
+    agg<-c(agg,pois.test.d      = NA)
+  } else if (stat.pois.test) {
+    agg<-c(agg,pois.test.chi.square = NA)
+    agg<-c(agg,pois.test.p  = NA)
+    agg<-c(agg,pois.test.d  = NA)
+  }
+  
+  if (length(stat.sd.report) > 0) {
+    for ( i in stat.sd.report) {
+      tv<-i*saved.sd
+      names(tv)<-if (i < 0) {
+        paste("sd.x.m",abs(i),sep="")
+      } else {
+        paste("sd.x.",i,sep="")
+      }
+      agg<-c(agg,tv)
+    }
+  }
+  
+  saved.sl.above <- NA
+  saved.sl.below <- NA
+  
+  if (!is.na(stat.lsl)) {
+    agg<-c(agg,spec.lsl  = NA)
+    saved.sl.below <- NA
+  }        
+  
+  if (!is.na(stat.target)) {
+    agg<-c(agg,spec.tgt  = NA)
+  }        
+  
+  if (!is.na(stat.usl)) {
+    agg<-c(agg,spec.usl  = NA)
+    saved.sl.above <- NA
+  }
+  
+  if (stat.nonconform.nbelow) { agg<-c(agg, spec.nbelow = NA) }
+  if (stat.nonconform.nabove) { agg<-c(agg, spec.nabove = NA) }
+  if (stat.nonconform.nout)   { agg<-c(agg, spec.nout = NA) }
+  if (stat.nonconform.pbelow) { agg<-c(agg, spec.pbelow = NA) }
+  if (stat.nonconform.pabove) { agg<-c(agg, spec.pabove = NA) }
+  if (stat.nonconform.pout)   { agg<-c(agg, spec.pout = NA) }
+
+  agg  
+}
