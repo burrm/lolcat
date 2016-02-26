@@ -67,7 +67,7 @@ t.test.onesample.simple<-function(sample.mean
                parameter   = h0.mean,
                p.value     = p.value,
                null.value  = h0.mean,
-               alternative = hypothesis.format(alternative[1]),
+               alternative = alternative[1],
                method      = "One-Sample t Test For Means",
                conf.int    = c(mean.lower, mean.upper)
   )
