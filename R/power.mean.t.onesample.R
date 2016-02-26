@@ -13,9 +13,6 @@ power.mean.t.onesample <- function(sample.size
   
   pow <- pt(t_alpha,df = sample.size-1, ncp=ncp ,lower.tail = F)
   
-  print(paste("ncp",ncp,"t_alpha",t_alpha,"pow",pow))
-  
-  
   if (details) {
     as.data.frame(list(test="t"
                        ,type = "one.sample"
