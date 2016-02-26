@@ -2,7 +2,7 @@
 variance.test.onesample.simple<-function(sample.variance
                                          ,n
                                          ,h0.variance = 1
-                                         ,alternative = c("two-sided","less","greater")
+                                         ,alternative = c("two.sided","less","greater")
                                          ,conf.level = 0.95) {
   
   df = n - 1
@@ -10,12 +10,12 @@ variance.test.onesample.simple<-function(sample.variance
   chiupper = qchisq((1 - conf.level)/2, df, lower.tail = FALSE)
   v = sample.variance
   chi.square.statistic = df*v/h0.variance
-  p.value <- if (alternative[1] == "two-sided") {
+  p.value <- if (alternative[1] == "two.sided") {
     tmp<-pchisq(chi.square.statistic,df)
     min(tmp,1-tmp)*2
-  } else if (alternative[1] == "less") {
-    pchisq(chi.square.statistic,df,lower.tail = FALSE)
   } else if (alternative[1] == "greater") {
+    pchisq(chi.square.statistic,df,lower.tail = FALSE)
+  } else if (alternative[1] == "less") {
     pchisq(chi.square.statistic,df,lower.tail = TRUE)
   } else {
     NA

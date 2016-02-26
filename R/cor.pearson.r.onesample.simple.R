@@ -2,7 +2,7 @@ cor.pearson.r.onesample.simple <- function(
                           sample.r,
                           sample.size,
                           h0.rho = 0,
-                          alternative = c("two-sided","less","greater"),
+                          alternative = c("two.sided","less","greater"),
                           conf.level = .95
 ) {
   
@@ -19,12 +19,12 @@ cor.pearson.r.onesample.simple <- function(
     
     statistic <- c(t.statistic = t)
     
-    p.value <- if (alternative[1] == "two-sided") {
+    p.value <- if (alternative[1] == "two.sided") {
       tmp<-pt(t, df)
       min(tmp,1-tmp)*2
-    } else if (alternative[1] == "less") {
-      pt(t, df, lower.tail = FALSE)
     } else if (alternative[1] == "greater") {
+      pt(t, df, lower.tail = FALSE)
+    } else if (alternative[1] == "less") {
       pt(t, df, lower.tail = TRUE)
     } else {
       NA
@@ -39,12 +39,12 @@ cor.pearson.r.onesample.simple <- function(
     
     statistic <- c(z.statistic = z)
     
-    p.value <- if (alternative[1] == "two-sided") {
+    p.value <- if (alternative[1] == "two.sided") {
       tmp<-pnorm(z)
       min(tmp,1-tmp)*2
-    } else if (alternative[1] == "less") {
-      pnorm(z, lower.tail = FALSE)
     } else if (alternative[1] == "greater") {
+      pnorm(z, lower.tail = FALSE)
+    } else if (alternative[1] == "less") {
       pnorm(z, lower.tail = TRUE)
     } else {
       NA

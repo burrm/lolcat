@@ -1,7 +1,7 @@
 cor.j.index.twosample<-function(x1
                                 ,x2
                                 #,h0.difference = 0
-                                ,alternative = c("two-sided","less","greater") #difference in means only
+                                ,alternative = c("two.sided","less","greater") #difference in means only
                                 ,conf.level = 0.95
 
 ) {
@@ -45,12 +45,12 @@ cor.j.index.twosample<-function(x1
                 
   ) 
   
-  p.value <- if (alternative[1] == "two-sided") {
+  p.value <- if (alternative[1] == "two.sided") {
     tmp<-pnorm(z)
     min(tmp,1-tmp)*2
-  } else if (alternative[1] == "less") {
-    pnorm(z, lower.tail = FALSE)
   } else if (alternative[1] == "greater") {
+    pnorm(z, lower.tail = FALSE)
+  } else if (alternative[1] == "less") {
     pnorm(z, lower.tail = TRUE)
   } else {
     NA

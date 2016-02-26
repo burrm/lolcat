@@ -3,7 +3,7 @@ cor.pearson.r.twosample.independent.simple <- function(
   sample.size.g1,
   sample.r.g2,
   sample.size.g2,
-  alternative = c("two-sided","less","greater"),
+  alternative = c("two.sided","less","greater"),
   conf.level = .95
 ) {
   
@@ -40,12 +40,12 @@ cor.pearson.r.twosample.independent.simple <- function(
     
     statistic <- c(z.statistic = z)
     
-    p.value <- if (alternative[1] == "two-sided") {
+    p.value <- if (alternative[1] == "two.sided") {
       tmp<-pnorm(z)
       min(tmp,1-tmp)*2
-    } else if (alternative[1] == "less") {
-      pnorm(z, lower.tail = FALSE)
     } else if (alternative[1] == "greater") {
+      pnorm(z, lower.tail = FALSE)
+    } else if (alternative[1] == "less") {
       pnorm(z, lower.tail = TRUE)
     } else {
       NA
@@ -59,7 +59,7 @@ cor.pearson.r.twosample.independent.simple <- function(
   z_r.upperci <- (z_r1-z_r2) + cv*sqrt(1/(n1-3) + 1/(n2-3))
   
 
-  retval<-list(data.name   = "sample r and sample size",
+  retval<-list(data.name   = "sample correlations and sample sizes",
                statistic   = statistic, 
                estimate    = estimate,
                parameter   = 0,

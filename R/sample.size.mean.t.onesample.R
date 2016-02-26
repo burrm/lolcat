@@ -2,7 +2,7 @@ sample.size.mean.t.onesample <- function(effect.size
                                          ,se.est = 1
                                          ,alpha = .05
                                          ,beta = .1
-                                         ,alternative = c("two-sided","less","greater")
+                                         ,alternative = c("two.sided","less","greater")
                                          ,details = TRUE
                                          ,include.z = FALSE #Only valid with details = T
                                          ,power.from.actual = F #report parameter power instead of true power
@@ -20,7 +20,7 @@ sample.size.mean.t.onesample <- function(effect.size
   df <- max(z.res$sample.size-1, 1)
   
   n_gen <- function(df) {
-    t_alpha <- qt(ifelse(alternative[1] == "two-sided",alpha/2,alpha), df= df, lower.tail = F)
+    t_alpha <- qt(ifelse(alternative[1] == "two.sided",alpha/2,alpha), df= df, lower.tail = F)
     t_beta  <- qt(beta, df = df, lower.tail = F)
 
     ((t_alpha + t_beta)*se.est/effect.size)^2    
@@ -36,11 +36,18 @@ sample.size.mean.t.onesample <- function(effect.size
   actual <- n_gen(df) #-> misleading?
 
   if (power.from.actual) {
-    
+    power <- 1- beta
   } else {
-    beta <- pt(sqrt(n) * effect.size/se.est  - qt(ifelse(alternative[1] == "two-sided",alpha/2,alpha), df= df, lower.tail = F)
-               ,df = df
-               ,lower.tail = F)
+    power <- power.mean.t.onesample(sample.size = n, 
+                                    effect.size = effect.size,
+                                    se.est = se.est,
+                                    alpha=alpha,
+                                    alternative = alternative,
+                                    details=FALSE
+    )
+    
+    beta <- 1-power
+    
   }
   
   if (details) {
@@ -55,7 +62,7 @@ sample.size.mean.t.onesample <- function(effect.size
                        ,alpha = alpha
                        ,conf.level = 1-alpha
                        ,beta = beta
-                       ,power = 1- beta
+                       ,power = power
     ))
     
     if (include.z) {
@@ -74,3 +81,4 @@ sample.size.mean.t.onesample <- function(effect.size
   }
 }
 
+#sample.size.mean.t.onesample(effect.size = 2,se.est = 1)

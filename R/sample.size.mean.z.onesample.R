@@ -2,11 +2,11 @@ sample.size.mean.z.onesample <- function(effect.size
                                          ,se.est = 1
                                          ,alpha = .05
                                          ,beta = .1
-                                         ,alternative = c("two-sided","less","greater")
+                                         ,alternative = c("two.sided","less","greater")
                                          ,details = TRUE
                                          ,power.from.actual = F #report parameter power instead of true power
                                          ) {
-  z_alpha <- qnorm(ifelse(alternative[1] == "two-sided",alpha/2,alpha), lower.tail = F)
+  z_alpha <- qnorm(ifelse(alternative[1] == "two.sided",alpha/2,alpha), lower.tail = F)
   z_beta  <- qnorm(beta, lower.tail = F)
   
   n <- ((z_alpha + z_beta) * se.est / effect.size)^2 
@@ -15,10 +15,23 @@ sample.size.mean.z.onesample <- function(effect.size
   
   if (power.from.actual) {
     
+    power <- 1-beta
+    
   } else {
   
-    beta <- pnorm(sqrt(n.rounded) * effect.size/se.est  - qnorm(ifelse(alternative[1] == "two-sided",alpha/2,alpha), lower.tail = F)
-               , lower.tail = F)
+    #beta <- pnorm(sqrt(n.rounded) * effect.size/se.est  - qnorm(ifelse(alternative[1] == "two.sided",alpha/2,alpha), lower.tail = F)
+    #           , lower.tail = F)
+    
+    power <- power.mean.z.onesample(sample.size = n.rounded, 
+                           effect.size = effect.size,
+                           se.est = se.est,
+                           alpha=alpha,
+                           alternative = alternative,
+                           details=FALSE
+                           )
+    
+    beta <- 1-power
+    
   }
   
   if (details) {
@@ -32,7 +45,7 @@ sample.size.mean.z.onesample <- function(effect.size
                      ,alpha = alpha
                      ,conf.level = 1-alpha
                      ,beta = beta
-                     ,power = 1- beta
+                     ,power = power
                      ))
   
   }
@@ -40,3 +53,5 @@ sample.size.mean.z.onesample <- function(effect.size
     n.rounded
   }
 }
+
+

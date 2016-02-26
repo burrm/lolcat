@@ -7,7 +7,7 @@ t.test.twosample.independent.simple<-function(sample.mean.g1
                                               ,h0.difference = 0
                                               ,assume.equal.variances = c("auto", "yes", "no")
                                               #Variance test hypothesis is always v1 = v2
-                                              ,alternative = c("two-sided","less","greater") #difference in means only
+                                              ,alternative = c("two.sided","less","greater") #difference in means only
                                               ,conf.level = 0.95
                                               ,var.test.conf.level = NA #Optional - specify different variance rejection level for "auto" and conf level for variance CI estimates
                                               ,var.test.details = T #Include test on equality of variance
@@ -63,12 +63,12 @@ t.test.twosample.independent.simple<-function(sample.mean.g1
   # sd.upper<-sqrt(var.upper)
   # 
   
-  p.value <- if (alternative[1] == "two-sided") {
+  p.value <- if (alternative[1] == "two.sided") {
     tmp<-pt(t, df)
     min(tmp,1-tmp)*2
-  } else if (alternative[1] == "less") {
-    pt(t, df, lower.tail = FALSE)
   } else if (alternative[1] == "greater") {
+    pt(t, df, lower.tail = FALSE)
+  } else if (alternative[1] == "less") {
     pt(t, df, lower.tail = TRUE)
   } else {
     NA

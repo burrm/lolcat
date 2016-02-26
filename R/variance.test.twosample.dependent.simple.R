@@ -4,7 +4,7 @@ variance.test.twosample.dependent.simple<-function(
   ,n
   ,rho.estimate #Pearson r estimate
   ,h0.difference = 0
-  ,alternative = c("two-sided","less","greater")
+  ,alternative = c("two.sided","less","greater")
   ,conf.level = 0.95
   #,auto.swap = T
 ) {
@@ -27,12 +27,12 @@ variance.test.twosample.dependent.simple<-function(
   lowerci <- ((sample.variance.g1 - sample.variance.g2) - cv * se.est) 
   
   
-  p.value <- if (alternative[1] == "two-sided") {
+  p.value <- if (alternative[1] == "two.sided") {
     tmp<-pt(t,df)
     min(tmp,1-tmp)*2
-  } else if (alternative[1] == "less") {
-    pt(t,df,lower.tail = FALSE)
   } else if (alternative[1] == "greater") {
+    pt(t,df,lower.tail = FALSE)
+  } else if (alternative[1] == "less") {
     pt(t,df,lower.tail = TRUE)
   } else {
     NA

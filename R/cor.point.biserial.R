@@ -1,6 +1,6 @@
 cor.point.biserial <- function(discrete_var, 
                                continuous_var,
-                               alternative = c("two-sided","less","greater"),
+                               alternative = c("two.sided","less","greater"),
                                conf.level = .95,
                                method = c("pearson.exact"
                                           #,"t.test" #TODO

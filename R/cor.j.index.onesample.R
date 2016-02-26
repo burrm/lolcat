@@ -1,6 +1,6 @@
 cor.j.index.onesample <- function(x
                                   ,conf.level = .95
-                                  ,alternative = c("two-sided","less","greater")
+                                  ,alternative = c("two.sided","less","greater")
                                   ) {
   a <- x[1,1]
   b <- x[1,2]
@@ -21,12 +21,12 @@ cor.j.index.onesample <- function(x
   upperci <- j + cv*se.est
   lowerci <- j - cv*se.est
   
-  p.value <- if (alternative[1] == "two-sided") {
+  p.value <- if (alternative[1] == "two.sided") {
     tmp<-pnorm(z)
     min(tmp,1-tmp)*2
-  } else if (alternative[1] == "less") {
-    pnorm(z,lower.tail = FALSE)
   } else if (alternative[1] == "greater") {
+    pnorm(z,lower.tail = FALSE)
+  } else if (alternative[1] == "less") {
     pnorm(z,lower.tail = TRUE)
   } else {
     NA

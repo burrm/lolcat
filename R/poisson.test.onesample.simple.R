@@ -2,7 +2,7 @@ poisson.test.onesample.simple<-function(
    sample.count
   ,sample.n
   ,h0.lambda
-  ,alternative = c("two-sided","less","greater")
+  ,alternative = c("two.sided","less","greater")
   ,conf.level = 0.95
 ) {
   
@@ -15,7 +15,7 @@ poisson.test.onesample.simple<-function(
   # ciupper <- qchisq(1-alpha.ci, 2*sample.lambda+2)/2
   # cilower <- qchisq(alpha.ci, 2*sample.lambda)/2
   # 
-  # p.value <- if (alternative[1] == "two-sided") {
+  # p.value <- if (alternative[1] == "two.sided") {
   #   tmp<-if (sample.lambda <= h0.lambda) {
   #     ppois(sample.lambda, lambda = h0.lambda, lower.tail = T)
   #   } else {
@@ -23,9 +23,9 @@ poisson.test.onesample.simple<-function(
   #   }
   # 
   #   tmp*2
-  # } else if (alternative[1] == "less") {
-  #   ppois(sample.lambda, lambda = h0.lambda , lower.tail = FALSE)
   # } else if (alternative[1] == "greater") {
+  #   ppois(sample.lambda, lambda = h0.lambda , lower.tail = FALSE)
+  # } else if (alternative[1] == "less") {
   #   ppois(sample.lambda, lambda = h0.lambda ,lower.tail = TRUE)
   # } else {
   #   NA
@@ -51,7 +51,6 @@ poisson.test.onesample.simple<-function(
   # class(retval)<-"htest"
   # retval
   
-  if (alternative[1] == "two-sided") {alternative[1] = "two.sided" }
   poisson.test(x=sample.count, T= sample.n, r=h0.lambda, alternative = alternative[1], conf.level = conf.level)
   
   

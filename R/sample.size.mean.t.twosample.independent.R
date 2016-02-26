@@ -6,7 +6,7 @@
 #                                                      ,se.est = 1
 #                                                      ,alpha = .05
 #                                                      ,beta = .1
-#                                                      ,alternative = c("two-sided","less","greater")
+#                                                      ,alternative = c("two.sided","less","greater")
 #                                                      ,details = TRUE
 #                                                      ,include.z = FALSE #Only valid with details = T
 #                                                      ,power.from.actual = F #report parameter power instead of true power
@@ -28,7 +28,7 @@
 #   if (power.from.actual) {
 #     
 #   } else {
-#     t_alpha <- qt(ifelse(alternative[1] == "two-sided",alpha/2,alpha), df = n.rounded-2, lower.tail = F)
+#     t_alpha <- qt(ifelse(alternative[1] == "two.sided",alpha/2,alpha), df = n.rounded-2, lower.tail = F)
 #     t_delta <- effect.size/(se.est/sqrt(n.rounded/2))
 #     
 #     beta <- pt(t_alpha
@@ -73,7 +73,7 @@ sample.size.mean.t.twosample.independent <- function(effect.size
                                                      ,se.est.g2 = se.est.g1
                                                      ,alpha = .05
                                                      ,beta = .1
-                                                     ,alternative = c("two-sided","less","greater")
+                                                     ,alternative = c("two.sided","less","greater")
                                                      ,details = TRUE
                                                      ,power.from.actual = F #report parameter power instead of true power
 ) {
@@ -102,7 +102,7 @@ sample.size.mean.t.twosample.independent <- function(effect.size
   }
   
   beta.fn <- function(n, df) {
-    t_alpha <- qt(ifelse(alternative[1] == "two-sided",alpha/2,alpha), df = df, lower.tail = F)
+    t_alpha <- qt(ifelse(alternative[1] == "two.sided",alpha/2,alpha), df = df, lower.tail = F)
     
     pt(t_alpha
        , df = df

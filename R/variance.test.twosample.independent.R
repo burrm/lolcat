@@ -1,7 +1,7 @@
 variance.test.twosample.independent <- function(
    g1
   ,g2
-  ,alternative = c("two-sided","less","greater")
+  ,alternative = c("two.sided","less","greater")
   ,conf.level = 0.95
   ,assume.normality = c("yes", "no")
 ) {

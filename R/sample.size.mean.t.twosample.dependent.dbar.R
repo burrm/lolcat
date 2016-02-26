@@ -2,7 +2,7 @@ sample.size.mean.t.twosample.dependent.dbar <- function(effect.size
                                                    ,se.est.d = 1
                                                    ,alpha = .05
                                                    ,beta = .1
-                                                   ,alternative = c("two-sided","less","greater")
+                                                   ,alternative = c("two.sided","less","greater")
                                                    ,details = TRUE
                                                    ,power.from.actual = F #report parameter power instead of true power
 ) {
@@ -20,7 +20,7 @@ sample.size.mean.t.twosample.dependent.dbar <- function(effect.size
   }
   
   beta.fn <- function(n,df) {
-    t_alpha <- qt(ifelse(alternative[1] == "two-sided",alpha/2,alpha), df = df, lower.tail = F)
+    t_alpha <- qt(ifelse(alternative[1] == "two.sided",alpha/2,alpha), df = df, lower.tail = F)
     
     pt(t_alpha
        , df = df

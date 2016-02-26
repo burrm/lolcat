@@ -2,7 +2,7 @@ sample.size.mean.z.twosample.independent <- function(effect.size
                                          ,se.est = 1
                                          ,alpha = .05
                                          ,beta = .1
-                                         ,alternative = c("two-sided","less","greater")
+                                         ,alternative = c("two.sided","less","greater")
                                          ,details = TRUE
                                          ,power.from.actual = F #report parameter power instead of true power
 ) {
@@ -21,7 +21,7 @@ sample.size.mean.z.twosample.independent <- function(effect.size
   if (power.from.actual) {
     
   } else {
-    z_alpha <- qnorm(ifelse(alternative[1] == "two-sided",alpha/2,alpha), lower.tail = F)
+    z_alpha <- qnorm(ifelse(alternative[1] == "two.sided",alpha/2,alpha), lower.tail = F)
     z_delta <- effect.size/(se.est/sqrt(n.rounded/2))
     
     beta <- pnorm(z_alpha

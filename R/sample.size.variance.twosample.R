@@ -3,7 +3,7 @@ sample.size.variance.twosample <- function(
   ,h0.var = 1
   ,alpha = .05
   ,beta = .1
-  ,alternative = c("two-sided","greater") #"less" won't work well
+  ,alternative = c("two.sided","greater") #"less" won't work well
   ,details = TRUE
   ,power.from.actual = F #report parameter power instead of true power
   
@@ -13,7 +13,7 @@ sample.size.variance.twosample <- function(
   ratio <- var.est/h0.var
   n <- 2  
   
-  f.fn <- if (alternative[1] == "two-sided") {
+  f.fn <- if (alternative[1] == "two.sided") {
     function(n) {qf(alpha/2, n-1, n-1, lower.tail = FALSE)}
   } else if (alternative[1] == "greater") {
     function(n) {qf(alpha, n-1, n-1, lower.tail = FALSE)}
@@ -21,7 +21,7 @@ sample.size.variance.twosample <- function(
     function(n) {qf(alpha, n-1, n-1, lower.tail = TRUE)}
   }
   
-  beta.fn <- if (alternative[1] == "two-sided" | alternative[1] == "greater") {
+  beta.fn <- if (alternative[1] == "two.sided" | alternative[1] == "greater") {
     function(f, ratio, n) {
       pf(f/ratio, n-1, n-1)
     }

@@ -1,7 +1,7 @@
 cor.spearman.rank <- function (x1
                                ,x2
                                ,conf.level = .95
-                               ,alternative = c("two-sided","less","greater")) {
+                               ,alternative = c("two.sided","less","greater")) {
   
   r_sp <- cor(x1,x2,method="spearman")
   se.est <- 1/sqrt(length(x1)-1)
@@ -13,12 +13,12 @@ cor.spearman.rank <- function (x1
   upperci <- r_sp + cv*se.est
   lowerci <- r_sp - cv*se.est
   
-  p.value <- if (alternative[1] == "two-sided") {
+  p.value <- if (alternative[1] == "two.sided") {
     tmp<-pnorm(z)
     min(tmp,1-tmp)*2
-  } else if (alternative[1] == "less") {
-    pnorm(z,lower.tail = FALSE)
   } else if (alternative[1] == "greater") {
+    pnorm(z,lower.tail = FALSE)
+  } else if (alternative[1] == "less") {
     pnorm(z,lower.tail = TRUE)
   } else {
     NA

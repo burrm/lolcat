@@ -3,7 +3,7 @@ poisson.test.twosample.simple<-function(
   ,n.g1
   ,sample.count.g2
   ,n.g2
-  ,alternative = c("two-sided","less","greater")
+  ,alternative = c("two.sided","less","greater")
   ,conf.level = 0.95
 ) {
   
@@ -13,13 +13,13 @@ poisson.test.twosample.simple<-function(
   
   z<-sign(u1-u2)*sqrt((sample.count.g1-n.g1*lambda.hat)^2/(n.g1*lambda.hat) + (sample.count.g2-n.g2*lambda.hat)^2/(n.g2*lambda.hat))
   
-  p.value <- if (alternative[1] == "two-sided") {
+  p.value <- if (alternative[1] == "two.sided") {
     tmp<-pnorm(z)
     tmp<-min(tmp, 1-tmp)
     tmp*2
-  } else if (alternative[1] == "less") {
-    pnorm(z , lower.tail = FALSE)
   } else if (alternative[1] == "greater") {
+    pnorm(z , lower.tail = FALSE)
+  } else if (alternative[1] == "less") {
     pnorm(z ,lower.tail = TRUE)
   } else {
     NA

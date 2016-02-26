@@ -6,7 +6,7 @@ t.test.twosample.dependent.simple.meandiff<-function(
   ,n
   ,rho.estimate  = 0
   ,h0.difference = 0
-  ,alternative   = c("two-sided","less","greater")
+  ,alternative   = c("two.sided","less","greater")
   ,conf.level    = 0.95
   ,assume.equal.variances = c("auto", "yes", "no")
   #Variance test hypothesis is always v1 = v2
@@ -59,12 +59,12 @@ t.test.twosample.dependent.simple.meandiff<-function(
   # sd.upper<-sqrt(var.upper)
   # 
   
-  p.value <- if (alternative[1] == "two-sided") {
+  p.value <- if (alternative[1] == "two.sided") {
     tmp<-pt(t, df)
     min(tmp,1-tmp)*2
-  } else if (alternative[1] == "less") {
-    pt(t, df, lower.tail = FALSE)
   } else if (alternative[1] == "greater") {
+    pt(t, df, lower.tail = FALSE)
+  } else if (alternative[1] == "less") {
     pt(t, df, lower.tail = TRUE)
   } else {
     NA
