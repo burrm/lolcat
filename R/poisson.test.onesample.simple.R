@@ -1,6 +1,6 @@
 poisson.test.onesample.simple<-function(
    sample.count
-  ,sample.n
+  ,sample.size
   ,h0.lambda
   ,alternative = c("two.sided","less","greater")
   ,conf.level = 0.95
@@ -51,7 +51,7 @@ poisson.test.onesample.simple<-function(
   # class(retval)<-"htest"
   # retval
   
-  poisson.test(x=sample.count, T= sample.n, r=h0.lambda, alternative = alternative[1], conf.level = conf.level)
+  poisson.test(x=sample.count, T= sample.size, r=h0.lambda, alternative = alternative[1], conf.level = conf.level)
   
   
   

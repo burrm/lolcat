@@ -1,9 +1,9 @@
 t.test.twosample.independent.simple<-function(sample.mean.g1
                                               ,sample.variance.g1
-                                              ,n.g1
+                                              ,sample.size.g1
                                               ,sample.mean.g2
                                               ,sample.variance.g2
-                                              ,n.g2
+                                              ,sample.size.g2
                                               ,h0.difference = 0
                                               ,assume.equal.variances = c("auto", "yes", "no")
                                               #Variance test hypothesis is always v1 = v2
@@ -19,9 +19,9 @@ t.test.twosample.independent.simple<-function(sample.mean.g1
   if (assume.equal.variances[1] == "auto" | var.test.details) {
     var.equality.test.out <- variance.test.twosample.independent.simple(
       sample.variance.g1,
-      n.g1,
+      sample.size.g1,
       sample.variance.g2,
-      n.g2,
+      sample.size.g2,
       conf.level = var.test.conf.level
     )
   }
@@ -37,15 +37,15 @@ t.test.twosample.independent.simple<-function(sample.mean.g1
   
   if (equal.var) {
     #Independent samples, equal variances
-    sp      <- ((n.g1-1) * sample.variance.g1 + (n.g2-1) * sample.variance.g2)/(n.g1+n.g2-2)
-    s.denom <- sqrt(sp/n.g1+sp/n.g2)
+    sp      <- ((sample.size.g1-1) * sample.variance.g1 + (sample.size.g2-1) * sample.variance.g2)/(sample.size.g1+sample.size.g2-2)
+    s.denom <- sqrt(sp/sample.size.g1+sp/sample.size.g2)
     t       <- ((sample.mean.g1 - sample.mean.g2)-h0.difference)/s.denom
-    df      <- n.g1+n.g2-2
+    df      <- sample.size.g1+sample.size.g2-2
   } else {
     #Independent samples, unequal variances
-    s.denom <- sqrt(sample.variance.g1/n.g1+sample.variance.g2/n.g2)
+    s.denom <- sqrt(sample.variance.g1/sample.size.g1+sample.variance.g2/sample.size.g2)
     t       <- ((sample.mean.g1 - sample.mean.g2)-h0.difference)/s.denom
-    df      <- (sample.variance.g1 / n.g1 + sample.variance.g2 / n.g2)^2 / ((sample.variance.g1/n.g1)^2/(n.g1-1) + (sample.variance.g2/n.g2)^2/(n.g2-1))
+    df      <- (sample.variance.g1 / sample.size.g1 + sample.variance.g2 / sample.size.g2)^2 / ((sample.variance.g1/sample.size.g1)^2/(sample.size.g1-1) + (sample.variance.g2/sample.size.g2)^2/(sample.size.g2-1))
   }
   
   
@@ -82,16 +82,17 @@ t.test.twosample.independent.simple<-function(sample.mean.g1
   if (g1.details) {
     g1.t.out <- t.test.onesample.simple(sample.mean = sample.mean.g1,
                                         sample.variance = sample.variance.g1,
-                                        n = n.g1,
+                                        sample.size = sample.size.g1,
                                         conf.level = conf.level)
     g1.chi.out <- variance.test.onesample.simple(sample.variance = sample.variance.g1,
-                                                 n = n.g1, conf.level = var.test.conf.level)
+                                                 sample.size = sample.size.g1, 
+                                                 conf.level = var.test.conf.level)
     
     estimate<-c(estimate
                 ,g1.mean = sample.mean.g1
                 ,g1.mean.lowerci = g1.t.out$conf.int[1]
                 ,g1.mean.upperci = g1.t.out$conf.int[2]
-                ,g1.n = n.g1
+                ,g1.sample.size = sample.size.g1
                 ,g1.var = sample.variance.g1
                 ,g1.var.lowerci = g1.chi.out$conf.int[1]
                 ,g1.var.upperci = g1.chi.out$conf.int[2]
@@ -104,16 +105,17 @@ t.test.twosample.independent.simple<-function(sample.mean.g1
   if (g2.details) {
     g2.t.out <- t.test.onesample.simple(sample.mean = sample.mean.g2,
                                         sample.variance = sample.variance.g2,
-                                        n = n.g2,
+                                        sample.size = sample.size.g2,
                                         conf.level = conf.level)
     g2.chi.out <- variance.test.onesample.simple(sample.variance = sample.variance.g2,
-                                                 n = n.g2, conf.level = var.test.conf.level)
+                                                 sample.size = sample.size.g2, 
+                                                 conf.level = var.test.conf.level)
     
     estimate<-c(estimate
                 ,g2.mean = sample.mean.g2
                 ,g2.mean.lowerci = g2.t.out$conf.int[1]
                 ,g2.mean.upperci = g2.t.out$conf.int[2]
-                ,g2.n = n.g2
+                ,g2.sample.size = sample.size.g2
                 ,g2.var = sample.variance.g2
                 ,g2.var.lowerci = g2.chi.out$conf.int[1]
                 ,g2.var.upperci = g2.chi.out$conf.int[2]
@@ -127,8 +129,8 @@ t.test.twosample.independent.simple<-function(sample.mean.g1
     estimate<-c(estimate
                 ,var.test.conf.level = var.test.conf.level
                 ,var.test.F = rmnames(var.equality.test.out$statistic)
-                ,var.test.df.g1 = n.g1 - 1
-                ,var.test.df.g2 = n.g2 - 1
+                ,var.test.df.g1 = sample.size.g1 - 1
+                ,var.test.df.g2 = sample.size.g2 - 1
                 ,var.test.p = var.equality.test.out$p.value
     )
   }
@@ -155,3 +157,6 @@ t.test.twosample.independent.simple<-function(sample.mean.g1
   retval
   
 }
+
+
+#t.test.twosample.independent.simple(sample.mean.g1 = 2,sample.variance.g1 = 1,sample.size.g1 = 10,sample.mean.g2 = 3,sample.variance.g2 = 1,sample.size.g2 = 10)

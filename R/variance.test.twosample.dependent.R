@@ -14,7 +14,7 @@ variance.test.twosample.dependent <- function(
     
     variance.test.twosample.dependent.simple(sample.variance.g1 = var(g1)
                                              ,sample.variance.g2 = var(g2)
-                                             ,n = length(g1)
+                                             ,sample.size = length(g1)
                                              ,rho.estimate = cor(g1,g2)
                                              ,h0.difference = h0.difference
                                              ,alternative = alternative
@@ -37,7 +37,7 @@ variance.test.twosample.dependent <- function(
                                                          ,sample.variance.g1 = var(data$g1)
                                                          ,sample.mean.g2 = mean(data$g2)
                                                          ,sample.variance.g2 = var(data$g2)
-                                                         ,n=nrow(data)
+                                                         ,sample.size=nrow(data)
                                                          ,rho.estimate = rho.estimate
                                                          ,h0.difference = h0.difference
                                                          ,alternative = alternative
@@ -56,7 +56,7 @@ variance.test.twosample.dependent <- function(
       
       retval <- t.test.twosample.dependent.simple.dbar(pair.differences.mean = mean(diff.g12)
                                                        ,pair.differences.variance = var(diff.g12)
-                                                       ,n = length(diff.g12)
+                                                       ,sample.size = length(diff.g12)
                                                        ,h0.difference = h0.difference
                                                        ,alternative = alternative
                                                        ,conf.level = conf.level

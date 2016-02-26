@@ -1,11 +1,11 @@
 #Simple interface for a given variance and sample size
 variance.test.onesample.simple<-function(sample.variance
-                                         ,n
+                                         ,sample.size
                                          ,h0.variance = 1
                                          ,alternative = c("two.sided","less","greater")
                                          ,conf.level = 0.95) {
   
-  df = n - 1
+  df = sample.size - 1
   chilower = qchisq((1 - conf.level)/2, df)
   chiupper = qchisq((1 - conf.level)/2, df, lower.tail = FALSE)
   v = sample.variance
@@ -23,7 +23,7 @@ variance.test.onesample.simple<-function(sample.variance
   
   retval<-list(data.name   = "sample variance and sample size",
                statistic   = chi.square.statistic, 
-               estimate    = c(v,df,chi.square.statistic),
+               estimate    = c(v,df,sample.size),
                parameter   = h0.variance,
                p.value     = p.value,
                null.value  = h0.variance,
@@ -32,7 +32,7 @@ variance.test.onesample.simple<-function(sample.variance
                conf.int    = c(df*v/chiupper,df*v/chilower)
   )
   
-  names(retval$estimate) <- c("sample variance","df","chi-square statistic")
+  names(retval$estimate) <- c("sample.variance","df","sample.size")
   names(retval$statistic) <- "chi-square statistic"
   names(retval$null.value) <- "variance"
   names(retval$parameter) <- "null hypothesis variance"

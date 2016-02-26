@@ -41,10 +41,10 @@ cor.point.biserial <- function(discrete_var,
                                ,r_test$estimate[2]
                                ,mean.g1 = mean.g1 
                                ,sd.g1 = sd.g1 
-                               ,n.g1 = n1
+                               ,sample.size.g1 = n1
                                ,mean.g2 = mean.g2 
                                ,sd.g2 = sd.g2 
-                               ,n.g2 = n2
+                               ,sample.size.g2 = n2
                                ,sd.all = sd.all
                                ),
                parameter   = 0,

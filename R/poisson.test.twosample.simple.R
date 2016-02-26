@@ -1,17 +1,17 @@
 poisson.test.twosample.simple<-function(
   sample.count.g1
-  ,n.g1
+  ,sample.size.g1
   ,sample.count.g2
-  ,n.g2
+  ,sample.size.g2
   ,alternative = c("two.sided","less","greater")
   ,conf.level = 0.95
 ) {
   
-  lambda.hat<- (sample.count.g1 + sample.count.g2)/(n.g1+n.g2)
-  u1<-sample.count.g1/n.g1
-  u2<-sample.count.g2/n.g2
+  lambda.hat<- (sample.count.g1 + sample.count.g2)/(sample.size.g1+sample.size.g2)
+  u1<-sample.count.g1/sample.size.g1
+  u2<-sample.count.g2/sample.size.g2
   
-  z<-sign(u1-u2)*sqrt((sample.count.g1-n.g1*lambda.hat)^2/(n.g1*lambda.hat) + (sample.count.g2-n.g2*lambda.hat)^2/(n.g2*lambda.hat))
+  z<-sign(u1-u2)*sqrt((sample.count.g1-sample.size.g1*lambda.hat)^2/(sample.size.g1*lambda.hat) + (sample.count.g2-sample.size.g2*lambda.hat)^2/(sample.size.g2*lambda.hat))
   
   p.value <- if (alternative[1] == "two.sided") {
     tmp<-pnorm(z)
@@ -26,10 +26,10 @@ poisson.test.twosample.simple<-function(
   }
   
   g1.onesample.test <- poisson.test(sample.count.g1
-                                    ,T = n.g1
+                                    ,T = sample.size.g1
                                     ,conf.level = conf.level)
   g2.onesample.test <- poisson.test(sample.count.g2
-                                    ,T = n.g2
+                                    ,T = sample.size.g2
                                     ,conf.level = conf.level)
   
 

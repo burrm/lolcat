@@ -1,14 +1,14 @@
 t.test.twosample.dependent.simple.dbar<-function(
   pair.differences.mean
   ,pair.differences.variance
-  ,n
+  ,sample.size
   ,h0.difference = 0
   ,alternative = c("two.sided","less","greater")
   ,conf.level = 0.95) {
   
   ret<-t.test.onesample.simple(pair.differences.mean,
                                pair.differences.variance,
-                               n,
+                               sample.size,
                                h0.difference,
                                alternative,
                                conf.level)

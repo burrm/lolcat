@@ -3,7 +3,7 @@ t.test.twosample.dependent.simple.meandiff<-function(
   ,sample.mean.g2
   ,sample.variance.g1
   ,sample.variance.g2
-  ,n
+  ,sample.size
   ,rho.estimate  = 0
   ,h0.difference = 0
   ,alternative   = c("two.sided","less","greater")
@@ -21,7 +21,7 @@ t.test.twosample.dependent.simple.meandiff<-function(
     var.equality.test.out <- variance.test.twosample.dependent.simple(
       sample.variance.g1,
       sample.variance.g2,
-      n,
+      sample.size,
       rho.estimate,
       conf.level = var.test.conf.level
     )
@@ -35,13 +35,13 @@ t.test.twosample.dependent.simple.meandiff<-function(
     !(var.equality.test.out$p.value < 1 - var.test.conf.level)
   }
   
-  s.denom <- sqrt(sample.variance.g1/n + sample.variance.g2/n - 2*rho.estimate*sqrt(sample.variance.g1/n)*sqrt(sample.variance.g2/n))
+  s.denom <- sqrt(sample.variance.g1/sample.size + sample.variance.g2/sample.size - 2*rho.estimate*sqrt(sample.variance.g1/sample.size)*sqrt(sample.variance.g2/sample.size))
   t = ((sample.mean.g1 - sample.mean.g2) - h0.difference)/s.denom
   
   if (equal.var) {
-    df      <- n-1
+    df      <- sample.size-1
   } else {
-    df      <- (sample.variance.g1 / n + sample.variance.g2 / n)^2 / ((sample.variance.g1/n)^2/(n-1) + (sample.variance.g2/n)^2/(n-1))
+    df      <- (sample.variance.g1 / sample.size + sample.variance.g2 / sample.size)^2 / ((sample.variance.g1/sample.size)^2/(sample.size-1) + (sample.variance.g2/sample.size)^2/(sample.size-1))
   }
   
   
@@ -73,16 +73,17 @@ t.test.twosample.dependent.simple.meandiff<-function(
   estimate <- c(diff = sample.mean.g1-sample.mean.g2
                 ,se.est = s.denom
                 ,df = df
-                ,n = n
+                ,sample.size = sample.size
   )
   
   if (g1.details) {
     g1.t.out <- t.test.onesample.simple(sample.mean = sample.mean.g1,
                                         sample.variance = sample.variance.g1,
-                                        n = n,
+                                        sample.size = sample.size,
                                         conf.level = conf.level)
     g1.chi.out <- variance.test.onesample.simple(sample.variance = sample.variance.g1,
-                                                 n = n, conf.level = var.test.conf.level)
+                                                 sample.size = sample.size
+                                                 , conf.level = var.test.conf.level)
     
     estimate<-c(estimate
                 ,g1.mean = sample.mean.g1
@@ -100,10 +101,11 @@ t.test.twosample.dependent.simple.meandiff<-function(
   if (g2.details) {
     g2.t.out <- t.test.onesample.simple(sample.mean = sample.mean.g2,
                                         sample.variance = sample.variance.g2,
-                                        n = n,
+                                        sample.size = sample.size,
                                         conf.level = conf.level)
     g2.chi.out <- variance.test.onesample.simple(sample.variance = sample.variance.g2,
-                                                 n = n, conf.level = var.test.conf.level)
+                                                 sample.size = sample.size, 
+                                                 conf.level = var.test.conf.level)
     
     estimate<-c(estimate
                 ,g2.mean = sample.mean.g2

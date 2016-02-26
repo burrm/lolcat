@@ -19,7 +19,7 @@ t.test.onesample.simple<-function(sample.mean
   mean.lower <- sample.mean - cv*se.est
   
   var.test.out <- variance.test.onesample.simple(sample.variance = sample.variance
-                                                 ,n = sample.size
+                                                 ,sample.size = sample.size
                                                  ,h0.variance = 1
                                                  ,conf.level = conf.level)
   var.lower <- var.test.out$conf.int[1]
@@ -83,5 +83,6 @@ t.test.onesample.simple<-function(sample.mean
   
 }
 
+#require(lolcat)
 #t.test.onesample.simple(sample.mean = .5,sample.variance = 1,sample.size = 25)
 

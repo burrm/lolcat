@@ -1,7 +1,7 @@
 variance.test.twosample.dependent.simple<-function(
   sample.variance.g1
   ,sample.variance.g2
-  ,n
+  ,sample.size
   ,rho.estimate #Pearson r estimate
   ,h0.difference = 0
   ,alternative = c("two.sided","less","greater")
@@ -18,8 +18,8 @@ variance.test.twosample.dependent.simple<-function(
   #   warning("Group 1 Variance should be >= Group 2 Variance for dependent sample t test.") 
   # }
   
-  df     <- n - 2
-  se.est <- sqrt(4*sample.variance.g1*sample.variance.g2*(1-rho.estimate^2))/sqrt(n-2)
+  df     <- sample.size - 2
+  se.est <- sqrt(4*sample.variance.g1*sample.variance.g2*(1-rho.estimate^2))/sqrt(sample.size-2)
   t <- ((sample.variance.g1 - sample.variance.g2) - h0.difference)/se.est
   cv      <- qt(conf.level+(1-conf.level)/2, df= df)
   
@@ -43,7 +43,7 @@ variance.test.twosample.dependent.simple<-function(
                estimate    = c(sample.variance.g1 = sample.variance.g1
                                ,sample.variance.g2 = sample.variance.g2
                                ,pearson.estimate = rho.estimate
-                               ,sample.size = n
+                               ,sample.size = sample.size
                                ,df = df),
                parameter   = h0.difference,
                p.value     = p.value,

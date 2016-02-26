@@ -4,7 +4,7 @@ t.test.onesample<-function(x
                            ,conf.level = 0.95
                            ,finite.population.N = NA
 ) {
-  t.test.onesample.simple(sample.mean = mean(sample)
+  t.test.onesample.simple(sample.mean = mean(x)
                           ,sample.variance = var(x)
                           ,sample.size = length(na.omit(x))
                           ,h0.mean = h0.mean

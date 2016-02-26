@@ -7,17 +7,17 @@ variance.test.twosample.independent <- function(
 ) {
   if (assume.normality[1] == "yes") {
     #F Test
-    n.g1 <- length(g1)
-    n.g2 <- length(g2)
+    sample.size.g1 <- length(g1)
+    sample.size.g2 <- length(g2)
     
     sample.variance.g1<- var(g1)
     sample.variance.g2<- var(g2)
     
     variance.test.twosample.independent.simple(
                                                sample.variance.g1
-                                               ,n.g1
+                                               ,sample.size.g1
                                                ,sample.variance.g2
-                                               ,n.g2
+                                               ,sample.size.g2
                                                ,alternative
                                                ,conf.level
                                                )
@@ -32,15 +32,15 @@ variance.test.twosample.independent <- function(
     var.g1<-var(g1.ADMn1)
     var.g2<-var(g2.ADMn1)
     
-    n.g1 <- length(g1.ADMn1)
-    n.g2 <- length(g2.ADMn1)
+    sample.size.g1 <- length(g1.ADMn1)
+    sample.size.g2 <- length(g2.ADMn1)
     
     retval <- t.test.twosample.independent.simple(sample.mean.g1 = mean.g1
                                                   ,sample.variance.g1 = var.g1
-                                                  ,n.g1 = n.g1
+                                                  ,sample.size.g1 = sample.size.g1
                                                   ,sample.mean.g2 = mean.g2
                                                   ,sample.variance.g2 = var.g2
-                                                  ,n.g2 = n.g2
+                                                  ,sample.size.g2 = sample.size.g2
                                                   ,h0.difference = 0
                                                   ,alternative = alternative
                                                   ,assume.equal.variances = "yes"

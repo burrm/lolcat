@@ -1,13 +1,13 @@
 #For known variances and sample sizes
 variance.test.twosample.independent.simple<-function(sample.variance.g1
-                                                     ,n.g1
+                                                     ,sample.size.g1
                                                      ,sample.variance.g2
-                                                     ,n.g2
+                                                     ,sample.size.g2
                                                      ,alternative = c("two.sided","less","greater")
                                                      ,conf.level = 0.95) {
   
-  df.g1 <- n.g1 - 1
-  df.g2 <- n.g2 - 1
+  df.g1 <- sample.size.g1 - 1
+  df.g2 <- sample.size.g2 - 1
   
   f.statistic = sample.variance.g1/sample.variance.g2
   p.value <- if (alternative[1] == "two.sided") {
@@ -25,8 +25,10 @@ variance.test.twosample.independent.simple<-function(sample.variance.g1
                statistic   = f.statistic, 
                estimate    = c(sample.variance.g1 = sample.variance.g1
                                ,df.g1 = df.g1
+                               ,sample.size.g1 = sample.size.g1
                                ,sample.variance.g2 = sample.variance.g2
-                               ,df.g2 = df.g2),
+                               ,df.g2 = df.g2
+                               ,sample.size.g2 = sample.size.g2),
                parameter   = 1,
                p.value     = p.value,
                null.value  = 1,
