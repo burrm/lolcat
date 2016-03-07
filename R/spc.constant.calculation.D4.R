@@ -1,18 +1,15 @@
-.spc.cached.constant.D4 <- data.frame(
-  sample.size = 2:15,
-  D4 = c(3.267, 2.574, 2.282, 2.115,
-         2.004, 1.924, 1.864, 1.816,
-         1.777, 1.744, 1.717, 1.693,
-         1.672, 1.653)
-)
-
-spc.constant.calculation.D4 <- function(sample.size) {
-  ret <- NA
-  
-  idx <- which(.spc.cached.constant.D4$sample.size == sample.size)
-  if (length(idx) != 0) {
-    ret <- .spc.cached.constant.D4$D4[idx]
-  } 
+spc.constant.calculation.D4 <- function(sample.size, n.sigma = 3) {
+  ret <- 1 + n.sigma * spc.constant.calculation.d3(sample.size) / spc.constant.calculation.d2(sample.size)
   
   ret
+}
+
+#OK for n <=35, but 3-4 decimal places after n=35
+#Long term - implement better numerics for qtukey...
+spc.constant.calculation.d4 <- function(sample.size) {
+  if (sample.size <= 35) {
+    qtukey(.5,sample.size,Inf, lower.tail = F)
+  } else {
+    spc.constant.calculation.d2(sample.size)-.047
+  }
 }

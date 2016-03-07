@@ -1,41 +1,27 @@
-.spc.cached.constant.D3 <- data.frame(
-  sample.size = 2:15,
-  D3 = c(NA,NA,NA,NA,NA,
-         .076, .136, .184, .223,
-         .256, .283, .307, .328,
-         .347)
-)
-
-spc.constant.calculation.D3 <- function(sample.size) {
-  ret <- NA
+# d3 borrowed from SixSigma package
+spc.constant.calculation.d3 <- function(sample.size) {
+  d3.f <- function(x) {
+    x * (1 - ptukey(x, sample.size, Inf))
+  }
   
-  idx <- which(.spc.cached.constant.D3$sample.size == sample.size)
-  if (length(idx) != 0) {
-    ret <- .spc.cached.constant.D3$D3[idx]
-  } 
+  d3.tmp <- integrate(d3.f, 0, Inf)$value*2
   
-  ret
+  #d3.tmp
+  
+  sqrt(d3.tmp-spc.constant.calculation.d2(sample.size)^2)
 }
 
 
 
+#spc.constant.calculation.d3(2)
 
 
-.spc.cached.constant.d3 <- data.frame(
-  sample.size = 2:15,
-  d3 = c(.853, .888, .880, .864,
-         .848, .833, .820, .808,
-         .797, .787, .778, .770,
-         .763, .756)
-)
+spc.constant.calculation.D3 <- function(sample.size, n.sigma = 3, negative.as.NA = T) {
+  ret <- 1 - n.sigma * spc.constant.calculation.d3(sample.size) / spc.constant.calculation.d2(sample.size)
 
-spc.constant.calculation.d3 <- function(sample.size) {
-  ret <- NA
-  
-  idx <- which(.spc.cached.constant.d3$sample.size == sample.size)
-  if (length(idx) != 0) {
-    ret <- .spc.cached.constant.d3$d3[idx]
-  } 
-  
+  if (ret < 0 & negative.as.NA) {
+    ret <- NA
+  }
+    
   ret
 }

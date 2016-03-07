@@ -1,19 +1,10 @@
-.spc.cached.constant.d2 <- data.frame(
-  sample.size = 2:15,
-  d2 = c(1.128, 1.693, 2.059, 2.326,
-         2.534, 2.704, 2.847, 2.970,
-         3.078, 3.173, 3.258, 3.336,
-         3.407, 3.472)
-)
-
+# Integral of 1- F(x)^n - (1-F(x))^n
 spc.constant.calculation.d2 <- function(sample.size) {
-  ret <- NA
+  d2.f <- function(x) {
+    1- pnorm(x)^sample.size - (1-pnorm(x))^sample.size
+  }
   
-  idx <- which(.spc.cached.constant.d2$sample.size == sample.size)
-  if (length(idx) != 0) {
-    ret <- .spc.cached.constant.d2$d2[idx]
-  } 
-  
-  ret
+  integrate(d2.f, -Inf, Inf)$value
 }
+
 

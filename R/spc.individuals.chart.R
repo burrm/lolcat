@@ -32,7 +32,7 @@ spc.individuals.chart<-function(x
                                 ,mrchart.center.line.col   = "lightblue"
                                 ,mrchart.control.limit.col = "orange"
                                 
-                                ,combine.charts   = c("separate", "combine.charts", "leave.par.alone")
+                                ,combine.charts   = c("combine.charts", "separate", "leave.par.alone")
                                 
                                 ,...) {
   par.backup <- par()

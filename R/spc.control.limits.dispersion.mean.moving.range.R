@@ -1,10 +1,10 @@
 spc.control.limits.dispersion.mean.moving.range <- function(
   standard.error 
-  ,n=2
+  ,sample.size=2
 ) {
   
-  list(UCL = standard.error*spc.constant.calculation.D4(n=n) 
+  list(UCL = standard.error*spc.constant.calculation.D4(sample.size = sample.size) 
        ,center.line = standard.error
-       ,LCL = standard.error*spc.constant.calculation.D3(n=n))
+       ,LCL = standard.error*spc.constant.calculation.D3(sample.size=sample.size))
   
 }
