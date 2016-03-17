@@ -14,9 +14,9 @@ proportion.test.onesample.exact.simple <- function(
     } else {
       2*pbinom(np, sample.size, h0.proportion, lower.tail = F)
     }
-  } else if (alternative[1] == "greater") {
-    pbinom(np, sample.size, h0.proportion, lower.tail = T)
   } else if (alternative[1] == "less") {
+    pbinom(np, sample.size, h0.proportion, lower.tail = T)
+  } else if (alternative[1] == "greater") {
     pbinom(np, sample.size, h0.proportion, lower.tail = F) + dbinom(np, sample.size, h0.proportion)
   } else {
     NA
