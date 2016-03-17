@@ -64,7 +64,7 @@ proportion.test.twosample.approximate.simple <- function(
   }
   
   
-  retval<-list(data.name   = deparse(substitute(sample.mean)),
+  retval<-list(data.name   = "sample proportions and sample sizes",
                statistic   = c(z=z), 
                estimate    = c(diff = d 
                                ,p.hat = p.hat
@@ -96,10 +96,6 @@ proportion.test.twosample.approximate.simple <- function(
   
   class(retval)<-"htest"
   retval
-  
-  
-  
-  
   
 }
 

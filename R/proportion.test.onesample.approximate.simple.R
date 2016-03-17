@@ -39,7 +39,7 @@ proportion.test.onesample.approximate.simple <- function(
   }
   
   
-  retval<-list(data.name   = deparse(substitute(sample.mean)),
+  retval<-list(data.name   = "sample proportion and sample size",
                statistic   = c(z=z), 
                estimate    = c(sample.proportion = sample.proportion 
                                ,sample.size = sample.size
