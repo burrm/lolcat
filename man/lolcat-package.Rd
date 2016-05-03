@@ -10,24 +10,10 @@
 }
 \details{
 
-The DESCRIPTION file:
-\packageDESCRIPTION{lolcat}
-\packageIndices{lolcat}
-Miscellaneous stuff written by Mike for reuse purposes.
+The public release of the lolcat statistical package. See \url{http://mikemstech.blogspot.com/2016/03/the-lolcat-statistical-package-public.html}
 }
 \author{
 \packageAuthor{lolcat}
 
 Maintainer: \packageMaintainer{lolcat}
-}
-\references{
-~~ Literature or other references for background information ~~
-}
-\keyword{ package }
-\seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
-}
-\examples{
-# No examples at the package level
 }
