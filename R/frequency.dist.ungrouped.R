@@ -7,11 +7,9 @@ frequency.dist.ungrouped <- function(x, na.rm = T) {
   total.n <- sum(d$freq)
   
   d$rel.freq <- d$freq/ total.n
-  d$cum.down <- cumsum(d$rel.freq)
-  d$cum.up <- c(1, (1-d$cum.down)[1:(nrow(d)-1)])
+  d$cum.up <- cumsum(d$rel.freq)
+  d$cum.down <- c(1, (1-d$cum.up)[1:(nrow(d)-1)])
   
   
   d  
 }
-
-?table

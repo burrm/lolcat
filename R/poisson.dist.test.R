@@ -3,6 +3,7 @@ function(x
          #,conf.level = .95
          ) {
   #Based on MVPStats - http://mvpprograms.com/help/mvpstats/distributions/PoissonDistributionTest
+  x <- na.omit(x)
   n<-length(x)
   chisq.val<-(n-1)*var(x)/mean(x)
   
@@ -10,7 +11,7 @@ function(x
   p.value<-pchisq(chisq.val,n-1,lower.tail=F)
   p.value<-2*min(p.value,1-p.value)
 
-  retval<-list(data.name   = deparse(substitute(x)),
+  retval<-list(data.name   = "input data",
                statistic   = chisq.val, 
                estimate    = c(chisq.val, var(x), mean(x)),
                parameter   = n-1 ,

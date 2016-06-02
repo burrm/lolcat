@@ -40,7 +40,8 @@ summary.impl <- function(fx
                          ,stat.sw.test   = 0  # 0 = off, 1 = if n<25, 2 = on
                          ,stat.skew.test = 0  # 0 = off, 1 = if n >= 20, 2 = on
                          ,stat.kurt.test = 0  # 0 = off, 1 = if n >= 20, 2 = on
-                         ,stat.pois.test = F
+                         ,stat.pois.dist.test = F
+                         ,stat.sw.exp.test = F
 
                          #Misc...
                          ,stat.sd.report = NULL # vector of values to report sd*val
@@ -145,7 +146,7 @@ summary.impl <- function(fx
   }
 
   #Final formatting of shape decision
-  for (i in c("g3test.d", "g4test.d", "adtest.d", "swtest.d", "pois.test.d")) {
+  for (i in c("g3test.d", "g4test.d", "adtest.d", "swtest.d", "pois.test.d", "sw.exp.test.d")) {
     if (any(names(d.final) == i)) {
       d.final[[i]] <- ifelse(d.final[[i]] == 1, stat.shape.text.rej, stat.shape.text.ftr)
       d.final[[i]] <- factor(d.final[[i]], levels=c(stat.shape.text.ftr, stat.shape.text.rej))
@@ -327,15 +328,26 @@ summary.impl <- function(fx
     agg<-c(agg,g4test.d  = NA)
   }
   
-  if (stat.pois.test & saved.n > 2) {
+  if (stat.pois.dist.test & saved.n > 2) {
     t.res <- poisson.dist.test(clean_x)
     agg<-c(agg,pois.test        = t.res$statistic)
     agg<-c(agg,pois.test.p      = t.res$p.value)
     agg<-c(agg,pois.test.d      = t.res$p.value < 1-stat.shape.rejection.conf.level)
-  } else if (stat.pois.test) {
+  } else if (stat.pois.dist.test) {
     agg<-c(agg,pois.test.chi.square = NA)
     agg<-c(agg,pois.test.p  = NA)
     agg<-c(agg,pois.test.d  = NA)
+  }
+  
+  if (stat.sw.exp.test & saved.n > 2) {
+    t.res <- shapiro.wilk.exponentiality.test(clean_x)
+    agg<-c(agg,sw.exp.test      = t.res$statistic)
+    agg<-c(agg,sw.exp.test.p      = t.res$p.value)
+    agg<-c(agg,sw.exp.test.d      = t.res$p.value < 1-stat.shape.rejection.conf.level)
+  } else if (stat.sw.exp.test) {
+    agg<-c(agg,sw.exp.test.W = NA)
+    agg<-c(agg,sw.exp.test.p  = NA)
+    agg<-c(agg,sw.exp.test.d  = NA)
   }
   
   if (length(stat.sd.report) > 0) {
@@ -505,17 +517,28 @@ summary.impl <- function(fx
     agg<-c(agg,g4test.d  = NA)
   }
   
-  if (stat.pois.test & saved.n > 2) {
+  if (stat.pois.dist.test & saved.n > 2) {
     #t.res <- poisson.dist.test(clean_x)
     agg<-c(agg,pois.test.chi.square = NA)
     agg<-c(agg,pois.test.p      = NA)
     agg<-c(agg,pois.test.d      = NA)
-  } else if (stat.pois.test) {
+  } else if (stat.pois.dist.test) {
     agg<-c(agg,pois.test.chi.square = NA)
     agg<-c(agg,pois.test.p  = NA)
     agg<-c(agg,pois.test.d  = NA)
   }
-  
+
+  if (stat.sw.exp.test & saved.n > 2) {
+    #t.res <- poisson.dist.test(clean_x)
+    agg<-c(agg,sw.exp.test.W = NA)
+    agg<-c(agg,sw.exp.test.p = NA)
+    agg<-c(agg,sw.exp.test.d = NA)
+  } else if (stat.sw.exp.test) {
+    agg<-c(agg,sw.exp.test.W = NA)
+    agg<-c(agg,sw.exp.test.p  = NA)
+    agg<-c(agg,sw.exp.test.d  = NA)
+  }
+    
   if (length(stat.sd.report) > 0) {
     for ( i in stat.sd.report) {
       tv<-i*saved.sd

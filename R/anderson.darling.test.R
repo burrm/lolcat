@@ -28,8 +28,9 @@ anderson.darling.test <-
     
     # FUNCTION:
     
-    dname <- deparse(substitute(x))    
-
+    dname <- "input data"    
+    x <- na.omit(x)
+    
     # Test:
     x = sort(x)
     n = length(x)

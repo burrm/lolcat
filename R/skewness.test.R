@@ -4,6 +4,8 @@ function(x
          #,method = c("t","z")
          )
 {
+    x <- na.omit(x)
+  
     n = length(x)
     sk<-skewness(x)
     se.est  <- sqrt(6*n*(n-1)/((n-2)*(n+1)*(n+3)))
@@ -51,7 +53,7 @@ function(x
     ciupper <- sk+cv*se.est
     cilower <- sk-cv*se.est
         
-    retval<-list(data.name   = deparse(substitute(x)),
+    retval<-list(data.name   = "input data",
                  statistic   = sk, 
                  estimate    = estimate,
                  parameter   = 0 ,

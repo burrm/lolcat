@@ -1,15 +1,7 @@
 frequency.dist.grouped <- function(
                        x
                        ,interval.size = NA
-                       ,width.consider = c(.00001,.00005
-                                           ,.0001,.0005
-                                           ,.001,.005
-                                           ,.01,.05
-                                           ,.1,.5
-                                           ,1,2,3,5
-                                           ,10,20,30,50
-                                           ,100,1000,10000
-                                           )
+                       ,width.consider = lolcat.default.width.consider 
                        ,na.rm = T
                        ,clean.leading.zeroes = T
                        ,clean.trailing.zeroes = T
@@ -21,9 +13,7 @@ frequency.dist.grouped <- function(
     interval.size <- width.consider[which(w.r == min(w.r))][1]
   }
   
-  signif(interval.size)
-  
-  x.min <- round(min(x)) 
+  x.min <- floor(min(x)) 
   while (x.min %% interval.size != 0) {
     x.min <- x.min - min(1, interval.size)
   }
@@ -60,8 +50,8 @@ frequency.dist.grouped <- function(
   total.n <- sum(d$freq)
   
   d$rel.freq <- d$freq/ total.n
-  d$cum.down <- cumsum(d$rel.freq)
-  d$cum.up <- c(1, (1-d$cum.down)[1:(nrow(d)-1)])
+  d$cum.up <- cumsum(d$rel.freq)
+  d$cum.down <- c(1, (1-d$cum.up)[1:(nrow(d)-1)])
   
   if (clean.leading.zeroes) {
     zz.rle <- rle(d$freq == 0)

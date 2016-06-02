@@ -127,6 +127,7 @@ for (i in 1:nrow(.shapiro.wilk.exponentiality.table)) {
 }
 
 shapiro.wilk.exponentiality.test <- function(x, alternative = c("two.sided", "less") ) {
+  x <- na.omit(x)
   sample.size <- max(length(x),1)
   
   x.bar <- mean(x)
