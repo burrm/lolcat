@@ -1,10 +1,10 @@
 kurtosis <- function(x
-                     ,method = c("pearson-unbiased", "pearson")) {
+                     ,method = c("fisher", "pearson")) {
   n  <- length(na.omit(x))
   m2 <- .moment.m2(x)
   m4 <- .moment.m4(x)
   
-  ret <- if (method[1] == "pearson-unbiased") {
+  ret <- if (method[1] == "fisher") {
     ((n-1)*(n+1)/((n-2)*(n-3)))*m4/m2^2 - 3*(n-1)^2/((n-2)*(n-3))
   } else if (method[1] == "pearson") {
     m4/m2^2

@@ -1,24 +1,23 @@
-kurtosis.test <-
-  function(x
+kurtosis.test.simple <-
+  function(kurtosis
+           ,sample.size
+           ,input = c("fisher") #todo - pearson
            ,conf.level = .95
            ,alternative = c("two.sided","less","greater")
-           #,type = 2
-  )
-  {
-    x <- na.omit(x)
-    n = as.double(length(x))
+)   {
+    n = as.double(sample.size)
     
-    b2 <- kurtosis(x, method="pearson")
+    b2 <- convert.kurtosis(kurtosis, sample.size)
     E_b2 <- 3*(n-1)/(n+1)
     Var_b2 <- 24*n*(n-2)*(n-3)/( (n+3)*(n+5)*(n+1)^2 )
     
     standardized_b2 <- (b2 - E_b2)/sqrt(Var_b2)
     
     third_stand_moment_b2 <- (6*(n^2 - 5*n +2) /( (n+7)*(n+9) )) *
-                                sqrt( 6*(n+3)*(n+5) / (n*(n-2)*(n-3))  )
+      sqrt( 6*(n+3)*(n+5) / (n*(n-2)*(n-3))  )
     
     A <- 6 + (8/ third_stand_moment_b2) * 
-         ( 2/ third_stand_moment_b2 + sqrt(1 + 4/ third_stand_moment_b2^2) ) 
+      ( 2/ third_stand_moment_b2 + sqrt(1 + 4/ third_stand_moment_b2^2) ) 
     
     Z_b2 <- ((1 - 2/(9*A)) - ((1-2/A) / (1+ standardized_b2 * sqrt(2/(A-4))))^(1/3) ) /sqrt(2/(9*A))
     
@@ -33,7 +32,7 @@ kurtosis.test <-
       NA
     }
     
-    ku<-kurtosis(x)
+    ku<-kurtosis
     
     cv<-qnorm(conf.level+(1-conf.level)/2)
     se.sk   <- sqrt(6*n*(n-1)/((n-2)*(n+1)*(n+3)))
@@ -62,3 +61,4 @@ kurtosis.test <-
     retval
     
   }
+    

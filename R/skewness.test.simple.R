@@ -1,17 +1,18 @@
-skewness.test <-
-function(x
-         ,conf.level = .95
-         ,alternative = c("two.sided","less","greater")
-         )
-{
-    x <- na.omit(x)
-  
-    n = length(x)
-    sk<-skewness(x)
+skewness.test.simple <-
+  function(skewness
+           ,sample.size
+           ,input = c("fisher") #todo - pearson
+           ,conf.level = .95
+           ,alternative = c("two.sided","less","greater")
+  )
+  {
+    
+    n = sample.size
+    sk      <- skewness
     se.est  <- sqrt(6*n*(n-1)/((n-2)*(n+1)*(n+3)))
     
     
-    root.b1 <- skewness(x, method = "pearson")
+    root.b1 <- convert.skewness(sk, n)
     
     Y             <- root.b1 * sqrt((n+1)*(n+3) / (6*(n-2)))
     beta2.root.b1 <- 3*(n^2+27*n-70)*(n+1)*(n+3) / ( (n-2)*(n+5)*(n+7)*(n+9)  )
@@ -20,7 +21,7 @@ function(x
     alpha         <- sqrt(2/(W.squared - 1))
     
     z             <- delta*log( Y/alpha + sqrt((Y/alpha)^2 +1 ) )
-
+    
     test.statistic <- z
     
     p.value <- if (alternative[1] == "two.sided") {
@@ -35,13 +36,13 @@ function(x
     }
     
     cv<-qnorm(conf.level+(1-conf.level)/2)
-      
-      estimate <- c(skewness=sk,z=test.statistic,se.est=se.est, root.b1 = root.b1)
-      
-
+    
+    estimate <- c(skewness=sk,z=test.statistic,se.est=se.est, root.b1 = root.b1)
+    
+    
     ciupper <- sk+cv*se.est
     cilower <- sk-cv*se.est
-        
+    
     retval<-list(data.name   = "input data",
                  statistic   = sk, 
                  estimate    = estimate,
@@ -62,4 +63,4 @@ function(x
     
     class(retval)<-"htest"
     retval
-}
+  }
