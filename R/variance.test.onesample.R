@@ -12,5 +12,5 @@ variance.test.onesample<-function(g1
                                  ,h0.variance = h0.variance
                                  ,alternative = alternative
                                  ,conf.level = conf.level)
-
+  
 }

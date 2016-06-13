@@ -1,4 +1,7 @@
-kurtosis.test.simple <-
+#Equivalent to D'Agostino
+#Presented in Sheskin
+
+kurtosis.test.zar.simple <-
   function(kurtosis
            ,sample.size
            ,input = c("fisher") #todo - pearson
@@ -7,27 +10,24 @@ kurtosis.test.simple <-
   )   {
     n = as.double(sample.size)
     
-    b2 <- convert.kurtosis(kurtosis, sample.size)
-    E_b2 <- 3*(n-1)/(n+1)
-    Var_b2 <- 24*n*(n-2)*(n-3)/( (n+3)*(n+5)*(n+1)^2 )
+    b2 <- convert.kurtosis(kurtosis, sample.size = sample.size)
     
-    standardized_b2 <- (b2 - E_b2)/sqrt(Var_b2)
-    
-    third_stand_moment_b2 <- (6*(n^2 - 5*n +2) /( (n+7)*(n+9) )) *
+    G <- 24*n*(n-2)*(n-3)/( (n+3)*(n+5)*(n+1)^2 )
+    H <- (n-2)*(n-3)*(kurtosis)/((n+1)*(n-1)*sqrt(G))
+    J <- (6*(n^2 - 5*n +2) /( (n+7)*(n+9) )) *
       sqrt( 6*(n+3)*(n+5) / (n*(n-2)*(n-3))  )
+    K <- 6 + (8/J)*(2/J + sqrt(1+4/J^2)   )
+    L <- (1- 2/K) / (1+H*sqrt(2/(K-4)))
     
-    A <- 6 + (8/ third_stand_moment_b2) * 
-      ( 2/ third_stand_moment_b2 + sqrt(1 + 4/ third_stand_moment_b2^2) ) 
-    
-    Z_b2 <- ((1 - 2/(9*A)) - ((1-2/A) / (1+ standardized_b2 * sqrt(2/(A-4))))^(1/3) ) /sqrt(2/(9*A))
+    z <- (1-2/(9*K) - L^(1/3))/sqrt(2/(9*K))
     
     p.value <- if (alternative[1] == "two.sided") {
-      tmp<-pnorm(Z_b2)
+      tmp<-pnorm(z)
       min(tmp,1-tmp)*2
     } else if (alternative[1] == "greater") {
-      pnorm(Z_b2,lower.tail = FALSE)
+      pnorm(z,lower.tail = FALSE)
     } else if (alternative[1] == "less") {
-      pnorm(Z_b2,lower.tail = TRUE)
+      pnorm(z,lower.tail = TRUE)
     } else {
       NA
     }
@@ -42,7 +42,7 @@ kurtosis.test.simple <-
     
     retval<-list(data.name   = "input data",
                  statistic   = ku, 
-                 estimate    = c(kurtosis=ku, z=Z_b2, se.est=se.est, b2=b2),
+                 estimate    = c(kurtosis=ku, z=z, se.est=se.est, b2=b2),
                  parameter   = 0 ,
                  p.value     = p.value,
                  null.value  = 0,
