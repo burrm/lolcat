@@ -1,5 +1,5 @@
 #Based on description at: http://pareonline.net/pdf/v15n12.pdf
-transform.box.cox <- function(x
+transform.box.cox <- function(x = NULL
                               ,lambda
                               ,correct.min = 0
                               ,lower.specification = NA
