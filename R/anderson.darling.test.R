@@ -71,7 +71,7 @@ anderson.darling.test <-
                  statistic   = AA, 
                  estimate    = c(AA,A),
                  parameter   = 0 ,
-                 p.value     = PVAL,
+                 p.value     = rmnames(PVAL),
                  null.value  = 0,
                  alternative = "two.sided",
                  method      = "Anderson - Darling Normality Test"#,

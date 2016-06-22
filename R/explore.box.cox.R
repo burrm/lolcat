@@ -15,7 +15,10 @@ explore.box.cox <- function(x
                             ,stat.sw.exp.test = F
                             
                             ) {
-
+  x <- na.omit(x)
+  orig.warnings <- unlist(options("warn"))
+  options(warn = -1)
+  
   all.lambda <- seq(lambda.min
                     ,lambda.max
                     ,step)
@@ -143,5 +146,6 @@ explore.box.cox <- function(x
     ret$sw.exp.test.p <- NULL
   }
   
+  options(warn = orig.warnings)
   ret
 }

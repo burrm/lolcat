@@ -30,5 +30,10 @@ recommend.box.cox <- function(x
   
   data.frame(lambda = box.cox.out$lambda[row[1]]
              ,correct.min = box.cox.out$correct.min[row[1]]
-            )
+             ,g3.skewness = box.cox.out$g3.skewness[row[1]]
+             ,g3test.p = box.cox.out$g3test.p[row[1]]
+             ,g4.kurtosis = box.cox.out$g4.kurtosis[row[1]]
+             ,g4test.p = box.cox.out$g4test.p[row[1]]
+             
+             )
 }

@@ -51,7 +51,7 @@ jarque.bera.normality.test.simple <- function(skewness
                statistic   = c(chi.square = chi.sq), 
                estimate    = estimate,
                parameter   = df,
-               p.value     = p.value,
+               p.value     = rmnames(p.value),
                null.value  = df,
                alternative = alternative[1],
                method      = "Jarque-Bera Normality Test ",
