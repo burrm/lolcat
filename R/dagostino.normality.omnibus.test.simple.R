@@ -15,7 +15,7 @@ dagostino.normality.omnibus.test.simple <- function(skewness
   z_ku <- rmnames(ku.test$estimate[2])
   
   chi.sq <- z_sk^2 + z_ku^2
-  if (any(!is.finite(z_sk, z_ku))) {
+  if (any(!is.finite(c(z_sk, z_ku)))) {
     chi.sq <- NA
   }
   

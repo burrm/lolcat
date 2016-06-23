@@ -16,6 +16,10 @@ process.shape.tests <- function(x
 
                                 ) {
 
+  orig.warnings <- unlist(options("warn"))
+  options(warn = -1)
+  
+  
   ret <- list()
     
   if (stat.ad.test) {
@@ -83,6 +87,10 @@ process.shape.tests <- function(x
     ret$jarque.bera.test.p          <- t1$p.value
     rm(t1)
   }
-    
+  
+  
+  
+  options(warn = orig.warnings)
+  
   ret
 }
