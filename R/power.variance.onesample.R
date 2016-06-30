@@ -1,17 +1,15 @@
-sample.size.variance.onesample <- function(
-  var.est = 2
+power.variance.onesample <- function(
+  sample.size = 1
+  ,var.est = 2
   ,h0.var = 1
   ,alpha = .05
-  ,beta = .1
   ,alternative = c("two.sided","greater") #"less" won't work well
   ,details = TRUE
-  ,power.from.actual = F #report parameter power instead of true power
   
   
 ) {
-
   ratio <- var.est/h0.var
-  n <- 2  
+  n <- sample.size
 
   chi.fn <- if (alternative[1] == "two.sided") {
     function(n) {qchisq(alpha/2, n-1, lower.tail = FALSE)}
@@ -31,23 +29,9 @@ sample.size.variance.onesample <- function(
     }
   }
   
-  
+  beta <- beta.fn(chi.fn(n),ratio,n)
 
-  current.beta <- beta.fn(chi.fn(n),ratio,n)
-  
-  while (current.beta > beta) {
-    n <- n+1
-  
-    current.beta <- beta.fn(chi.fn(n),ratio,n)
-  }
-  
-
-  if (power.from.actual) {
-    
-  } else {
-    
-    beta <- current.beta
-  }
+  pow <- 1 - beta  
   
   if (details) {
     as.data.frame(list(test="chi-square"
@@ -64,11 +48,8 @@ sample.size.variance.onesample <- function(
     
   }
   else {
-    n
+    pow
   }
-    
+  
+  
 }
-
-#sample.size.variance.onesample()
-
-

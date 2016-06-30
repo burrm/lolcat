@@ -52,7 +52,14 @@ proportion.test.onesample.exact.simple <- function(
   #   res.exact
   # else rbind(res, res.exact)
   
-  
+  pow <- power.proportion.test.onesample.exact(
+    sample.size = sample.size
+    ,null.hypothesis.proportion = h0.proportion
+    ,alternative.hypothesis.proportion = sample.proportion
+    ,alternative = alternative
+    ,alpha = 1-conf.level
+    ,details = F
+  )
   
   
   
@@ -63,6 +70,8 @@ proportion.test.onesample.exact.simple <- function(
                estimate    = c(sample.prop = sample.proportion 
                                ,sample.size = sample.size
                                ,n.times.p = np
+                               ,power = pow
+                               
                ),
                parameter   = h0.proportion,
                p.value     = p.value,

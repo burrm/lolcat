@@ -37,7 +37,16 @@ proportion.test.onesample.approximate.simple <- function(
   } else {
     NA
   }
-  
+
+  pow <- power.proportion.test.onesample.approximate(
+    sample.size = sample.size
+    ,null.hypothesis.proportion = h0.proportion
+    ,alternative.hypothesis.proportion = sample.proportion
+    ,alternative = alternative
+    ,alpha = 1-conf.level
+    ,details = F
+  )
+    
   
   retval<-list(data.name   = "sample proportion and sample size",
                statistic   = c(z=z), 
@@ -46,7 +55,7 @@ proportion.test.onesample.approximate.simple <- function(
                                ,n.times.p = sample.size*sample.proportion
                                ,n.times.h0.p = sample.size*h0.proportion
                                ,se.est = se.est
-                               
+                               ,power = pow
                ),
                parameter   = h0.proportion,
                p.value     = p.value,

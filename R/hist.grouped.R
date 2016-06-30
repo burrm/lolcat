@@ -5,6 +5,8 @@ hist.grouped <- function(x
                          ,main="Grouped Histogram"
                          ,...) {
   
+  argext <- list(...)
+  
   dist.grouped <- frequency.dist.grouped(x
                                          ,interval.size = interval.size
                                          ,width.consider = width.consider
@@ -19,6 +21,13 @@ hist.grouped <- function(x
   labels.tentative <-c(labels.tentative[1] - resolution, labels.tentative)
   labels.tentative <-c(labels.tentative, labels.tentative[length(labels.tentative)] + resolution)
   
-  hist(x, col=col, breaks= breaks.tentative, main=main, xaxt="n", ...)
-  axis(1,at=breaks.tentative-.5*resolution, labels = labels.tentative)
+  ret <- hist(x, col=col, breaks= breaks.tentative, main=main, xaxt="n", ...)
+  
+  if ("n" == argext[["xaxt"]]) {
+    
+  } else {
+    axis(1,at=breaks.tentative-.5*resolution, labels = labels.tentative)
+  }
+  
+  invisible(ret)
 }

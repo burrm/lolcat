@@ -6,7 +6,9 @@ frequency.dist.grouped <- function(
                        ,clean.leading.zeroes = T
                        ,clean.trailing.zeroes = T
 ) {
-
+  x <- na.omit(x)
+  x <- x[is.finite(x)]
+  
   if (is.na(interval.size)) {
     r <- (max(x)-min(x))/10
     w.r <- abs(width.consider - r)

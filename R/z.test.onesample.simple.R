@@ -1,7 +1,7 @@
 z.test.onesample.simple<-function(sample.mean
-                                  ,known.population.variance
+                                  ,known.population.variance = 1
                                   ,sample.size
-                                  ,h0.mean
+                                  ,h0.mean = 0
                                   ,alternative = c("two.sided","less","greater")
                                   ,conf.level = 0.95
                                   ,finite.population.N = NA

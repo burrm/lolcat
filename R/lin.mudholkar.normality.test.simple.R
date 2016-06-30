@@ -15,7 +15,11 @@ lin.mudholkar.normality.test.simple <- function(sample.r
   c <- .5 * log((1+r)/(1-r))
   b <- (-24 * c) / (S*Y) 
   
-  roots <- polyroot(c(b,a,0,1))
+  if (n < 4) {
+    roots <-rep(NA,3)
+  } else {
+    roots <- polyroot(c(b,a,0,1))
+  }
   roots[which(Im(roots) == 0)]
   roots <- Re(roots)
   

@@ -2,7 +2,7 @@
 variance.test.onesample.simple<-function(sample.variance
                                          ,sample.size
                                          ,h0.variance = 1
-                                         ,alternative = c("two.sided","less","greater")
+                                         ,alternative = c("two.sided","greater", "less")
                                          ,conf.level = 0.95) {
   
   df = sample.size - 1
@@ -23,7 +23,18 @@ variance.test.onesample.simple<-function(sample.variance
   
   retval<-list(data.name   = "sample variance and sample size",
                statistic   = chi.square.statistic, 
-               estimate    = c(v,df,sample.size),
+               estimate    = c(sample.variance = v,
+                               df = df
+                               ,sample.size = sample.size
+                               ,power = power.variance.onesample(
+                                 sample.size =sample.size
+                                 ,var.est = v
+                                 ,h0.var = h0.variance
+                                 ,alpha = 1-conf.level
+                                 ,alternative = alternative
+                                 ,details=F
+                               )
+                               ),
                parameter   = h0.variance,
                p.value     = p.value,
                null.value  = h0.variance,
@@ -32,7 +43,6 @@ variance.test.onesample.simple<-function(sample.variance
                conf.int    = c(df*v/chiupper,df*v/chilower)
   )
   
-  names(retval$estimate) <- c("sample.variance","df","sample.size")
   names(retval$statistic) <- "chi-square statistic"
   names(retval$null.value) <- "variance"
   names(retval$parameter) <- "null hypothesis variance"

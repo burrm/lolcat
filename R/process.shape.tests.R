@@ -30,7 +30,7 @@ process.shape.tests <- function(x
   }
   
   if (stat.sw.test) {
-    t1 <- shapiro.test(x)
+    t1 <- shapiro.wilk.normality.test(x)
     ret$swtest.W <- rmnames(t1$statistic)
     ret$swtest.p <- t1$p.value
     rm(t1)
