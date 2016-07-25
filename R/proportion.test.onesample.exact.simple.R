@@ -12,7 +12,7 @@ proportion.test.onesample.exact.simple <- function(
     if (sample.proportion < h0.proportion) {
       2*pbinom(np, sample.size, h0.proportion)
     } else {
-      2*pbinom(np, sample.size, h0.proportion, lower.tail = F)
+      2*(pbinom(np, sample.size, h0.proportion, lower.tail = F) + dbinom(np, sample.size, h0.proportion))
     }
   } else if (alternative[1] == "less") {
     pbinom(np, sample.size, h0.proportion, lower.tail = T)
