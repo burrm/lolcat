@@ -1,7 +1,8 @@
 median.test.onesample.signtest <- function(
   x
   ,h0.location = 0
-  ,alternative = c("two.sided","less","greater")
+  ,alternative = c("greater","two.sided","less")
+  ,conf.level = .95
 ) {
   
   x <- na.omit(x)

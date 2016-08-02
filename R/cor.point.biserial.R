@@ -12,7 +12,13 @@ cor.point.biserial <- function(discrete_var,
   
   data <- data.frame(disc = discrete_var, cont = continuous_var)
   
-  summary.out<- summary.impl(cont ~ disc, data = data, stat.n = T, stat.mean =  T, stat.sd = 1)
+  summary.out<- summary.impl(
+    cont ~ disc
+    ,data = data
+    ,stat.n = T
+    ,stat.mean =  T
+    ,stat.sd = 1
+    )
   summary.out <- summary.out[order(summary.out$mean),]
   
   mean.g1 <- summary.out$mean[2]
@@ -27,7 +33,7 @@ cor.point.biserial <- function(discrete_var,
   p1 <- n1 / n
   p2 <- n2 / n
 
-  r_pbi = ((mean.g1 - mean.g2) / sd.all) * sqrt(p1 * p2) #* (n / (n-1))
+  r_pbi = ((mean.g1 - mean.g2) / sd.all) * sqrt(p1 * p2) * sqrt(n / (n-1))
   
   r_test <- cor.pearson.r.onesample.simple(sample.r = r_pbi, 
                                            sample.size = n, 

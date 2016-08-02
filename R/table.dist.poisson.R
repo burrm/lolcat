@@ -1,7 +1,7 @@
 table.dist.poisson <- function(lambda = 5
-                               ,include.lambda = 5
+                               ,include.lambda = max(5, 5/lambda)
 ) {
-  n<-include.lambda*lambda
+  n<-ceiling(include.lambda*lambda)
   
   d              <- data.frame(x=0:n)
   d$p.at.x       <- dpois(0:n, lambda = lambda)
