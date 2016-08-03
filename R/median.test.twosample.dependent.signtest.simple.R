@@ -3,7 +3,7 @@ median.test.twosample.dependent.signtest.simple <- function(
   ,n.equal = 0 #Future use...
   ,n.above = 0
   #,include.ties = F - TODO: Better Tie Behavior...
-  ,alternative = c("greater","two.sided","less")
+  ,alternative = c("two.sided","greater","less")
   ,conf.level = 0.95
   #,location.name = c("median", "mean")
 ) {
