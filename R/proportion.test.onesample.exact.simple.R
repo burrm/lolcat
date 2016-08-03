@@ -1,7 +1,7 @@
 proportion.test.onesample.exact.simple <- function(
                                               sample.proportion 
                                              ,sample.size
-                                             ,h0.proportion
+                                             ,h0.proportion = .5
                                              ,alternative = c("two.sided", "less", "greater")
                                              ,conf.level = .95
 ) {

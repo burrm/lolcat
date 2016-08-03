@@ -31,7 +31,7 @@ proportion.test.mcnemar.simple <- function(
 
                ),
                parameter   = h0.proportion,
-               p.value     = p.test$p.value,
+               p.value     = p.test.out$p.value,
                null.value  = h0.proportion,
                alternative = alternative[1],
                method      = paste("McNemar's Test for Dependent Proportions (", method[1] ,")",sep ="")
