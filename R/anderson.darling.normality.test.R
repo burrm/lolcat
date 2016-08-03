@@ -1,4 +1,4 @@
-anderson.darling.test <-
+anderson.darling.normality.test <-
   function(x
            #,conf.level = .95
            )

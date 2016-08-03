@@ -67,7 +67,7 @@ explore.box.cox <- function(x
     if (length(new.x) == n) {
     
       if (stat.ad.test) {
-        t1 <- anderson.darling.test(new.x)
+        t1 <- anderson.darling.normality.test(new.x)
         ret$adtest.AA[i] <- rmnames(t1$statistic)
         ret$adtest.p[i] <- t1$p.value
         rm(t1)

@@ -285,7 +285,7 @@ summary.impl <- function(fx
   #Shape testing
   
   if (stat.ad.test > 0 & saved.n > 1) {
-    t.res <- anderson.darling.test(clean_x)
+    t.res <- anderson.darling.normality.test(clean_x)
     agg<-c(agg,adtest = t.res$statistic)
     agg<-c(agg,adtest.p  = t.res$p.value)
     agg<-c(agg,adtest.d  = t.res$p.value < 1-stat.shape.rejection.conf.level)
@@ -474,7 +474,7 @@ summary.impl <- function(fx
   #Shape testing
   
   if (stat.ad.test > 0 & saved.n > 1) {
-    #t.res <- anderson.darling.test(clean_x)
+    #t.res <- anderson.darling.normality.test(clean_x)
     agg<-c(agg,adtest.AA = NA)
     agg<-c(agg,adtest.p  = NA)
     agg<-c(agg,adtest.d  = NA)
