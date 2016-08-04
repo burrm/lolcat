@@ -14,7 +14,7 @@ hist.ungrouped <- function(x
     
   ret <- hist(x, col=col, breaks= breaks.tentative, main=main, xaxt="n", ...)
   
-  if ("n" == argext[["xaxt"]]) {
+  if (length(argext[["xaxt"]]) && "n" == argext[["xaxt"]]) {
     
   } else {
   axis(1,at=breaks.tentative-.5*resolution, labels = breaks.tentative)
