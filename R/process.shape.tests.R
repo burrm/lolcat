@@ -23,7 +23,7 @@ process.shape.tests <- function(x
   ret <- list()
     
   if (stat.ad.test) {
-    t1 <- anderson.darling.test(x)
+    t1 <- anderson.darling.normality.test(x)
     ret$adtest.AA <- rmnames(t1$statistic)
     ret$adtest.p <- t1$p.value
     rm(t1)
