@@ -1,7 +1,7 @@
 poisson.test.onesample.simple<-function(
    sample.count
   ,sample.size
-  ,h0.lambda
+  ,h0.lambda = 1
   ,alternative = c("two.sided","less","greater")
   ,conf.level = 0.95
 ) {

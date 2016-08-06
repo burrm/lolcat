@@ -19,13 +19,15 @@ proportion.test.onesample.approximate.simple <- function(
   }
   
   se.est <- sqrt(h0.proportion*(1-h0.proportion)/sample.size)
+  ci.est <- sqrt(sample.proportion*(1-sample.proportion)/sample.size)
+  
   
   z <- d/se.est
   
   cv      <- qnorm(conf.level+(1-conf.level)/2)
   
-  z.upper <- sample.proportion + cv*se.est
-  z.lower <- sample.proportion - cv*se.est
+  z.upper <- sample.proportion + cv*ci.est
+  z.lower <- sample.proportion - cv*ci.est
   
   p.value <- if (alternative[1] == "two.sided") {
     tmp<-pnorm(z)
