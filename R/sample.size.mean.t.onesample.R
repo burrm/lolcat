@@ -1,15 +1,15 @@
 sample.size.mean.t.onesample <- function(effect.size
-                                         ,se.est = 1
+                                         ,variance.est = 1
                                          ,alpha = .05
                                          ,beta = .1
                                          ,alternative = c("two.sided","less","greater")
                                          ,details = TRUE
-                                         ,include.z = FALSE #Only valid with details = T
                                          ,power.from.actual = F #report parameter power instead of true power
 ) {
-
+  se.est <- sqrt(variance.est)
+  
   z.res <- sample.size.mean.z.onesample(effect.size = effect.size
-                                        ,se.est = se.est
+                                        ,variance = variance.est
                                         ,alpha = alpha
                                         ,beta = beta
                                         ,alternative = alternative
@@ -40,7 +40,7 @@ sample.size.mean.t.onesample <- function(effect.size
   } else {
     power <- power.mean.t.onesample(sample.size = n, 
                                     effect.size = effect.size,
-                                    se.est = se.est,
+                                    variance = variance.est,
                                     alpha=alpha,
                                     alternative = alternative,
                                     details=FALSE
@@ -58,19 +58,19 @@ sample.size.mean.t.onesample <- function(effect.size
                        ,actual = actual
                        ,df = n-1
                        ,effect.size = effect.size
-                       ,se.est = se.est
+                       ,variance = variance.est
                        ,alpha = alpha
                        ,conf.level = 1-alpha
                        ,beta = beta
                        ,power = power
     ))
     
-    if (include.z) {
-      z.res$df <- c(NA)
-      ret <-rbind(ret,z.res)
-      ret<- ret[2:1,]
-      rownames(ret) <- 1:2
-    }
+    # if (include.z) {
+    #   z.res$df <- c(NA)
+    #   ret <-rbind(ret,z.res)
+    #   ret<- ret[2:1,]
+    #   rownames(ret) <- 1:2
+    # }
     
 
         

@@ -1,17 +1,17 @@
 power.mean.t.onesample <- function(sample.size
                                    ,effect.size
-                                   ,se.est = 1
+                                   ,variance.est = 1
                                    ,alpha = .05
                                    ,alternative = c("two.sided","less","greater")
                                    ,details = T
 ) {
-  
+  se.est <- sqrt(variance.est)
   
   ncp <- effect.size/(se.est/sqrt(sample.size))
 
   t_alpha <- qt(ifelse(alternative[1] == "two.sided",alpha/2,alpha), df = sample.size-1, lower.tail = F)
   
-  pow <- pt(t_alpha,df = sample.size-1, ncp=ncp ,lower.tail = F)
+  pow <- pt(t_alpha,df = sample.size-1, ncp=ncp,lower.tail = F)
   
   if (details) {
     as.data.frame(list(test="t"
@@ -21,7 +21,7 @@ power.mean.t.onesample <- function(sample.size
                        ,actual = sample.size
                        ,df = sample.size - 1
                        ,effect.size = effect.size
-                       ,se.est = se.est
+                       ,variance = variance.est
                        ,alpha = alpha
                        ,conf.level = 1-alpha
                        ,beta = 1-pow

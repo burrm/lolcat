@@ -1,5 +1,5 @@
 sample.size.mean.t.twosample.dependent.dbar <- function(effect.size
-                                                   ,se.est.d = 1
+                                                   ,variance.diff = 1
                                                    ,alpha = .05
                                                    ,beta = .1
                                                    ,alternative = c("two.sided","less","greater")
@@ -7,7 +7,7 @@ sample.size.mean.t.twosample.dependent.dbar <- function(effect.size
                                                    ,power.from.actual = F #report parameter power instead of true power
 ) {
   
-  se.est <- se.est.d
+  se.est <- sqrt(variance.diff)
   
   
   n <- 2 
@@ -64,7 +64,7 @@ sample.size.mean.t.twosample.dependent.dbar <- function(effect.size
                        ,sample.size = n
                        ,df = df
                        ,effect.size = effect.size
-                       ,se.est = se.est
+                       ,variance = variance.diff
                        ,alpha = alpha
                        ,conf.level = 1-alpha
                        ,beta = beta

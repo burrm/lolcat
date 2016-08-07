@@ -1,11 +1,13 @@
 sample.size.mean.z.onesample <- function(effect.size
-                                         ,se.est = 1
+                                         ,variance = 1
                                          ,alpha = .05
                                          ,beta = .1
                                          ,alternative = c("two.sided","less","greater")
                                          ,details = TRUE
                                          ,power.from.actual = F #report parameter power instead of true power
                                          ) {
+  se.est <- sqrt(variance)
+  
   z_alpha <- qnorm(ifelse(alternative[1] == "two.sided",alpha/2,alpha), lower.tail = F)
   z_beta  <- qnorm(beta, lower.tail = F)
   
@@ -24,7 +26,7 @@ sample.size.mean.z.onesample <- function(effect.size
     
     power <- power.mean.z.onesample(sample.size = n.rounded, 
                            effect.size = effect.size,
-                           se.est = se.est,
+                           variance = variance,
                            alpha=alpha,
                            alternative = alternative,
                            details=FALSE
@@ -41,7 +43,7 @@ sample.size.mean.z.onesample <- function(effect.size
                      ,sample.size = n.rounded
                      ,actual = n
                      ,effect.size = effect.size
-                     ,se.est = se.est
+                     ,variance = variance
                      ,alpha = alpha
                      ,conf.level = 1-alpha
                      ,beta = beta

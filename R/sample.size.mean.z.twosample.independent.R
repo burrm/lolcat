@@ -1,13 +1,15 @@
 sample.size.mean.z.twosample.independent <- function(effect.size
-                                         ,se.est = 1
+                                         ,variance = 1
                                          ,alpha = .05
                                          ,beta = .1
                                          ,alternative = c("two.sided","less","greater")
                                          ,details = TRUE
                                          ,power.from.actual = F #report parameter power instead of true power
 ) {
+  se.est <- sqrt(variance)
+  
   size.1s <- sample.size.mean.z.onesample(effect.size = effect.size
-                                          ,se.est = se.est
+                                          ,variance = variance
                                           ,alpha = alpha
                                           ,beta = beta
                                           ,alternative = alternative
@@ -39,7 +41,7 @@ sample.size.mean.z.twosample.independent <- function(effect.size
                        ,sample.size = n.rounded
                        ,actual = n
                        ,effect.size = effect.size
-                       ,se.est = se.est
+                       ,variance = variance
                        ,alpha = alpha
                        ,conf.level = 1-alpha
                        ,beta = beta

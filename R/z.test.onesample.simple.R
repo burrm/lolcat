@@ -38,7 +38,7 @@ z.test.onesample.simple<-function(sample.mean
                                   h0.mean - sample.mean
                                }
 
-                               ,se.est = sqrt(known.population.variance)
+                               ,variance = known.population.variance
                                ,alpha = 1-conf.level
                                ,alternative = alternative
                                ,details = F)

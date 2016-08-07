@@ -47,7 +47,7 @@ t.test.onesample.simple<-function(sample.mean
                                   h0.mean - sample.mean
                                 }
                                 
-                                ,se.est = sqrt(sample.variance)
+                                ,variance.est = sample.variance
                                 ,alpha = 1-conf.level
                                 ,alternative = alternative
                                 ,details = F)
