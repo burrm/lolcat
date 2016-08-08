@@ -69,8 +69,8 @@
 
 
 sample.size.mean.t.twosample.independent <- function(effect.size
-                                                     ,se.est.g1 = 1
-                                                     ,se.est.g2 = se.est.g1
+                                                     ,variance.est.g1 = 1
+                                                     ,variance.est.g2 = variance.est.g1
                                                      ,alpha = .05
                                                      ,beta = .1
                                                      ,alternative = c("two.sided","less","greater")
@@ -78,17 +78,20 @@ sample.size.mean.t.twosample.independent <- function(effect.size
                                                      ,power.from.actual = F #report parameter power instead of true power
 ) {
 
+  se.est.g1 <- sqrt(variance.est.g1)
+  se.est.g2 <- sqrt(variance.est.g2)
+  
   #Use one-sample as starting point
   se.est <- sqrt((se.est.g1^2 + se.est.g2^2)/2)
   
   
   size.1s <- sample.size.mean.t.onesample(effect.size = effect.size
-                                          ,se.est = se.est
+                                          ,variance.est = se.est
                                           ,alpha = alpha
                                           ,beta = beta
                                           ,alternative = alternative
                                           ,details = T
-                                          ,include.z = F
+                                          #,include.z = F
                                           ,power.from.actual = power.from.actual
   )
   
@@ -145,7 +148,8 @@ sample.size.mean.t.twosample.independent <- function(effect.size
                        ,sample.size = n
                        ,df = df
                        ,effect.size = effect.size
-                       ,se.est = se.est
+                       ,var.est.g1 = variance.est.g1
+                       ,var.est.g2 = variance.est.g2
                        ,alpha = alpha
                        ,conf.level = 1-alpha
                        ,beta = beta

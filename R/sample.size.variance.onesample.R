@@ -1,6 +1,6 @@
 sample.size.variance.onesample <- function(
-   variance.estimate = 2
-  ,h0.variance = 1
+  null.hypothesis.variance = 1
+  ,alternative.hypothesis.variance = 2
   ,alpha = .05
   ,beta = .1
   ,alternative = c("two.sided","greater","less")
@@ -10,7 +10,7 @@ sample.size.variance.onesample <- function(
   
 ) {
 
-  ratio <- variance.estimate/h0.variance
+  ratio <- alternative.hypothesis.variance/null.hypothesis.variance
   n <- 2  
 
   if (ratio < .9991) {
@@ -47,8 +47,8 @@ sample.size.variance.onesample <- function(
   
     current.beta <- 1-power.variance.onesample(
       sample.size = n
-      ,variance.estimate = variance.estimate
-      ,h0.variance = h0.variance
+      ,alternative.hypothesis.variance = alternative.hypothesis.variance
+      ,null.hypothesis.variance = null.hypothesis.variance
       ,alpha = alpha
       ,alternative = alternative
       ,details = FALSE
@@ -61,8 +61,8 @@ sample.size.variance.onesample <- function(
     
       current.beta <- 1-power.variance.onesample(
         sample.size = n
-        ,variance.estimate = variance.estimate
-        ,h0.variance = h0.variance
+        ,null.hypothesis.variance = null.hypothesis.variance
+        ,alternative.hypothesis.variance = alternative.hypothesis.variance
         ,alpha = alpha
         ,alternative = alternative
         ,details = FALSE
@@ -98,6 +98,6 @@ sample.size.variance.onesample <- function(
     
 }
 
-#sample.size.variance.onesample(variance.estimate = 2, h0.variance = 1)
+#sample.size.variance.onesample(alternative.hypothesis.variance = 2, null.hypothesis.variance = 1)
 #qchisq(.025, 10, lower.tail = F)
 

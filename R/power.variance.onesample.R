@@ -1,14 +1,14 @@
 power.variance.onesample <- function(
   sample.size = 1
-  ,variance.estimate = 2
-  ,h0.variance = 1
+  ,null.hypothesis.variance = 1
+  ,alternative.hypothesis.variance = 2
   ,alpha = .05
   ,alternative = c("two.sided","greater", "less")
   ,details = TRUE
   
   
 ) {
-  ratio <- variance.estimate/h0.variance
+  ratio <- alternative.hypothesis.variance/null.hypothesis.variance
   n <- sample.size
 
   # Find Rejection Regions
@@ -82,8 +82,8 @@ power.variance.onesample <- function(
 
 # power.variance.onesample(
 #   sample.size = 21
-#   ,variance.estimate = 2
-#   ,h0.variance = 1
+#   ,alternative.hypothesis.variance = 2
+#   ,null.hypothesis.variance = 1
 #   ,alpha = .05
 #   ,alternative = "two.sided"
 # )

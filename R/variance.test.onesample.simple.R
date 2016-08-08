@@ -28,8 +28,8 @@ variance.test.onesample.simple<-function(sample.variance
                                ,sample.size = sample.size
                                ,power = power.variance.onesample(
                                  sample.size =sample.size
-                                 ,variance.estimate = v
-                                 ,h0.variance = h0.variance
+                                 ,null.hypothesis.variance = null.hypothesis.variance
+                                 ,alternative.hypothesis.variance = v
                                  ,alpha = 1-conf.level
                                  ,alternative = alternative
                                  ,details=F

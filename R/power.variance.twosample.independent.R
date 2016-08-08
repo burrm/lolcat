@@ -1,10 +1,9 @@
 #Helped... http://math.stackexchange.com/questions/275648/multiplication-of-a-random-variable-with-constant
 power.variance.twosample.independent <- function(
-  sample.size.g1 = 1
-  ,sample.size.g2 = 1
-  ,variance.estimate.g1 = 2
+  variance.estimate.g1 = 2
   ,variance.estimate.g2 = 1
-  ,h0.variance = 1
+  ,sample.size.g1 = 1
+  ,sample.size.g2 = 1
   ,alpha = .05
   ,alternative = c("two.sided","greater", "less")
   ,details = TRUE

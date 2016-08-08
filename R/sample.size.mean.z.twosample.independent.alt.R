@@ -1,5 +1,5 @@
 sample.size.mean.z.twosample.independent.alt <- function(effect.size
-                                             ,se.est = 1
+                                             ,variance = 1
                                              ,conf.level = .95
                                              ,power = .9
                                              ,alternative = c("two.sided","less","greater")
@@ -7,7 +7,7 @@ sample.size.mean.z.twosample.independent.alt <- function(effect.size
                                              ,power.from.actual = F #report parameter power instead of true power
 ) {
   sample.size.mean.z.twosample.independent(effect.size = effect.size
-                                           ,se.est = se.est
+                                           ,variance = variance
                                            ,alpha = 1-conf.level
                                            ,beta = 1- power
                                            ,alternative = alternative
