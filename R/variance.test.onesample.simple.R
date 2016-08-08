@@ -28,7 +28,7 @@ variance.test.onesample.simple<-function(sample.variance
                                ,sample.size = sample.size
                                ,power = power.variance.onesample(
                                  sample.size =sample.size
-                                 ,null.hypothesis.variance = null.hypothesis.variance
+                                 ,null.hypothesis.variance = h0.variance
                                  ,alternative.hypothesis.variance = v
                                  ,alpha = 1-conf.level
                                  ,alternative = alternative

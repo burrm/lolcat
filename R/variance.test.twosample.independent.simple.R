@@ -28,7 +28,17 @@ variance.test.twosample.independent.simple<-function(sample.variance.g1
                                ,sample.size.g1 = sample.size.g1
                                ,sample.variance.g2 = sample.variance.g2
                                ,df.g2 = df.g2
-                               ,sample.size.g2 = sample.size.g2),
+                               ,sample.size.g2 = sample.size.g2
+                               ,power = power.variance.twosample.independent(
+                                 variance.estimate.g1 = sample.variance.g1
+                                 ,variance.estimate.g2 = sample.variance.g1
+                                 ,sample.size.g1 = sample.size.g1
+                                 ,sample.size.g2 = sample.size.g2
+                                 ,alpha = 1-conf.level
+                                 ,alternative = alternative
+                                 ,details = F
+                               )),
+                              
                parameter   = 1,
                p.value     = p.value,
                null.value  = 1,
