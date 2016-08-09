@@ -8,6 +8,8 @@ table.dist.poisson <- function(lambda = 5
   d$eq.and.above <- ppois(0:n, lambda = lambda, lower.tail = F) + d$p.at.x
   d$eq.and.below <- ppois(0:n, lambda = lambda)
   
+  rownames(d) <- d$x
+  
   d
   
   

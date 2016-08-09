@@ -6,5 +6,7 @@ table.dist.binomial <- function(n = 10
   d$eq.and.above <- pbinom(0:n, size=n, prob = p, lower.tail = F) + d$p.at.x
   d$eq.and.below <- pbinom(0:n, size=n, prob = p)
   
+  rownames(d) <- d$x
+  
   d
 }
