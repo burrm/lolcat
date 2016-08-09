@@ -1,7 +1,7 @@
 cor.pearson.r.onesample.simple <- function(
                           sample.r,
                           sample.size,
-                          h0.rho = 0,
+                          null.hypothesis.rho = 0,
                           alternative = c("two.sided","less","greater"),
                           conf.level = .95
 ) {
@@ -11,7 +11,7 @@ cor.pearson.r.onesample.simple <- function(
 
   z_r <- .5*log((1+r)/(1-r))
   
-  if (h0.rho == 0) {
+  if (null.hypothesis.rho == 0) {
     t <- r*sqrt(n-2)/sqrt(1-r^2) 
     df <- n-2
     estimate = c(sample.r = sample.r, 
@@ -31,11 +31,11 @@ cor.pearson.r.onesample.simple <- function(
     }
     
   } else {
-    z_h0 <- .5*log((1+h0.rho)/(1-h0.rho))
-    z <- (z_r-z_h0)/sqrt(1/(n-3))
+    z_null.hypothesis<- .5*log((1+null.hypothesis.rho)/(1-null.hypothesis.rho))
+    z <- (z_r-z_null.hypothesis)/sqrt(1/(n-3))
     
     estimate = c(sample.r = sample.r, 
-                 z_h0 = z_h0)
+                 z_null.hypothesis= z_null.hypothesis)
     
     statistic <- c(z.statistic = z)
     
@@ -77,9 +77,9 @@ cor.pearson.r.onesample.simple <- function(
                                z_r = z_r,
                                z_r.upperci = z_r.upperci
                                ),
-               parameter   = h0.rho,
+               parameter   = null.hypothesis.rho,
                p.value     = p.value,
-               null.value  = h0.rho,
+               null.value  = null.hypothesis.rho,
                alternative = alternative[1],
                method      = "One-Sample Test for Pearson Product Moment Correlation",
                conf.int    = c(lowerci,upperci)

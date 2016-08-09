@@ -1,7 +1,7 @@
 #Simple interface for a given variance and sample size
 variance.test.onesample.simple<-function(sample.variance
                                          ,sample.size
-                                         ,h0.variance = 1
+                                         ,null.hypothesis.variance = 1
                                          ,alternative = c("two.sided","greater", "less")
                                          ,conf.level = 0.95) {
   
@@ -9,7 +9,7 @@ variance.test.onesample.simple<-function(sample.variance
   chilower = qchisq((1 - conf.level)/2, df)
   chiupper = qchisq((1 - conf.level)/2, df, lower.tail = FALSE)
   v = sample.variance
-  chi.square.statistic = df*v/h0.variance
+  chi.square.statistic = df*v/null.hypothesis.variance
   p.value <- if (alternative[1] == "two.sided") {
     tmp<-pchisq(chi.square.statistic,df)
     min(tmp,1-tmp)*2
@@ -28,16 +28,16 @@ variance.test.onesample.simple<-function(sample.variance
                                ,sample.size = sample.size
                                ,power = power.variance.onesample(
                                  sample.size =sample.size
-                                 ,null.hypothesis.variance = h0.variance
+                                 ,null.hypothesis.variance = null.hypothesis.variance
                                  ,alternative.hypothesis.variance = v
                                  ,alpha = 1-conf.level
                                  ,alternative = alternative
                                  ,details=F
                                )
                                ),
-               parameter   = h0.variance,
+               parameter   = null.hypothesis.variance,
                p.value     = p.value,
-               null.value  = h0.variance,
+               null.value  = null.hypothesis.variance,
                alternative = alternative[1],
                method      = "One-Sample Chi-Square Test For Variance",
                conf.int    = c(df*v/chiupper,df*v/chilower)

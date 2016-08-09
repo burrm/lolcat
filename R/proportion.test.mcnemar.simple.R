@@ -6,7 +6,7 @@
 proportion.test.mcnemar.simple <- function(
   b
   ,c
-  ,h0.proportion = .5
+  ,null.hypothesis.proportion = .5
   ,alternative = c("two.sided", "less", "greater")
   ,conf.level = .95
   ,method = c("Exact")#, "normal", "chi-square")
@@ -16,7 +16,7 @@ proportion.test.mcnemar.simple <- function(
   
   p.test.out <- proportion.test.onesample.exact.simple(sample.proportion = p_b
                                                        ,sample.size = b+c
-                                                       ,h0.proportion = h0.proportion
+                                                       ,null.hypothesis.proportion = null.hypothesis.proportion
                                                        ,alternative = alternative[1]
                                                        ,conf.level = conf.level
                                                        )
@@ -30,9 +30,9 @@ proportion.test.mcnemar.simple <- function(
                                ,p_c = c/ (b+c)
 
                ),
-               parameter   = h0.proportion,
+               parameter   = null.hypothesis.proportion,
                p.value     = p.test.out$p.value,
-               null.value  = h0.proportion,
+               null.value  = null.hypothesis.proportion,
                alternative = alternative[1],
                method      = paste("McNemar's Test for Dependent Proportions (", method[1] ,")",sep ="")
                #,conf.int    = c(lowerci,upperci)

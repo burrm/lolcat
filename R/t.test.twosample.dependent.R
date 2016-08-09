@@ -1,7 +1,7 @@
 t.test.twosample.dependent<-function(
   x1
   ,x2
-  ,h0.difference = 0
+  ,null.hypothesis.difference = 0
   ,alternative = c("two.sided","less","greater")
   ,conf.level = 0.95) {
   
@@ -16,7 +16,7 @@ t.test.twosample.dependent<-function(
     pair.differences.mean = pair.differences.mean
     ,pair.differences.variance = pair.differences.variance
     ,sample.size = sample.size
-    ,h0.difference = h0.difference
+    ,null.hypothesis.difference = null.hypothesis.difference
     ,alternative = alternative
     ,conf.level = conf.level
   )

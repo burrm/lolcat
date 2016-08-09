@@ -3,7 +3,7 @@ median.test.onesample.signtest.simple <- function(
    n.below = 0
   ,n.equal = 0 #Future use...
   ,n.above = 0
-  ,h0.location = 0
+  ,null.hypothesis.location = 0
   #,include.ties = F - TODO: Better Tie Behavior...
   ,alternative = c("two.sided","less","greater")
   ,conf.level = 0.95
@@ -13,7 +13,7 @@ median.test.onesample.signtest.simple <- function(
   n <- n.below + n.above
   
   b.test <- proportion.test.onesample.exact.simple(sample.proportion = n.above/n
-                                                   ,h0.proportion = .5
+                                                   ,null.hypothesis.proportion = .5
                                                    ,sample.size = n
                                                    ,alternative = alternative
                                                    ,conf.level = conf.level

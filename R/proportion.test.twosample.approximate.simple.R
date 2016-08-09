@@ -11,7 +11,7 @@ proportion.test.twosample.approximate.simple <- function(
   
   p1.test <- proportion.test.onesample.approximate.simple(sample.proportion = sample.proportion.g1
                                                           ,sample.size = sample.size.g1
-                                                          ,h0.proportion = .5
+                                                          ,null.hypothesis.proportion = .5
                                                           ,alternative = alternative
                                                           ,conf.level = conf.level
                                                           ,continuity.correction = continuity.correction
@@ -19,7 +19,7 @@ proportion.test.twosample.approximate.simple <- function(
 
   p2.test <- proportion.test.onesample.approximate.simple(sample.proportion = sample.proportion.g2
                                                           ,sample.size = sample.size.g2
-                                                          ,h0.proportion = .5
+                                                          ,null.hypothesis.proportion = .5
                                                           ,alternative = alternative
                                                           ,conf.level = conf.level
                                                           ,continuity.correction = continuity.correction
@@ -100,7 +100,7 @@ proportion.test.twosample.approximate.simple <- function(
 }
 
 
-#proportion.test.onesample.approximate.simple(sample.proportion = .8, sample.size = 25, h0.proportion = .5, continuity.correction = F)
+#proportion.test.onesample.approximate.simple(sample.proportion = .8, sample.size = 25, null.hypothesis.proportion = .5, continuity.correction = F)
 # proportion.test.twosample.approximate.simple(
 #   sample.proportion.g1 = .2
 #   ,sample.size.g1 = 20

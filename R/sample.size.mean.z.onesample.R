@@ -13,6 +13,14 @@ sample.size.mean.z.onesample <- function(effect.size
   
   n <- ((z_alpha + z_beta) * se.est / effect.size)^2 
   
+  if (alternative[1] == "greater" && effect.size < 0) {
+    n <- NA
+  }
+  
+  if (alternative[1] == "less" && effect.size > 0) {
+    n <- NA
+  }
+  
   n.rounded <- ceiling(n)
   
   if (power.from.actual) {

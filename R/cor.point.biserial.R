@@ -37,7 +37,7 @@ cor.point.biserial <- function(discrete_var,
   
   r_test <- cor.pearson.r.onesample.simple(sample.r = r_pbi, 
                                            sample.size = n, 
-                                           h0.rho = 0, 
+                                           null.hypothesis.rho = 0, 
                                            alternative = alternative, 
                                            conf.level = conf.level) 
 

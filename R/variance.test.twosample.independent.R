@@ -41,7 +41,7 @@ variance.test.twosample.independent <- function(
                                                   ,sample.mean.g2 = mean.g2
                                                   ,sample.variance.g2 = var.g2
                                                   ,sample.size.g2 = sample.size.g2
-                                                  ,h0.difference = 0
+                                                  ,null.hypothesis.difference = 0
                                                   ,alternative = alternative
                                                   ,assume.equal.variances = "yes"
                                                   ,conf.level = conf.level

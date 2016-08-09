@@ -7,11 +7,70 @@ power.mean.t.onesample <- function(sample.size
 ) {
   se.est <- sqrt(variance.est)
   
+  df <- sample.size-1
   ncp <- effect.size/(se.est/sqrt(sample.size))
-
-  t_alpha <- qt(ifelse(alternative[1] == "two.sided",alpha/2,alpha), df = sample.size-1, lower.tail = F)
   
-  pow <- pt(t_alpha,df = sample.size-1, ncp=ncp,lower.tail = F)
+  t.upper <- qt(ifelse(alternative[1] == "two.sided",alpha/2,alpha), df = sample.size-1, lower.tail = F)
+  t.lower <- qt(ifelse(alternative[1] == "two.sided",alpha/2,alpha), df = sample.size-1, lower.tail = T)
+  
+  beta <- NA
+  
+  if (effect.size < 0) {
+    if (alternative[1] == "two.sided") {
+
+      beta <- pt(t.lower
+                 ,df = df
+                 ,ncp=ncp
+                 ,lower.tail = F)
+      
+            
+    } else if (alternative[1] == "greater") {
+
+      beta <- pt(t.upper
+                 ,df = df
+                 ,ncp=ncp
+                 ,lower.tail = T)
+      
+    } else {
+
+      beta <- pt(t.lower
+                 ,df = df
+                 ,ncp=ncp
+                 ,lower.tail = F)
+            
+    }
+    
+  } else if (effect.size >= 0) {
+    if (alternative[1] == "two.sided") {
+     
+      beta <- pt(t.upper
+                ,df = df
+                ,ncp=ncp
+                ,lower.tail = T)
+      
+       
+    } else if (alternative[1] == "greater") {
+      
+      beta <- pt(t.upper
+                 ,df = df
+                 ,ncp=ncp
+                 ,lower.tail = T)
+      
+    } else {
+
+      beta <- pt(t.lower
+                 ,df = df
+                 ,ncp=ncp
+                 ,lower.tail = F)
+      
+            
+    }
+  }
+  
+  
+  
+  
+  pow <- 1-beta
   
   if (details) {
     as.data.frame(list(test="t"
@@ -19,12 +78,12 @@ power.mean.t.onesample <- function(sample.size
                        ,alternative = alternative[1]
                        ,sample.size = sample.size
                        ,actual = sample.size
-                       ,df = sample.size - 1
+                       ,df = df
                        ,effect.size = effect.size
                        ,variance = variance.est
                        ,alpha = alpha
                        ,conf.level = 1-alpha
-                       ,beta = 1-pow
+                       ,beta = beta
                        ,power = pow
     ))
     

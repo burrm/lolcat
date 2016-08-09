@@ -1,11 +1,11 @@
 median.test.onesample.wilcoxon <- function(
   x
-  ,h0.location = 0
+  ,null.hypothesis.location = 0
   ,alternative = c("two.sided","less","greater")
 ) {
 
   x <- na.omit(x)
-  d <- x - h0.location
+  d <- x - null.hypothesis.location
   
   d <- d[which(abs(d) != 0)]
   
@@ -30,7 +30,7 @@ median.test.onesample.wilcoxon <- function(
   median.test.onesample.wilcoxon.simple(sum.ranks.positive =sum.ranks.positive
                                         ,sum.ranks.negative =  sum.ranks.negative
                                         ,adj.sample.size = adj.sample.size
-                                        ,h0.location = h0.location
+                                        ,null.hypothesis.location = null.hypothesis.location
                                         ,alternative = alternative
                                         )
     

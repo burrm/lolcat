@@ -1,7 +1,7 @@
 proportion.test.onesample.exact.simple <- function(
                                               sample.proportion 
                                              ,sample.size
-                                             ,h0.proportion = .5
+                                             ,null.hypothesis.proportion = .5
                                              ,alternative = c("two.sided", "less", "greater")
                                              ,conf.level = .95
 ) {
@@ -9,15 +9,15 @@ proportion.test.onesample.exact.simple <- function(
   np <- sample.proportion*sample.size
   
   p.value <- if (alternative[1] == "two.sided") {
-    if (sample.proportion < h0.proportion) {
-      2*pbinom(np, sample.size, h0.proportion)
+    if (sample.proportion < null.hypothesis.proportion) {
+      2*pbinom(np, sample.size, null.hypothesis.proportion)
     } else {
-      2*(pbinom(np, sample.size, h0.proportion, lower.tail = F) + dbinom(np, sample.size, h0.proportion))
+      2*(pbinom(np, sample.size, null.hypothesis.proportion, lower.tail = F) + dbinom(np, sample.size, null.hypothesis.proportion))
     }
   } else if (alternative[1] == "less") {
-    pbinom(np, sample.size, h0.proportion, lower.tail = T)
+    pbinom(np, sample.size, null.hypothesis.proportion, lower.tail = T)
   } else if (alternative[1] == "greater") {
-    pbinom(np, sample.size, h0.proportion, lower.tail = F) + dbinom(np, sample.size, h0.proportion)
+    pbinom(np, sample.size, null.hypothesis.proportion, lower.tail = F) + dbinom(np, sample.size, null.hypothesis.proportion)
   } else {
     NA
   }
@@ -54,7 +54,7 @@ proportion.test.onesample.exact.simple <- function(
   
   pow <- power.proportion.test.onesample.exact(
     sample.size = sample.size
-    ,null.hypothesis.proportion = h0.proportion
+    ,null.hypothesis.proportion = null.hypothesis.proportion
     ,alternative.hypothesis.proportion = sample.proportion
     ,alternative = alternative
     ,alpha = 1-conf.level
@@ -73,9 +73,9 @@ proportion.test.onesample.exact.simple <- function(
                                ,power = pow
                                
                ),
-               parameter   = h0.proportion,
+               parameter   = null.hypothesis.proportion,
                p.value     = p.value,
-               null.value  = h0.proportion,
+               null.value  = null.hypothesis.proportion,
                alternative = alternative[1],
                method      = "One-Sample Proportion Test (Exact)"
                ,conf.int    = c(lowerci,upperci)

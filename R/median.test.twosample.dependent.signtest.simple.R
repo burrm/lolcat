@@ -11,7 +11,7 @@ median.test.twosample.dependent.signtest.simple <- function(
   n <- n.below + n.above
   
   b.test <- proportion.test.onesample.exact.simple(sample.proportion = n.above/n
-                                                   ,h0.proportion = .5
+                                                   ,null.hypothesis.proportion = .5
                                                    ,sample.size = n
                                                    ,alternative = alternative
                                                    ,conf.level = conf.level

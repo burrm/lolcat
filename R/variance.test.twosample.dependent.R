@@ -3,7 +3,7 @@ variance.test.twosample.dependent <- function(
   ,g2
   ,alternative = c("two.sided","less","greater")
   ,conf.level = 0.95
-  ,h0.difference = 0
+  ,null.hypothesis.difference = 0
   ,assume.normality = c("yes", "no")
   ,non.norm.method = c("meandiff", "dbar")
 ) {
@@ -16,7 +16,7 @@ variance.test.twosample.dependent <- function(
                                              ,sample.variance.g2 = var(g2)
                                              ,sample.size = length(g1)
                                              ,rho.estimate = cor(g1,g2)
-                                             ,h0.difference = h0.difference
+                                             ,null.hypothesis.difference = null.hypothesis.difference
                                              ,alternative = alternative
                                              ,conf.level = conf.level
                                              )
@@ -39,7 +39,7 @@ variance.test.twosample.dependent <- function(
                                                          ,sample.variance.g2 = var(data$g2)
                                                          ,sample.size=nrow(data)
                                                          ,rho.estimate = rho.estimate
-                                                         ,h0.difference = h0.difference
+                                                         ,null.hypothesis.difference = null.hypothesis.difference
                                                          ,alternative = alternative
                                                          ,conf.level = conf.level
                                                          ,assume.equal.variances = "yes"
@@ -57,7 +57,7 @@ variance.test.twosample.dependent <- function(
       retval <- t.test.twosample.dependent.simple.dbar(pair.differences.mean = mean(diff.g12)
                                                        ,pair.differences.variance = var(diff.g12)
                                                        ,sample.size = length(diff.g12)
-                                                       ,h0.difference = h0.difference
+                                                       ,null.hypothesis.difference = null.hypothesis.difference
                                                        ,alternative = alternative
                                                        ,conf.level = conf.level
                                                        )

@@ -1,5 +1,5 @@
 variance.test.onesample<-function(g1
-                                  ,h0.variance = 1
+                                  ,null.hypothesis.variance = 1
                                   ,alternative = c("two.sided","less","greater")
                                   ,conf.level = 0.95) {
   
@@ -9,7 +9,7 @@ variance.test.onesample<-function(g1
   
   variance.test.onesample.simple(sample.variance
                                  ,sample.size
-                                 ,h0.variance = h0.variance
+                                 ,null.hypothesis.variance = null.hypothesis.variance
                                  ,alternative = alternative
                                  ,conf.level = conf.level)
   

@@ -1,16 +1,16 @@
 proportion.test.onesample.approximate.simple <- function(
   sample.proportion 
   ,sample.size
-  ,h0.proportion = .5
+  ,null.hypothesis.proportion = .5
   ,alternative = c("two.sided", "less", "greater")
   ,conf.level = .95
   ,continuity.correction = T
 ) {
-  d <- sample.proportion - h0.proportion
+  d <- sample.proportion - null.hypothesis.proportion
   
   if (continuity.correction) {
     if (alternative[1] == "two.sided") {
-      d <- d + sign(h0.proportion-sample.proportion)*1/(2*sample.size)
+      d <- d + sign(null.hypothesis.proportion-sample.proportion)*1/(2*sample.size)
     } else if (alternative[1] == "greater") {
       d <- d - 1/(2*sample.size)
     } else if (alternative[1] == "less") {
@@ -18,7 +18,7 @@ proportion.test.onesample.approximate.simple <- function(
     }
   }
   
-  se.est <- sqrt(h0.proportion*(1-h0.proportion)/sample.size)
+  se.est <- sqrt(null.hypothesis.proportion*(1-null.hypothesis.proportion)/sample.size)
   ci.est <- sqrt(sample.proportion*(1-sample.proportion)/sample.size)
   
   
@@ -42,7 +42,7 @@ proportion.test.onesample.approximate.simple <- function(
 
   pow <- power.proportion.test.onesample.approximate(
     sample.size = sample.size
-    ,null.hypothesis.proportion = h0.proportion
+    ,null.hypothesis.proportion = null.hypothesis.proportion
     ,alternative.hypothesis.proportion = sample.proportion
     ,alternative = alternative
     ,alpha = 1-conf.level
@@ -55,13 +55,13 @@ proportion.test.onesample.approximate.simple <- function(
                estimate    = c(sample.proportion = sample.proportion 
                                ,sample.size = sample.size
                                ,n.times.p = sample.size*sample.proportion
-                               ,n.times.h0.p = sample.size*h0.proportion
+                               ,n.times.null.hypothesis.p = sample.size*null.hypothesis.proportion
                                ,se.est = se.est
                                ,power = pow
                ),
-               parameter   = h0.proportion,
+               parameter   = null.hypothesis.proportion,
                p.value     = p.value,
-               null.value  = h0.proportion,
+               null.value  = null.hypothesis.proportion,
                alternative = alternative[1],
                method      = "One-Sample Proportion Test (Approximate)",
                conf.int    = c(z.lower,z.upper)
@@ -82,5 +82,5 @@ proportion.test.onesample.approximate.simple <- function(
 }
 
 
-#proportion.test.onesample.approximate.simple(sample.proportion = .8, sample.size = 25, h0.proportion = .5, continuity.correction = F)
+#proportion.test.onesample.approximate.simple(sample.proportion = .8, sample.size = 25, null.hypothesis.proportion = .5, continuity.correction = F)
 

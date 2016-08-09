@@ -32,9 +32,22 @@ sample.size.mean.t.onesample <- function(effect.size
     df <- df+1
     n <- n+1
   }
-  
+    
   actual <- n_gen(df) #-> misleading?
 
+  if (effect.size > 0 && alternative == "less") {
+    df <- NA
+    n <- NA
+    actual <- NA
+  }
+
+  if (effect.size < 0 && alternative == "greater") {
+    df <- NA
+    n <- NA
+    actual <- NA
+  }
+  
+    
   if (power.from.actual) {
     power <- 1- beta
   } else {

@@ -3,7 +3,7 @@ variance.test.twosample.dependent.simple<-function(
   ,sample.variance.g2
   ,sample.size
   ,rho.estimate #Pearson r estimate
-  ,h0.difference = 0
+  ,null.hypothesis.difference = 0
   ,alternative = c("two.sided","less","greater")
   ,conf.level = 0.95
   #,auto.swap = T
@@ -20,7 +20,7 @@ variance.test.twosample.dependent.simple<-function(
   
   df     <- sample.size - 2
   se.est <- sqrt(4*sample.variance.g1*sample.variance.g2*(1-rho.estimate^2))/sqrt(sample.size-2)
-  t <- ((sample.variance.g1 - sample.variance.g2) - h0.difference)/se.est
+  t <- ((sample.variance.g1 - sample.variance.g2) - null.hypothesis.difference)/se.est
   cv      <- qt(conf.level+(1-conf.level)/2, df= df)
   
   upperci <- ((sample.variance.g1 - sample.variance.g2) + cv * se.est) 
@@ -45,9 +45,9 @@ variance.test.twosample.dependent.simple<-function(
                                ,pearson.estimate = rho.estimate
                                ,sample.size = sample.size
                                ,df = df),
-               parameter   = h0.difference,
+               parameter   = null.hypothesis.difference,
                p.value     = p.value,
-               null.value  = h0.difference,
+               null.value  = null.hypothesis.difference,
                alternative = alternative[1],
                method      = "Two Dependent Sample t Test For Variance"
                ,conf.int    = c(lowerci, upperci)

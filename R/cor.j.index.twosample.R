@@ -1,6 +1,6 @@
 cor.j.index.twosample<-function(x1
                                 ,x2
-                                #,h0.difference = 0
+                                #,null.hypothesis.difference = 0
                                 ,alternative = c("two.sided","less","greater") #difference in means only
                                 ,conf.level = 0.95
 

@@ -5,7 +5,7 @@ t.test.twosample.dependent.simple.meandiff<-function(
   ,sample.variance.g2
   ,sample.size
   ,rho.estimate  = 0
-  ,h0.difference = 0
+  ,null.hypothesis.difference = 0
   ,alternative   = c("two.sided","less","greater")
   ,conf.level    = 0.95
   ,assume.equal.variances = c("auto", "yes", "no")
@@ -36,7 +36,7 @@ t.test.twosample.dependent.simple.meandiff<-function(
   }
   
   s.denom <- sqrt(sample.variance.g1/sample.size + sample.variance.g2/sample.size - 2*rho.estimate*sqrt(sample.variance.g1/sample.size)*sqrt(sample.variance.g2/sample.size))
-  t = ((sample.mean.g1 - sample.mean.g2) - h0.difference)/s.denom
+  t = ((sample.mean.g1 - sample.mean.g2) - null.hypothesis.difference)/s.denom
   
   if (equal.var) {
     df      <- sample.size-1
@@ -51,7 +51,7 @@ t.test.twosample.dependent.simple.meandiff<-function(
   
   # var.test.out <- variance.test.onesample.simple(sample.variance = sample.variance
   #                                                ,n = n
-  #                                                ,h0.variance = 1
+  #                                                ,null.hypothesis.variance = 1
   #                                                ,conf.level = conf.level)
   # var.lower <- var.test.out$conf.int[1]
   # var.upper <- var.test.out$conf.int[2]
@@ -132,9 +132,9 @@ t.test.twosample.dependent.simple.meandiff<-function(
   retval<-list(data.name   = "input sample means, variances, and correlation estimate",
                statistic   = t, 
                estimate    = estimate,
-               parameter   = h0.difference,
+               parameter   = null.hypothesis.difference,
                p.value     = p.value,
-               null.value  = h0.difference,
+               null.value  = null.hypothesis.difference,
                alternative = alternative[1],
                method      = paste("Dependent Samples t Test For Means - Difference of Means Method", 
                                    if (equal.var) {"(Equal Variances)"} else {"(Unequal Variances)"}),

@@ -2,7 +2,7 @@ median.test.onesample.wilcoxon.simple <- function(
   sum.ranks.positive = 0
   ,sum.ranks.negative = 0
   ,adj.sample.size = NA
-  ,h0.location = 0
+  ,null.hypothesis.location = 0
   ,alternative = c("two.sided","less","greater")
 ) {
   wilcoxon.t <- min(abs(c(sum.ranks.positive, sum.ranks.negative)))
@@ -37,9 +37,9 @@ median.test.onesample.wilcoxon.simple <- function(
                                ,adj.sample.size = adj.sample.size
 
                ),
-               parameter   = h0.location,
+               parameter   = null.hypothesis.location,
                p.value     = p.value,
-               null.value  = h0.location,
+               null.value  = null.hypothesis.location,
                alternative = alternative[1],
                method      = "Wilcoxon Signed-Ranks Test"
                #,conf.int    = c(z.lower,z.upper)

@@ -7,12 +7,65 @@ power.mean.z.onesample <- function(sample.size
 ) {
   se.est <- sqrt(variance)
   
+  z.upper <- qnorm(ifelse(alternative[1] == "two.sided",alpha/2,alpha), lower.tail = F)
+  z.lower <- qnorm(ifelse(alternative[1] == "two.sided",alpha/2,alpha), lower.tail = T)   
   
-  ncp <- effect.size
-  z_alpha <- qnorm(ifelse(alternative[1] == "two.sided",alpha/2,alpha), lower.tail = F)
-  z_alpha <- z_alpha*se.est/sqrt(sample.size)
+  z.upper <- z.upper*se.est/sqrt(sample.size)
+  z.lower <- z.lower*se.est/sqrt(sample.size)
   
-  pow <- pnorm(z_alpha,mean=ncp,sd=se.est/sqrt(sample.size),lower.tail = F)
+  beta <- NA
+  
+  if (effect.size < 0) {
+    if (alternative[1] == "two.sided") {
+      
+      beta <- pnorm(z.lower
+                    ,mean=effect.size
+                    ,sd=se.est/sqrt(sample.size)
+                    ,lower.tail = F)
+      
+    } else if (alternative[1] == "greater") {
+
+      beta <- pnorm(z.upper
+                    ,mean=effect.size
+                    ,sd=se.est/sqrt(sample.size)
+                    ,lower.tail = T)
+      
+            
+    } else {
+      
+      beta <- pnorm(z.lower
+                    ,mean=effect.size
+                    ,sd=se.est/sqrt(sample.size)
+                    ,lower.tail = F)
+      
+      
+    }  
+  } else if (effect.size >= 0) {
+    if (alternative[1] == "two.sided") {
+      
+      beta <- pnorm(z.upper
+                    ,mean=effect.size
+                    ,sd=se.est/sqrt(sample.size)
+                    ,lower.tail = T)    
+      
+    } else if (alternative[1] == "greater") {
+      
+      beta <- pnorm(z.upper
+                    ,mean=effect.size
+                    ,sd=se.est/sqrt(sample.size)
+                    ,lower.tail = T)
+      
+    } else {
+      
+      beta <- pnorm(z.lower
+                    ,mean=effect.size
+                    ,sd=se.est/sqrt(sample.size)
+                    ,lower.tail = F)
+      
+    } 
+  } 
+  
+  pow <- 1-beta
   
   if (details) {
     as.data.frame(list(test="z"
@@ -24,7 +77,7 @@ power.mean.z.onesample <- function(sample.size
                        ,variance = variance
                        ,alpha = alpha
                        ,conf.level = 1-alpha
-                       ,beta = 1-pow
+                       ,beta = beta
                        ,power = pow
     ))
     

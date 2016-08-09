@@ -4,7 +4,7 @@ t.test.twosample.independent.simple<-function(sample.mean.g1
                                               ,sample.mean.g2
                                               ,sample.variance.g2
                                               ,sample.size.g2
-                                              ,h0.difference = 0
+                                              ,null.hypothesis.difference = 0
                                               ,assume.equal.variances = c("auto", "yes", "no")
                                               #Variance test hypothesis is always v1 = v2
                                               ,alternative = c("two.sided","less","greater") #difference in means only
@@ -39,12 +39,12 @@ t.test.twosample.independent.simple<-function(sample.mean.g1
     #Independent samples, equal variances
     sp      <- ((sample.size.g1-1) * sample.variance.g1 + (sample.size.g2-1) * sample.variance.g2)/(sample.size.g1+sample.size.g2-2)
     s.denom <- sqrt(sp/sample.size.g1+sp/sample.size.g2)
-    t       <- ((sample.mean.g1 - sample.mean.g2)-h0.difference)/s.denom
+    t       <- ((sample.mean.g1 - sample.mean.g2)-null.hypothesis.difference)/s.denom
     df      <- sample.size.g1+sample.size.g2-2
   } else {
     #Independent samples, unequal variances
     s.denom <- sqrt(sample.variance.g1/sample.size.g1+sample.variance.g2/sample.size.g2)
-    t       <- ((sample.mean.g1 - sample.mean.g2)-h0.difference)/s.denom
+    t       <- ((sample.mean.g1 - sample.mean.g2)-null.hypothesis.difference)/s.denom
     df      <- (sample.variance.g1 / sample.size.g1 + sample.variance.g2 / sample.size.g2)^2 / ((sample.variance.g1/sample.size.g1)^2/(sample.size.g1-1) + (sample.variance.g2/sample.size.g2)^2/(sample.size.g2-1))
   }
   
@@ -55,7 +55,7 @@ t.test.twosample.independent.simple<-function(sample.mean.g1
   
   # var.test.out <- variance.test.onesample.simple(sample.variance = sample.variance
   #                                                ,n = n
-  #                                                ,h0.variance = 1
+  #                                                ,null.hypothesis.variance = 1
   #                                                ,conf.level = conf.level)
   # var.lower <- var.test.out$conf.int[1]
   # var.upper <- var.test.out$conf.int[2]
@@ -138,9 +138,9 @@ t.test.twosample.independent.simple<-function(sample.mean.g1
   retval<-list(data.name   = "input sample means and variances",
                statistic   = t, 
                estimate    = estimate,
-               parameter   = h0.difference,
+               parameter   = null.hypothesis.difference,
                p.value     = p.value,
-               null.value  = h0.difference,
+               null.value  = null.hypothesis.difference,
                alternative = alternative[1],
                method      = paste("Two-Sample t Test For Means", 
                                    if (equal.var) {"(Equal Variances)"} else {"(Unequal Variances)"}),

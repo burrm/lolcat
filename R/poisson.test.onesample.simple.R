@@ -1,7 +1,7 @@
 poisson.test.onesample.simple<-function(
    sample.count
   ,sample.size
-  ,h0.lambda = 1
+  ,null.hypothesis.lambda = 1
   ,alternative = c("two.sided","less","greater")
   ,conf.level = 0.95
 ) {
@@ -16,17 +16,17 @@ poisson.test.onesample.simple<-function(
   # cilower <- qchisq(alpha.ci, 2*sample.lambda)/2
   # 
   # p.value <- if (alternative[1] == "two.sided") {
-  #   tmp<-if (sample.lambda <= h0.lambda) {
-  #     ppois(sample.lambda, lambda = h0.lambda, lower.tail = T)
+  #   tmp<-if (sample.lambda <= null.hypothesis.lambda) {
+  #     ppois(sample.lambda, lambda = null.hypothesis.lambda, lower.tail = T)
   #   } else {
-  #     ppois(sample.lambda, lambda = h0.lambda, lower.tail = F)
+  #     ppois(sample.lambda, lambda = null.hypothesis.lambda, lower.tail = F)
   #   }
   # 
   #   tmp*2
   # } else if (alternative[1] == "greater") {
-  #   ppois(sample.lambda, lambda = h0.lambda , lower.tail = FALSE)
+  #   ppois(sample.lambda, lambda = null.hypothesis.lambda , lower.tail = FALSE)
   # } else if (alternative[1] == "less") {
-  #   ppois(sample.lambda, lambda = h0.lambda ,lower.tail = TRUE)
+  #   ppois(sample.lambda, lambda = null.hypothesis.lambda ,lower.tail = TRUE)
   # } else {
   #   NA
   # }
@@ -34,9 +34,9 @@ poisson.test.onesample.simple<-function(
   # retval<-list(data.name   = deparse(substitute(sample.lambda)),
   #              statistic   = sample.lambda, 
   #              estimate    = c(sample.lambda = sample.lambda),
-  #              parameter   = h0.lambda,
+  #              parameter   = null.hypothesis.lambda,
   #              p.value     = p.value,
-  #              null.value  = h0.lambda,
+  #              null.value  = null.hypothesis.lambda,
   #              alternative = alternative[1],
   #              method      = "One-Sample Poisson Test for Location",
   #              conf.int    = c(cilower,ciupper)
@@ -51,7 +51,7 @@ poisson.test.onesample.simple<-function(
   # class(retval)<-"htest"
   # retval
   
-  poisson.test(x=sample.count, T= sample.size, r=h0.lambda, alternative = alternative[1], conf.level = conf.level)
+  poisson.test(x=sample.count, T= sample.size, r=null.hypothesis.lambda, alternative = alternative[1], conf.level = conf.level)
   
   
   

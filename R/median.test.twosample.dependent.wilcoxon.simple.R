@@ -9,7 +9,7 @@ median.test.twosample.dependent.wilcoxon.simple <- function(
     sum.ranks.positive = sum.ranks.positive
     ,sum.ranks.negative = sum.ranks.negative
     ,adj.sample.size = sample.size
-    ,h0.location = 0
+    ,null.hypothesis.location = 0
     ,alternative = alternative  
     
   )

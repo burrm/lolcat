@@ -17,14 +17,14 @@ proportion.test.twosample.exact.simple <- function(
   
   g1.test <- proportion.test.onesample.exact.simple(sample.proportion = sample.proportion.g1
                                                     ,sample.size = sample.size.g1
-                                                    ,h0.proportion = .5
+                                                    ,null.hypothesis.proportion = .5
                                                     ,alternative = alternative[1]
                                                     ,conf.level = conf.level)
   
 
   g2.test <- proportion.test.onesample.exact.simple(sample.proportion = sample.proportion.g2
                                                     ,sample.size = sample.size.g2
-                                                    ,h0.proportion = .5
+                                                    ,null.hypothesis.proportion = .5
                                                     ,alternative = alternative[1]
                                                     ,conf.level = conf.level)
     

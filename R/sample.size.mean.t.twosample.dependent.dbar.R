@@ -7,73 +7,21 @@ sample.size.mean.t.twosample.dependent.dbar <- function(effect.size
                                                    ,power.from.actual = F #report parameter power instead of true power
 ) {
   
-  se.est <- sqrt(variance.diff)
+  ss.1s <- sample.size.mean.t.onesample(
+    effect.size = effect.size
+    ,variance.est = variance.diff
+    ,alpha = alpha
+    ,beta = beta
+    ,alternative = alternative
+  )
   
-  
-  n <- 2 
-  
-  
-  #Build generating functions to help increment n until test beta <= beta
-  
-  ncp.fn <- function(n) {
-     effect.size/(se.est/sqrt(n)) 
-  }
-  
-  beta.fn <- function(n,df) {
-    t_alpha <- qt(ifelse(alternative[1] == "two.sided",alpha/2,alpha), df = df, lower.tail = F)
-    
-    pt(t_alpha
-       , df = df
-       , lower.tail = T
-       , ncp = ncp.fn(n)
-    )
-  }
-  
-  df.fn <- function(n) { n-1 }
-  
-  
-  df <- df.fn(n)
-  beta.current <- beta.fn(n,df)
-  
-  
-  while (beta.current > beta) {
-    n <- n+1
-    df <- df.fn(n)
-    beta.current <- beta.fn(n,df)
+  ss.1s$type <- c("two.sample dependent")  
 
-}
-  
-  
-  
-  
-  
-  
-  
-  if (power.from.actual) {
-    
-  } else {
-    beta <- beta.current
-  }
-  
-  
-  
   if (details) {
-    as.data.frame(list(test="t"
-                       ,type = "two.sample"
-                       ,alternative = alternative[1]
-                       ,sample.size = n
-                       ,df = df
-                       ,effect.size = effect.size
-                       ,variance = variance.diff
-                       ,alpha = alpha
-                       ,conf.level = 1-alpha
-                       ,beta = beta
-                       ,power = 1- beta
-    ))
-    
+    ss.1s
   }
   else {
-    n
+    ss.1s$n[1]
   }
   
 }

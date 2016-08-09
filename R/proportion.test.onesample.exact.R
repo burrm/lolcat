@@ -1,7 +1,7 @@
 proportion.test.onesample.exact <- function(
   x 
   ,success.value = 1 #Can be anything that compares with x with ==
-  ,h0.proportion = .5
+  ,null.hypothesis.proportion = .5
   ,alternative = c("two.sided", "less", "greater")
   ,conf.level = .95
 ) {
@@ -12,7 +12,7 @@ proportion.test.onesample.exact <- function(
   proportion.test.onesample.exact.simple(
     sample.proportion = count.success / sample.size
     ,sample.size = sample.size
-    ,h0.proportion = h0.proportion
+    ,null.hypothesis.proportion = null.hypothesis.proportion
     ,alternative = alternative
     ,conf.level = conf.level
   )
