@@ -63,7 +63,7 @@ cor.point.biserial <- function(discrete_var,
   
   #names(retval$estimate) <- c("sample mean")
   names(retval$null.value) <- "point biserial correlation"
-  names(retval$parameter) <- "null hypothesis mean"
+  names(retval$parameter) <- "null hypothesis point biserial correlation"
   attr(retval$conf.int, "conf.level")  <- conf.level
   
   class(retval)<-"htest"

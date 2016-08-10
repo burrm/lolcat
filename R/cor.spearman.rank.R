@@ -4,22 +4,25 @@ cor.spearman.rank <- function (x1
                                ,alternative = c("two.sided","less","greater")) {
   
   r_sp <- cor(x1,x2,method="spearman")
-  se.est <- 1/sqrt(length(x1)-1)
+  n <- length(x1)
+  #se.est <- 1/sqrt(length(x1)-1)
   
-  z = r_sp/se.est
+  t <- NA
   
-  cv  <- qnorm(conf.level+(1-conf.level)/2)
+  if (abs(r_sp)<1) {
+    t <- r_sp*sqrt(n-2)/sqrt(1-r_sp^2)
+  }
   
-  upperci <- r_sp + cv*se.est
-  lowerci <- r_sp - cv*se.est
+  upperci <- NA #r_sp + cv*se.est
+  lowerci <- NA # r_sp - cv*se.est
   
   p.value <- if (alternative[1] == "two.sided") {
-    tmp<-pnorm(z)
+    tmp<-pt(t, n-2)
     min(tmp,1-tmp)*2
   } else if (alternative[1] == "greater") {
-    pnorm(z,lower.tail = FALSE)
+    pt(t,n-2,lower.tail = FALSE)
   } else if (alternative[1] == "less") {
-    pnorm(z,lower.tail = TRUE)
+    pnorm(t,n-2,lower.tail = TRUE)
   } else {
     NA
   }
@@ -27,8 +30,10 @@ cor.spearman.rank <- function (x1
   
   
   retval<-list(data.name   = "data",
-               statistic   = c(r_sp = r_sp), 
-               estimate    = c(se.est = se.est
+               statistic   = c(t = t), 
+               estimate    = c(
+                 r_sp = r_sp
+                 ,df = n-2
                ),
                parameter   = 0 ,
                p.value     = p.value,
