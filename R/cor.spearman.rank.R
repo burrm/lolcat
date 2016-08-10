@@ -1,3 +1,5 @@
+# Confidence Limits from http://ncss.wpengine.netdna-cdn.com/wp-content/themes/ncss/pdf/Procedures/PASS/Confidence_Intervals_for_Spearmans_Rank_Correlation.pdf
+# and cited paper.
 cor.spearman.rank <- function (x1
                                ,x2
                                ,conf.level = .95
@@ -13,8 +15,6 @@ cor.spearman.rank <- function (x1
     t <- r_sp*sqrt(n-2)/sqrt(1-r_sp^2)
   }
   
-  upperci <- NA #r_sp + cv*se.est
-  lowerci <- NA # r_sp - cv*se.est
   
   p.value <- if (alternative[1] == "two.sided") {
     tmp<-pt(t, n-2)
@@ -26,7 +26,15 @@ cor.spearman.rank <- function (x1
   } else {
     NA
   }
+    
+  z_r <- .5*log((1+r_sp)/(1-r_sp)) 
+  cv      <- qnorm(conf.level+(1-conf.level)/2)
   
+  z_r.upper <- z_r + cv*sqrt((1+.5*(r_sp^2))/(n-3))
+  z_r.lower <- z_r - cv*sqrt((1+.5*(r_sp^2))/(n-3))
+  
+  upperci <- (exp(2*z_r.upper) -1) / (exp(2*z_r.upper) +1)
+  lowerci <- (exp(2*z_r.lower) -1) / (exp(2*z_r.lower) +1) 
   
   
   retval<-list(data.name   = "data",
