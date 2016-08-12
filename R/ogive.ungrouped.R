@@ -10,7 +10,7 @@ ogive.ungrouped <- function(
   dist.ungrouped <- frequency.dist.ungrouped(x
                                              ,na.rm = T)
   
-  x <- as.numeric(levels(dist.ungrouped$value))
+  x <- dist.ungrouped$value
   
   if (call.plot) {
     plot(x
