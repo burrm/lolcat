@@ -47,3 +47,5 @@ cor.cramer.phi <- function(x) {
   class(retval)<-"htest"
   retval
 }
+
+cor.cramer.v <- cor.cramer.phi
