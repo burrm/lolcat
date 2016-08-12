@@ -7,8 +7,8 @@ hist.ungrouped <- function(x
   
   dist.ungrouped <- frequency.dist.ungrouped(x, na.rm = T)
   
-  breaks.tentative <- as.numeric(levels(dist.ungrouped$value))
-  resolution <- max(min(diff(breaks.tentative)),1e-7)
+  breaks.tentative <- dist.ungrouped$value
+  resolution <- max(min(diff(unique(sort(breaks.tentative)))),1e-7)
   
   breaks.tentative <- seq(min(breaks.tentative)-resolution, max(breaks.tentative)+resolution,resolution)
     

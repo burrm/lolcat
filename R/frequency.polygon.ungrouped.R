@@ -11,7 +11,7 @@ frequency.polygon.ungrouped <- function (
                                          #,width.consider = width.consider
                                          ,na.rm = T)
   
-  resolution <- min(diff(dist.ungrouped$value))
+  resolution <- min(diff(unique(sort(dist.ungrouped$value))))
   
   x <- seq(min(dist.ungrouped$value)-resolution, max(dist.ungrouped$value) + resolution, resolution)
   y <- sapply(x, FUN = function(x) {
