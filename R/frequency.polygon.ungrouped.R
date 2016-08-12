@@ -6,16 +6,23 @@ frequency.polygon.ungrouped <- function (
   ,...
 ){
   
-  dist.grouped <- frequency.dist.grouped(x
-                                         ,interval.size = interval.size
-                                         ,width.consider = width.consider
+  dist.ungrouped <- frequency.dist.ungrouped(x
+                                         #,interval.size = interval.size
+                                         #,width.consider = width.consider
                                          ,na.rm = T)
   
-  resolution <- dist.grouped$min[2] - dist.grouped$min[1]
+  resolution <- min(diff(dist.ungrouped$value))
   
-  x <- dist.grouped$midpoint
-  x <- c(min(x)- resolution, x, max(x) + resolution)
-  y <- c(0,dist.grouped$freq,0)
+  x <- seq(min(dist.ungrouped$value)-resolution, max(dist.ungrouped$value) + resolution, resolution)
+  y <- sapply(x, FUN = function(x) {
+    idx <- which(dist.ungrouped$value == x)
+    if (length(idx) > 0) {
+      dist.ungrouped$freq[idx[1]]
+    } else {
+      0
+    }
+  })
+  
   
   plot(x,y, type="l", main = main, ylab = ylab, col = col, xaxt = "n", ...)
   axis(1, at=x, labels = x)

@@ -4,6 +4,8 @@ frequency.dist.ungrouped <- function(x, na.rm = T) {
   d <- data.frame(count = rmnames(tbl.x))
   names(d) <- c("value", "freq")
   
+  d$value <- as.numeric(levels(d$value)[d$value])
+  
   total.n <- sum(d$freq)
   
   d$rel.freq <- d$freq/ total.n
