@@ -1,5 +1,5 @@
 summary.impl <- function(fx 
-                         ,data
+                         ,data             = NULL
                          ,stat.n           = F
                          ,stat.total.n     = F
                          ,stat.miss        = F

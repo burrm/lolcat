@@ -1,5 +1,5 @@
 summary.continuous <-function(fx
-                              ,data
+                              ,data = NULL
                               ,stat.n=T
                               ,stat.total.n=F
                               ,stat.miss=T
@@ -12,8 +12,8 @@ summary.continuous <-function(fx
                               ,stat.pois.test = F
                               
                               ,...) {
-  summary.impl(fx
-               ,data
+  summary.impl(fx = fx
+               ,data = data
                ,stat.n         = stat.n
                ,stat.total.n   = stat.total.n
                ,stat.miss      = stat.miss
