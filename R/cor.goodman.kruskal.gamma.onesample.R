@@ -1,5 +1,6 @@
 cor.goodman.kruskal.gamma.onesample <- function(
   x #ordered contingency table (row and column)
+  ,null.hypothesis.gamma = 0
   ,alternative = c("two.sided", "greater", "less")
   ,conf.level = .95
 ) {
@@ -33,7 +34,7 @@ cor.goodman.kruskal.gamma.onesample <- function(
   
   
   se.est <- 1/sqrt((n_c+n_d)/(N*(1-G^2)))
-  z <- G/se.est 
+  z <- (G-null.hypothesis.gamma)/se.est 
   
   cv      <- qnorm(conf.level+(1-conf.level)/2)
   
@@ -59,18 +60,15 @@ cor.goodman.kruskal.gamma.onesample <- function(
                                ,total.subjects = N
                                ,count.concordant = n_c
                                ,count.discordant = n_d
-                               #,Tx = t1
-                               #,Ty = t2
                ),
-               parameter   = 0,
+               parameter   = null.hypothesis.gamma,
                p.value     = p.value,
-               null.value  = 0,
+               null.value  = null.hypothesis.gamma,
                alternative = alternative[1],
                method      = "Goodman and Kruskal's Gamma (G)",
                conf.int    = c(G.lower, G.upper)
   )
   
-  #names(retval$estimate) <- c("sample mean")
   names(retval$statistic) <- "z"
   names(retval$null.value) <- "G"
   names(retval$parameter) <- "null hypothesis G"
