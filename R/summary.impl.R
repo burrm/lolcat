@@ -65,143 +65,157 @@ summary.impl <- function(fx
 ) {
   argss <- c(as.list(environment()), list(...))
   
+  if (inherits(fx, "formula")) {
   
-  fx.terms<-terms(fx)
-  
-  response<-all.vars(fx)[attributes(fx.terms)$response]
-  iv.names<-attributes(terms(fx))$term.labels
-  
-  d.samplesizes<-as.integer(aggregate(fx,data = data, function(x) {length(na.omit(x))})[,(length(iv.names)+1)])
-  
-
-  #Process statistics selections
-  d.summary<-aggregate(fx, data = data, na.action = na.pass, FUN = function(x) {
-    #agg<-numeric(0)
-    clean_x <- na.omit(x)
-
-    argss$x <- x
-    argss$clean_x <- clean_x
-    argss$agg <- numeric(0)
-
-    if (is.factor(clean_x) | ! is.numeric(clean_x)) {
-      agg <- do.call(.summary.impl.factor, list(argss))
-    } else {
-      agg <- do.call(.summary.impl.numeric, list(argss))
-    }
+    fx.terms<-terms(fx)
     
-    agg
-  })
-  
-  #print(str(d.summary))
-  
-  #TODO - better way to post process :(
-  #Post-process to correct format 
-  #   - multi-return aggregate puts a matrix into data frame :/
-  if (length(iv.names) > 0) {
-    d.final<-as.data.frame(d.summary[,1:length(iv.names)])
-    names(d.final)[1:length(iv.names)]<-iv.names
-    d.final<-cbind(d.final,d.summary[[(length(iv.names)+1)]])
-    names(d.final)[(length(iv.names)+1):ncol(d.final)]<-dimnames(d.summary[[(length(iv.names)+1)]])[[2]]
-  } else {
-    d.final <- as.data.frame(d.summary[[response]])
-  }
-  
-  #d.final<-as.data.frame(d.final[[1]])
-  
-  #Final post-processing - delete/reformat a few columns
-  # - shape testing - if eq 1 and all gp size, then delete
-  
-  delete_condition <- all(d.samplesizes < 20)
-  if (stat.skew.test == 1 & delete_condition) {
-    d.final[["g3.skewness"]] <- NULL
-    d.final[["g3test.p"]] <- NULL
-    d.final[["g3test.d"]] <- NULL
-  }
-  
-  if (stat.kurt.test == 1 & delete_condition) {
-    d.final[["g4.kurtosis"]] <- NULL
-    d.final[["g4test.p"]] <- NULL
-    d.final[["g4test.d"]] <- NULL
-  }
-  
-  delete_condition <- all(d.samplesizes >= 25)
-  if (stat.ad.test == 1 & delete_condition) {
-    d.final[["adtest.AA"]] <- NULL
-    d.final[["adtest.p"]] <- NULL
-    d.final[["adtest.d"]] <- NULL
-  }
-  
-  if (stat.sw.test == 1 & delete_condition) {
-    d.final[["swtest.W"]] <- NULL
-    d.final[["swtest.p"]] <- NULL
-    d.final[["swtest.d"]] <- NULL
-  }
-
-  if (is.na(stat.shape.rejection.conf.level)) {
-    d.final[["g3test.d"]] <- NULL
-    d.final[["g4test.d"]] <- NULL
-    d.final[["adtest.d"]] <- NULL
-    d.final[["swtest.d"]] <- NULL
-    d.final[["pois.test.d"]] <- NULL
-  }
-
-  #Final formatting of shape decision
-  for (i in c("g3test.d", "g4test.d", "adtest.d", "swtest.d", "pois.test.d", "sw.exp.test.d")) {
-    if (any(names(d.final) == i)) {
-      d.final[[i]] <- ifelse(d.final[[i]] == 1, stat.shape.text.rej, stat.shape.text.ftr)
-      d.final[[i]] <- factor(d.final[[i]], levels=c(stat.shape.text.ftr, stat.shape.text.rej))
-    }
-  }
+    response<-all.vars(fx)[attributes(fx.terms)$response]
+    iv.names<-attributes(terms(fx))$term.labels
     
-  if (length(iv.names) > 0) {
-    if (length(iv.names) > 1) {
-      # Sort by independent variables
-      d.final<-d.final[do.call(order,d.final[,1:length(iv.names)]),]
-      rownames(d.final)<-1:nrow(d.final)
-    } else {
-      d.final<-d.final[order(d.final[,1]),]
-      rownames(d.final)<-1:nrow(d.final)
-    }
+    d.samplesizes<-as.integer(aggregate(fx,data = data, function(x) {length(na.omit(x))})[,(length(iv.names)+1)])
     
-    # Perform formatting stuff...
-    if (format.generate.cellcodes) {
-      d.final<-cbind(d.final[,1:length(iv.names)],cell.code=rep(NA,nrow(d.final)),d.final[,(length(iv.names)+1):ncol(d.final)])
-      names(d.final)[1:length(iv.names)]<-iv.names
-      for (i in 1:nrow(d.final)) {
-        tn<-paste("Cell ",i," - ",sep="")
-        #print(paste("220:'",tn,"'",sep=""))
-        for (j in 1:length(iv.names)) {
-          if (j > 1) {
-            tn <- paste(tn, ", ",sep="") 
-            #print(paste("224:'",tn,"'",sep=""))
-          }
-          tn <- paste(tn
-                      ,iv.names[j]
-                      ," "
-                      ,d.final[i,j]
-                      ,sep="")
-          #print(paste("230:'",tn,"'",sep=""))
-        }
-        d.final[["cell.code"]][i]<-tn
+  
+    #Process statistics selections
+    d.summary<-aggregate(fx, data = data, na.action = na.pass, FUN = function(x) {
+      #agg<-numeric(0)
+      clean_x <- na.omit(x)
+  
+      argss$x <- x
+      argss$clean_x <- clean_x
+      argss$agg <- numeric(0)
+  
+      if (is.factor(clean_x) | ! is.numeric(clean_x)) {
+        agg <- do.call(.summary.impl.factor, list(argss))
+      } else {
+        agg <- do.call(.summary.impl.numeric, list(argss))
       }
       
-      d.final[["cell.code"]]<-factor(d.final[["cell.code"]], levels=d.final[["cell.code"]])
-    }
-  } else {
-    #d.final <- as.data.frame(d.final[1,2])
+      agg
+    })
     
-    for (i in ncol(d.final):1) {
-      d.final[[i+1]]<-d.final[[i]]
-      names(d.final)[i+1]<-names(d.final)[i]
+    #print(str(d.summary))
+    
+    #TODO - better way to post process :(
+    #Post-process to correct format 
+    #   - multi-return aggregate puts a matrix into data frame :/
+    if (length(iv.names) > 0) {
+      d.final<-as.data.frame(d.summary[,1:length(iv.names)])
+      names(d.final)[1:length(iv.names)]<-iv.names
+      d.final<-cbind(d.final,d.summary[[(length(iv.names)+1)]])
+      names(d.final)[(length(iv.names)+1):ncol(d.final)]<-dimnames(d.summary[[(length(iv.names)+1)]])[[2]]
+    } else {
+      d.final <- as.data.frame(d.summary[[response]])
     }
-    names(d.final)[1]<-"dv.name"
-    d.final[1,1]<-response
-  }
+    
+    #d.final<-as.data.frame(d.final[[1]])
+    
+    #Final post-processing - delete/reformat a few columns
+    # - shape testing - if eq 1 and all gp size, then delete
+    
+    delete_condition <- all(d.samplesizes < 20)
+    if (stat.skew.test == 1 & delete_condition) {
+      d.final[["g3.skewness"]] <- NULL
+      d.final[["g3test.p"]] <- NULL
+      d.final[["g3test.d"]] <- NULL
+    }
+    
+    if (stat.kurt.test == 1 & delete_condition) {
+      d.final[["g4.kurtosis"]] <- NULL
+      d.final[["g4test.p"]] <- NULL
+      d.final[["g4test.d"]] <- NULL
+    }
+    
+    delete_condition <- all(d.samplesizes >= 25)
+    if (stat.ad.test == 1 & delete_condition) {
+      d.final[["adtest.AA"]] <- NULL
+      d.final[["adtest.p"]] <- NULL
+      d.final[["adtest.d"]] <- NULL
+    }
+    
+    if (stat.sw.test == 1 & delete_condition) {
+      d.final[["swtest.W"]] <- NULL
+      d.final[["swtest.p"]] <- NULL
+      d.final[["swtest.d"]] <- NULL
+    }
   
-  #Return summary data frame
-  d.final
+    if (is.na(stat.shape.rejection.conf.level)) {
+      d.final[["g3test.d"]] <- NULL
+      d.final[["g4test.d"]] <- NULL
+      d.final[["adtest.d"]] <- NULL
+      d.final[["swtest.d"]] <- NULL
+      d.final[["pois.test.d"]] <- NULL
+    }
+  
+    #Final formatting of shape decision
+    for (i in c("g3test.d", "g4test.d", "adtest.d", "swtest.d", "pois.test.d", "sw.exp.test.d")) {
+      if (any(names(d.final) == i)) {
+        d.final[[i]] <- ifelse(d.final[[i]] == 1, stat.shape.text.rej, stat.shape.text.ftr)
+        d.final[[i]] <- factor(d.final[[i]], levels=c(stat.shape.text.ftr, stat.shape.text.rej))
+      }
+    }
+      
+    if (length(iv.names) > 0) {
+      if (length(iv.names) > 1) {
+        # Sort by independent variables
+        d.final<-d.final[do.call(order,d.final[,1:length(iv.names)]),]
+        rownames(d.final)<-1:nrow(d.final)
+      } else {
+        d.final<-d.final[order(d.final[,1]),]
+        rownames(d.final)<-1:nrow(d.final)
+      }
+      
+      # Perform formatting stuff...
+      if (format.generate.cellcodes) {
+        d.final<-cbind(d.final[,1:length(iv.names)],cell.code=rep(NA,nrow(d.final)),d.final[,(length(iv.names)+1):ncol(d.final)])
+        names(d.final)[1:length(iv.names)]<-iv.names
+        for (i in 1:nrow(d.final)) {
+          tn<-paste("Cell ",i," - ",sep="")
+          #print(paste("220:'",tn,"'",sep=""))
+          for (j in 1:length(iv.names)) {
+            if (j > 1) {
+              tn <- paste(tn, ", ",sep="") 
+              #print(paste("224:'",tn,"'",sep=""))
+            }
+            tn <- paste(tn
+                        ,iv.names[j]
+                        ," "
+                        ,d.final[i,j]
+                        ,sep="")
+            #print(paste("230:'",tn,"'",sep=""))
+          }
+          d.final[["cell.code"]][i]<-tn
+        }
+        
+        d.final[["cell.code"]]<-factor(d.final[["cell.code"]], levels=d.final[["cell.code"]])
+      }
+    } else {
+      #d.final <- as.data.frame(d.final[1,2])
+      
+      for (i in ncol(d.final):1) {
+        d.final[[i+1]]<-d.final[[i]]
+        names(d.final)[i+1]<-names(d.final)[i]
+      }
+      names(d.final)[1]<-"dv.name"
+      d.final[1,1]<-response
+    }
+    
+    #Return summary data frame
+    d.final
+  
+  } else {
+    #Vector input
+    data <- as.data.frame(fx)
+    
+    args.1      <- argss
+    args.1$data <- data
+    args.1$fx   <- NULL
+    args.1$summary.default <- summary.impl
+    
+    ret <- do.call(summary.all.variables, args.1)
+    
+    ret
+  }
 }
-
 
 
 
