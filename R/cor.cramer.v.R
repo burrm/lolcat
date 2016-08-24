@@ -26,7 +26,7 @@ cor.cramer.phi <- function(x) {
   
     
   retval<-list(data.name   = "data",
-               statistic   = c(phi = phi), 
+               statistic   = c(V = phi), 
                estimate    = c( chi.square = rmnames(chi.sq.result$statistic)
                                 ,chi.square.p = rmnames(chi.sq.result$p.value)
                                ),
@@ -35,14 +35,14 @@ cor.cramer.phi <- function(x) {
                null.value  = 0,
                alternative = "two.sided",
                method      = ifelse(fisher.exact 
-                                    ,"Cramer's Phi and Fisher Exact Test"
-                                    ,"Cramer's Phi and Pearson Chi-Squared"
+                                    ,"Cramer's V and Fisher Exact Test"
+                                    ,"Cramer's V and Pearson Chi-Squared"
                                     )#,
                #                 conf.int    = c(NA,NA)
   )
   
-  names(retval$null.value) <- "phi"
-  names(retval$parameter) <- "null hypothesis phi"
+  names(retval$null.value) <- "V"
+  names(retval$parameter) <- "null hypothesis V"
 
   class(retval)<-"htest"
   retval
