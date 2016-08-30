@@ -2,7 +2,7 @@ variability.test.twosample.independent.siegel.tukey <- function(
   g1
   ,g2
   ,alternative = c("two.sided","less","greater")
-  ,location.adjust = center.median #center function or NULL
+  ,location.adjust = NULL #NULL or centering function, typically center.median
 ) {
   if (!is.null(location.adjust)) {
     g1 <- location.adjust(g1)
