@@ -75,7 +75,15 @@ cor.pearson.r.onesample.simple <- function(
                                r.squared = r^2,
                                z_r.lowerci = z_r.lowerci,
                                z_r = z_r,
-                               z_r.upperci = z_r.upperci
+                               z_r.upperci = z_r.upperci,
+                               power = power.cor.pearson.r.onesample(
+                                 sample.size = n,
+                                 null.hypothesis.correlation = null.hypothesis.rho,
+                                 alternative.hypothesis.correlation = r,
+                                 alpha = 1-conf.level,
+                                 alternative = alternative,
+                                 details = F
+                               )
                                ),
                parameter   = null.hypothesis.rho,
                p.value     = p.value,
