@@ -14,6 +14,7 @@ hist.grouped <- function(x
                                          ,interval.size = interval.size
                                          ,width.consider = width.consider
                                          ,anchor.value = anchor.value
+                                         ,right = right
                                          ,na.rm = T)
   
   breaks.tentative <- dist.grouped$min
