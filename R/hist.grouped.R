@@ -17,7 +17,7 @@ hist.grouped <- function(x
                                          ,right = right
                                          ,na.rm = T)
   
-  breaks.tentative <- dist.grouped$min
+  breaks.tentative <- dist.grouped$max
   resolution <- dist.grouped$min[2] - dist.grouped$min[1]
   
   breaks.tentative <- seq(min(breaks.tentative)-resolution, max(breaks.tentative)+resolution,resolution)
@@ -31,11 +31,11 @@ hist.grouped <- function(x
   if (length(argext[["xaxt"]]) && "n" == argext[["xaxt"]]) {
     
   } else {
-    at <-if (right) {
+    at <-#if (right) {
             breaks.tentative-.5*resolution
-          } else {
-            breaks.tentative+.5*resolution
-          }
+          #} else {
+          #  breaks.tentative+.5*resolution
+          #}
 
     axis(1
          ,at=at
