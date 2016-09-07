@@ -1,10 +1,12 @@
 frequency.dist.grouped <- function(
                        x
                        ,interval.size = NA
+                       ,anchor.value  = NA
                        ,width.consider = lolcat.default.width.consider 
                        ,na.rm = T
                        ,clean.leading.zeroes = T
                        ,clean.trailing.zeroes = T
+                       ,right = F
 ) {
   x <- na.omit(x)
   x <- x[is.finite(x)]
@@ -20,9 +22,24 @@ frequency.dist.grouped <- function(
     x.min <- x.min - min(1, interval.size)
   }
   
+  if (!is.na(anchor.value)) {
+
+    x.min.orig <- x.min
+
+    half.width <- x.min - (2*x.min-interval.size)/2
+      
+    x.min <- anchor.value - half.width
+      
+    #TODO: Make more efficient someday
+    while(x.min >= x.min.orig) {
+      x.min <- x.min - interval.size
+    }
+    
+  }
+  
   bins <- seq(x.min, max(x)+interval.size+1, interval.size)
   
-  x.cut <- cut(x, bins, right = F)
+  x.cut <- cut(x, bins, right = right)
   
   tbl.x <- table(x.cut, useNA = ifelse(na.rm, "no", "ifany"))
   
@@ -33,6 +50,7 @@ frequency.dist.grouped <- function(
   
   labels.split <- strsplit(labels, ",")
   
+  if (!right) {
   d$min <- unlist(lapply(labels.split, FUN = function(x) {
     as.numeric(sub("[","", x[1],fixed = T))
   }))
@@ -41,11 +59,23 @@ frequency.dist.grouped <- function(
     as.numeric(sub(")","", x[2],fixed = T))
   }))
 
-  d <- data.frame(l = rep("[", nrow(d)) 
+  } else {
+
+    d$min <- unlist(lapply(labels.split, FUN = function(x) {
+      as.numeric(sub("(","", x[1],fixed = T))
+    }))
+      
+    d$max <- unlist(lapply(labels.split, FUN = function(x) {
+      as.numeric(sub("]","", x[2],fixed = T))
+    }))
+    
+  }
+  
+  d <- data.frame(l = rep(ifelse(!right,"[", "("), nrow(d)) 
                   ,min = d$min
                   ,midpoint = (d$min + d$max)/2
                   ,max = d$max
-                  ,u = rep(")", nrow(d))
+                  ,u = rep(ifelse(!right,")", "]"), nrow(d))
                   ,freq = d$freq
                   )
 

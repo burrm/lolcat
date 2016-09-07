@@ -1,10 +1,12 @@
 frequency.polygon.grouped <- function (
   x
   ,interval.size = NA
-  ,width.consider = lolcat.default.width.consider 
+  ,width.consider = lolcat.default.width.consider
+  ,anchor.value = NA
   ,col="blue"
   ,main="Grouped Frequency Polygon"
   ,ylab = "Frequency"
+  ,right = F
   ,call.plot = T
   ,...
 ){
@@ -12,6 +14,8 @@ frequency.polygon.grouped <- function (
   dist.grouped <- frequency.dist.grouped(x
                                          ,interval.size = interval.size
                                          ,width.consider = width.consider
+                                         ,right = right
+                                         ,anchor.value = anchor.value
                                          ,na.rm = T)
   
   resolution <- dist.grouped$min[2] - dist.grouped$min[1]

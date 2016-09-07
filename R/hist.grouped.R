@@ -1,8 +1,11 @@
 hist.grouped <- function(x
                          ,interval.size = NA
-                         ,width.consider = lolcat.default.width.consider 
+                         ,width.consider = lolcat.default.width.consider
+                         ,anchor.value = NA
                          ,col="lightblue"
                          ,main="Grouped Histogram"
+                         ,right=F
+                         ,include.lowest = T
                          ,...) {
   
   argext <- list(...)
@@ -10,6 +13,7 @@ hist.grouped <- function(x
   dist.grouped <- frequency.dist.grouped(x
                                          ,interval.size = interval.size
                                          ,width.consider = width.consider
+                                         ,anchor.value = anchor.value
                                          ,na.rm = T)
   
   breaks.tentative <- dist.grouped$min
@@ -21,12 +25,12 @@ hist.grouped <- function(x
   labels.tentative <-c(labels.tentative[1] - resolution, labels.tentative)
   labels.tentative <-c(labels.tentative, labels.tentative[length(labels.tentative)] + resolution)
   
-  ret <- hist(x, col=col, breaks= breaks.tentative, main=main, xaxt="n", ...)
+  ret <- hist(x, col=col, breaks= breaks.tentative, main=main, xaxt="n", right=right, include.lowest = include.lowest, ...)
   
   if (length(argext[["xaxt"]]) && "n" == argext[["xaxt"]]) {
     
   } else {
-    axis(1,at=breaks.tentative-.5*resolution, labels = labels.tentative)
+    axis(1,at=breaks.tentative+.5*resolution, labels = labels.tentative)
   }
   
   invisible(ret)
