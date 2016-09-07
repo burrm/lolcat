@@ -70,7 +70,7 @@ summary.impl <- function(fx
     fx.terms<-terms(fx)
     
     response<-all.vars(fx)[attributes(fx.terms)$response]
-    iv.names<-attributes(terms(fx))$term.labels
+    iv.names<-attributes(terms(fx))$term.labels[which(attributes(fx.terms)$order == 1)]
     
     d.samplesizes<-as.integer(aggregate(fx,data = data, function(x) {length(na.omit(x))})[,(length(iv.names)+1)])
     
