@@ -31,7 +31,15 @@ hist.grouped <- function(x
   if (length(argext[["xaxt"]]) && "n" == argext[["xaxt"]]) {
     
   } else {
-    axis(1,at=breaks.tentative+.5*resolution, labels = labels.tentative)
+    at <-if (right) {
+            breaks.tentative-.5*resolution
+          } else {
+            breaks.tentative+.5*resolution
+          }
+
+    axis(1
+         ,at=at
+         , labels = labels.tentative)
   }
   
   invisible(ret)
