@@ -1,4 +1,4 @@
-compute.group.variables <- function(
+compute.group.variable <- function(
    fx          #Formula defining groups
   ,data = NULL #data frame
   ,FUN = function(x) {
