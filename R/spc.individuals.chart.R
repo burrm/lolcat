@@ -1,10 +1,10 @@
 spc.individuals.chart<-function(x
                                 #,set = rep(1,length(x))
-                                ,xchart.center.line.fn = spc.center.line.mean
-                                ,mrchart.center.line.fn = spc.center.line.mean.moving.range
+                                ,xchart.center.line.fn = spc.ungrouped.center.line.mean
+                                ,mrchart.center.line.fn = spc.ungrouped.center.line.mean.moving.range
 
-                                ,xchart.control.limits.fn = spc.control.limits.mean.moving.range
-                                ,mrchart.control.limits.fn = spc.control.limits.dispersion.mean.moving.range
+                                ,xchart.control.limits.fn = spc.ungrouped.control.limits.mean.moving.range
+                                ,mrchart.control.limits.fn = spc.ungrouped.control.limits.dispersion.mean.moving.range
 
                                 ,n.sigma = 3
                                 
@@ -35,12 +35,14 @@ spc.individuals.chart<-function(x
                                 ,combine.charts   = c("combine.charts", "separate", "leave.par.alone")
                                 
                                 ,...) {
-  par.backup <- par()
+  par.backup <- par(no.readonly = T)
 
   if (combine.charts[1] == "leave.par.alone") {
     
   } else if (display.xchart & display.mrchart & combine.charts[1] == "combine.charts") {
     par(mfrow=c(2,1))
+    par(mar=c(4,4,2,2))
+    par(cex.main=1)
   } else {
     par(mfrow=c(1,1))
   }
