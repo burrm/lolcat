@@ -36,10 +36,11 @@ summary.impl <- function(fx
                          ,stat.shape.rejection.conf.level = NA #0 < p < 1
                          ,stat.shape.text.rej = "Reject"
                          ,stat.shape.text.ftr = ""
-                         ,stat.ad.test   = 0  # 0 = off, 1 = if n<25, 2 = on
-                         ,stat.sw.test   = 0  # 0 = off, 1 = if n<25, 2 = on
-                         ,stat.skew.test = 0  # 0 = off, 1 = if n >= 20, 2 = on
-                         ,stat.kurt.test = 0  # 0 = off, 1 = if n >= 20, 2 = on
+                         ,stat.ad.test   = 0           # 0 = off, 1 = if n<25, 2 = on
+                         ,stat.sw.test   = 0           # 0 = off, 1 = if n<25, 2 = on
+                         ,stat.skew.test = 0           # 0 = off, 1 = if n >= 20, 2 = on
+                         ,stat.kurt.test = 0           # 0 = off, 1 = if n >= 20, 2 = on
+                         ,stat.dago.test = 0           # 0 = off, 1 = if n >= 20, 2 = on
                          ,stat.pois.dist.test = F
                          ,stat.sw.exp.test = F
 
@@ -63,6 +64,9 @@ summary.impl <- function(fx
                          
                          ,...
 ) {
+  oldw <- getOption("warn")
+  options(warn = -1)
+  
   argss <- c(as.list(environment()), list(...))
   
   if (inherits(fx, "formula")) {
@@ -71,6 +75,8 @@ summary.impl <- function(fx
     
     response<-all.vars(fx)[attributes(fx.terms)$response]
     iv.names<-attributes(terms(fx))$term.labels[which(attributes(fx.terms)$order == 1)]
+    
+    iv.names <- unique(iv.names)
     
     d.samplesizes<-as.integer(aggregate(fx,data = data, function(x) {length(na.omit(x))})[,(length(iv.names)+1)])
     
@@ -123,6 +129,12 @@ summary.impl <- function(fx
       d.final[["g4.kurtosis"]] <- NULL
       d.final[["g4test.p"]] <- NULL
       d.final[["g4test.d"]] <- NULL
+    }
+    
+    if (stat.dago.test == 1 & delete_condition) {
+      d.final[["dago.chi.sq"]] <- NULL
+      d.final[["dago.p"]] <- NULL
+      d.final[["dago.d"]] <- NULL
     }
     
     delete_condition <- all(d.samplesizes >= 25)
@@ -198,6 +210,8 @@ summary.impl <- function(fx
       names(d.final)[1]<-"dv.name"
       d.final[1,1]<-response
     }
+   
+    options(warn = oldw)
     
     #Return summary data frame
     d.final
@@ -212,6 +226,8 @@ summary.impl <- function(fx
     args.1$summary.default <- summary.impl
     
     ret <- do.call(summary.all.variables, args.1)
+    
+    options(warn = oldw)
     
     ret
   }
@@ -340,6 +356,17 @@ summary.impl <- function(fx
     agg<-c(agg,g4.kurtosis = NA)
     agg<-c(agg,g4test.p  = NA)
     agg<-c(agg,g4test.d  = NA)
+  }
+  
+  if (stat.dago.test > 0 & saved.n > 7) {
+    t.res <- dagostino.normality.omnibus.test(clean_x)
+    agg<-c(agg,dago.chi.sq  = rmnames(t.res$statistic))
+    agg<-c(agg,dago.p  = t.res$p.value)
+    agg<-c(agg,dago.d  = t.res$p.value < 1-stat.shape.rejection.conf.level)
+  } else if (stat.dago.test > 0) {
+    agg<-c(agg,dago.chi.sq = NA)
+    agg<-c(agg,dago.p  = NA)
+    agg<-c(agg,dago.d  = NA)
   }
   
   if (stat.pois.dist.test & saved.n > 2) {
@@ -530,6 +557,18 @@ summary.impl <- function(fx
     agg<-c(agg,g4test.p  = NA)
     agg<-c(agg,g4test.d  = NA)
   }
+  
+  if (stat.dago.test > 0 & saved.n > 7) {
+    #t.res <- dagostino.normality.omnibus.test(clean_x)
+    agg<-c(agg,dago.chi.sq  = NA)
+    agg<-c(agg,dago.p  = NA)
+    agg<-c(agg,dago.d  = NA)
+  } else if (stat.dago.test > 0) {
+    agg<-c(agg,dago.chi.sq = NA)
+    agg<-c(agg,dago.p  = NA)
+    agg<-c(agg,dago.d  = NA)
+  }
+  
   
   if (stat.pois.dist.test & saved.n > 2) {
     #t.res <- poisson.dist.test(clean_x)
