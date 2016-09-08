@@ -28,6 +28,8 @@ compute.group.variables <- function(
       d
       
     } else {
+      data[[iv.names[i]]] <- factor(data[[iv.names[i]]], exclude = NULL)
+      
       d.next <- split(d, data[[iv.names[i]]][d$case])
         
       ret <- lapply(d.next, function(y) { aggr.fn(y, i+1) })
