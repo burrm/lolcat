@@ -66,7 +66,28 @@ summary.impl <- function(fx
 ) {
   oldw <- getOption("warn")
   options(warn = -1)
+
+  if (is.logical(stat.ad.test)) {
+    stat.ad.test <- ifelse(stat.ad.test, 2, 0)
+  }
+
+  if (is.logical(stat.sw.test)) {
+    stat.sw.test <- ifelse(stat.sw.test, 2, 0)
+  }
   
+  if (is.logical(stat.skew.test)) {
+    stat.skew.test <- ifelse(stat.skew.test, 2, 0)
+  }
+
+  if (is.logical(stat.kurt.test)) {
+    stat.kurt.test <- ifelse(stat.kurt.test, 2, 0)
+  }
+  
+  if (is.logical(stat.dago.test)) {
+    stat.dago.test <- ifelse(stat.dago.test, 2, 0)
+  }
+  
+    
   argss <- c(as.list(environment()), list(...))
   
   if (inherits(fx, "formula")) {
@@ -80,7 +101,7 @@ summary.impl <- function(fx
     
     d.samplesizes<-as.integer(aggregate(fx,data = data, function(x) {length(na.omit(x))})[,(length(iv.names)+1)])
     
-  
+
     #Process statistics selections
     d.summary<-aggregate(fx, data = data, na.action = na.pass, FUN = function(x) {
       #agg<-numeric(0)
