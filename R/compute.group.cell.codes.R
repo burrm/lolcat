@@ -36,7 +36,7 @@ compute.group.cell.codes <- function(
       
       d.next <- split(d, data[[iv.names[i]]][d$case])
 
-      print(str(d.next))
+      #print(str(d.next))
             
       data.list <- list()
       
@@ -44,13 +44,13 @@ compute.group.cell.codes <- function(
       for (iter in 1:length(d.next)) {
         tmp <- aggr.fn(d.next[[iter]], i= i+1, j= next.code)
         
-        print(str(tmp))
+        #print(str(tmp))
         
         next.code <- tmp$next.cell.code
         data.list[[iter]] <- tmp$data
       }
       
-      print(str(data.list))
+      #print(str(data.list))
       
       ret <- do.call("rbind", data.list)
       
