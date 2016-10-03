@@ -7,6 +7,7 @@ process.group.plot <- function(
   ,width.consider = lolcat.default.width.consider 
   ,right = F
   ,hist.correct.label = isTRUE(all.equal(FUN,hist.grouped))
+  #,call.dev.off = T
 ) {
   par.orig <- par(no.readonly = T)
   par(mar=c(2.5,2.5,1,1))
@@ -108,6 +109,8 @@ process.group.plot <- function(
       for (j in unique_col) {
         x <- data[[response]][which(data[[row_var]] == i & data[[col_var]] == j)]
         
+        if (length(x) > 0) {
+        
         FUN(x
             ,xlim=xlim
             ,ylim=ylim
@@ -116,8 +119,15 @@ process.group.plot <- function(
             ,ylab=NULL
             ,anchor.value=anchor.value
             ,interval.size=interval.size
-            ,xaxt="n")
+            ,xaxt="n"
+            ,right = right)
         axis(1, at=at ,labels = labels )
+        
+        } else {
+          plot.new()
+          text(.5,.5, "N/A")
+        }
+        
       }
     }
         
@@ -140,7 +150,9 @@ process.group.plot <- function(
   # text(0.5,0.5,"Third title",cex=2,font=2,srt=90)
   
   
-  
+  #if (call.dev.off) {
+  #  dev.off()
+  #}
   
   par(par.orig)
 }

@@ -18,7 +18,13 @@ hist.grouped <- function(x
                                          ,na.rm = T)
   
   breaks.tentative <- dist.grouped$max
-  resolution <- dist.grouped$min[2] - dist.grouped$min[1]
+  resolution <- if (nrow(dist.grouped) > 1) {
+    dist.grouped$min[2] - dist.grouped$min[1]
+  } else if (!is.na(interval.size)) {
+    interval.size
+  } else {
+    1
+  }
   
   breaks.tentative <- seq(min(breaks.tentative)-resolution, max(breaks.tentative)+resolution,resolution)
   

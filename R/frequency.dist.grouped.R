@@ -11,6 +11,8 @@ frequency.dist.grouped <- function(
   x <- na.omit(x)
   x <- x[is.finite(x)]
   
+  if (length(x) > 0) {
+  
   if (is.na(interval.size)) {
     r <- (max(x)-min(x))/10
     w.r <- abs(width.consider - r)
@@ -107,4 +109,18 @@ frequency.dist.grouped <- function(
   rownames(d) <- 1:nrow(d)
     
   d  
+  } else {
+    d <- data.frame(l = character(0) 
+                    ,min = numeric(0)
+                    ,midpoint = numeric(0)
+                    ,max = numeric(0)
+                    ,u = character(0)
+                    ,freq = numeric(0)
+                    ,d$rel.freq <- numeric(0)
+                    ,d$cum.up <- numeric(0)
+                    ,d$cum.down <- numeric(0)
+    )
+
+    d
+  }
 }
