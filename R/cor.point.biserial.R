@@ -35,6 +35,14 @@ cor.point.biserial <- function(discrete_var,
 
   r_pbi = ((mean.g1 - mean.g2) / sd.all) * sqrt(p1 * p2) * sqrt(n / (n-1))
   
+  #Tate 1954/1955...
+  se.est <- sqrt(  ((r_pbi^2 + 2*p1*(1-p1)*(2-3*r_pbi^2))/(4*n*p1*(1-p1))) * (1-r_pbi^2)^2  )
+  cv      <- qnorm(conf.level+(1-conf.level)/2)
+  ciupper <- r_pbi + cv*se.est
+  cilower <- r_pbi - cv*se.est
+  
+  
+    
   r_test <- cor.pearson.r.onesample.simple(sample.r = r_pbi, 
                                            sample.size = n, 
                                            null.hypothesis.rho = 0, 
@@ -52,13 +60,14 @@ cor.point.biserial <- function(discrete_var,
                                ,sd.g2 = sd.g2 
                                ,sample.size.g2 = n2
                                ,sd.all = sd.all
+                               ,se.est.r_pbi = se.est
                                ),
                parameter   = 0,
                p.value     = r_test$p.value,
                null.value  = 0,
                alternative = alternative[1],
                method      = "Point Biserial Correlation Coefficient",
-               conf.int    = c(NA,NA)
+               conf.int    = c(cilower,ciupper)
   )
   
   #names(retval$estimate) <- c("sample mean")
