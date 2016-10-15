@@ -1,7 +1,7 @@
 chi.square.independence.test.simple <- function(
   observed.frequencies  #Matrix or data frame
   ,expected.frequencies = chi.square.2d.expected.frequencies(observed.frequencies) #Matrix or data frame
-  ,alternative = c("two.sided", "greater", "less")
+  ,alternative = c("greater", "less", "two.sided")
   ,conf.level = .95
 ) {
   chi.square <- sum(((observed.frequencies-expected.frequencies)^2)/expected.frequencies)
