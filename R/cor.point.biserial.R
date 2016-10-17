@@ -2,6 +2,7 @@ cor.point.biserial <- function(discrete_var,
                                continuous_var,
                                alternative = c("two.sided","less","greater"),
                                conf.level = .95,
+                               ordered = FALSE,
                                method = c("pearson.exact"
                                           #,"t.test" #TODO
                                           )
@@ -19,7 +20,10 @@ cor.point.biserial <- function(discrete_var,
     ,stat.mean =  T
     ,stat.sd = 1
     )
-  summary.out <- summary.out[order(summary.out$mean),]
+  
+  if (!ordered) {
+    summary.out <- summary.out[order(summary.out$mean),]
+  }
   
   mean.g1 <- summary.out$mean[2]
   mean.g2 <- summary.out$mean[1]
