@@ -11,83 +11,90 @@ sample.size.mean.t.onesample <- function(effect.size
   
   df <- 1
   
+  alternatives = c("two.sided", "less", "greater")
   
-  if (effect.size > 0 && alternative == "less") {
-    df <- NA
-    n <- NA
-    actual <- NA
-  } else if (effect.size < 0 && alternative == "greater") {
-    df <- NA
-    n <- NA
-    actual <- NA
-  } else {
-    target.power <- 1-beta
-    
-    power <- power.mean.t.onesample(sample.size = df + 1, 
-                                    effect.size = effect.size,
-                                    variance = variance.est,
-                                    alpha=alpha,
-                                    alternative = alternative,
-                                    details=FALSE
-    )
-    n <- df +1
-    actual <- n
-    
-        
-    while (power < target.power & df <= max.iter) {
-      df <- df+1
-      n <- df +1
-      actual <- n
+  if(alternative %in% alternatives) {
+  
+    if (effect.size > 0 && alternative == "less") {
+      df <- NA
+      n <- NA
+      actual <- NA
+    } else if (effect.size < 0 && alternative == "greater") {
+      df <- NA
+      n <- NA
+      actual <- NA
+    } else {
+      target.power <- 1-beta
 
-      power <- power.mean.t.onesample(sample.size = n, 
+      power <- power.mean.t.onesample(sample.size = df + 1, 
                                       effect.size = effect.size,
                                       variance = variance.est,
                                       alpha=alpha,
                                       alternative = alternative,
                                       details=FALSE
       )
-      
-      
-    }
-    
-    
-  }
-  
-    
-  if (power.from.actual) {
-    power <- 1- beta
-  } else {
-    
-  }
-  
-  if (details) {
-    ret <- as.data.frame(list(test="t"
-                       ,type = "one.sample"
-                       ,alternative = alternative[1]
-                       ,sample.size = n
-                       ,actual = actual
-                       ,df = n-1
-                       ,effect.size = effect.size
-                       ,variance = variance.est
-                       ,alpha = alpha
-                       ,conf.level = 1-alpha
-                       ,beta = beta
-                       ,power = power
-    ))
-    
-    # if (include.z) {
-    #   z.res$df <- c(NA)
-    #   ret <-rbind(ret,z.res)
-    #   ret<- ret[2:1,]
-    #   rownames(ret) <- 1:2
-    # }
-    
+      n <- df +1
+      actual <- n
 
-        
-    ret
-  }
+
+      while (power < target.power & df <= max.iter) {
+        df <- df+1
+        n <- df +1
+        actual <- n
+
+        power <- power.mean.t.onesample(sample.size = n, 
+                                        effect.size = effect.size,
+                                        variance = variance.est,
+                                        alpha=alpha,
+                                        alternative = alternative,
+                                        details=FALSE
+        )
+
+
+      }
+
+
+    }
+
+
+    if (power.from.actual) {
+      power <- 1- beta
+    } else {
+
+    }
+
+    if (details) {
+      ret <- as.data.frame(list(test="t"
+                         ,type = "one.sample"
+                         ,alternative = alternative[1]
+                         ,sample.size = n
+                         ,actual = actual
+                         ,df = n-1
+                         ,effect.size = effect.size
+                         ,variance = variance.est
+                         ,alpha = alpha
+                         ,conf.level = 1-alpha
+                         ,beta = beta
+                         ,power = power
+      ))
+
+      # if (include.z) {
+      #   z.res$df <- c(NA)
+      #   ret <-rbind(ret,z.res)
+      #   ret<- ret[2:1,]
+      #   rownames(ret) <- 1:2
+      # }
+
+
+
+      ret
+    }
+    else {
+      n
+    }
+  } 
   else {
-    n
+    cat('Alternative must be \"two.sided\", "less", or "greater"')
   }
 }
 
