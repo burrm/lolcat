@@ -5,7 +5,7 @@ median.test.onesample.signtest.simple <- function(
   ,n.above = 0
   ,null.hypothesis.location = 0
   #,include.ties = F - TODO: Better Tie Behavior...
-  ,alternative = c("two.sided","less","greater")
+  ,alternative = c("greater","two.sided","less")
   ,conf.level = 0.95
   #,location.name = c("median", "mean")
 ) {
