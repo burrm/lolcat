@@ -1,7 +1,7 @@
 median.test.onesample.signtest <- function(
   x
   ,null.hypothesis.location = 0
-  ,alternative = c("greater","two.sided","less")
+  ,alternative = c("two.sided","greater","less")
   ,conf.level = .95
 ) {
   validate.htest.alternative(alternative = alternative)

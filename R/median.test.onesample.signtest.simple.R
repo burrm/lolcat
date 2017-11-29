@@ -1,3 +1,4 @@
+#Pg 325 - single sample median test
 #Sheskin pg 326 - less powerful than Wilcoxon 1 sample test
 median.test.onesample.signtest.simple <- function(
    n.below = 0
@@ -5,7 +6,7 @@ median.test.onesample.signtest.simple <- function(
   ,n.above = 0
   ,null.hypothesis.location = 0
   #,include.ties = F - TODO: Better Tie Behavior...
-  ,alternative = c("greater","two.sided","less")
+  ,alternative = c("two.sided","greater","less")
   ,conf.level = 0.95
   #,location.name = c("median", "mean")
 ) {
