@@ -63,7 +63,9 @@ contrasts.games.howell.kgroups.simple <- function(
   }
 
   
-  retval <- list(list.tests = list.tests
+  retval <- list(
+       data = data.in
+       ,list.tests = list.tests
        ,matrix.p.value = matrix.p.value
        ,matrix.decision = matrix.decision
        ,matrix.ref = matrix.ref
