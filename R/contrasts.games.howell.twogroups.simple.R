@@ -34,7 +34,7 @@ contrasts.games.howell.twogroups.simple <- function(
                   ,nmeans= n.means
                   ,df = df
                   )
-      min(tmp,1-tmp)#*2
+      min(tmp,1-tmp)*2
   
     } else if (alternative[1] == "greater") {
     
