@@ -1,7 +1,7 @@
 frequency.dist.ungrouped <- function(x, na.rm = T) {
   tbl.x <- table(x, useNA = ifelse(na.rm, "no", "ifany"))
   
-  d <- data.frame(count = rmnames(tbl.x))
+  d <- data.frame(value = names(tbl.x), count = rmnames(as.vector(tbl.x)))
   names(d) <- c("value", "freq")
   
   d$value <- as.numeric(levels(d$value)[d$value])

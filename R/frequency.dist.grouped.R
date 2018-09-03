@@ -45,7 +45,7 @@ frequency.dist.grouped <- function(
   
   tbl.x <- table(x.cut, useNA = ifelse(na.rm, "no", "ifany"))
   
-  d <- data.frame(count = rmnames(tbl.x))
+  d <- data.frame(value=names(tbl.x), count = rmnames(as.vector(tbl.x)))
   names(d) <- c("value", "freq")
   
   labels <- as.character(d$value)
