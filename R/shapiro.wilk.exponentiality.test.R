@@ -147,8 +147,10 @@ shapiro.wilk.exponentiality.test <- function(x, alternative = c("two.sided", "le
   
   if (alternative[1] == "two.sided") {
     #See pg 359 for method illustration in Shapiro/Wilk 1972.
-    p.value <- 2*p.value
-  } #else - keep the interpolated table value, see 
+    p.value <- p.value
+  } else { #Per testing 9/2018
+    p.value <- p.value/2
+  }
   
   p.value <- ifelse(p.value < 0, 0, p.value)
   p.value <- ifelse(p.value > 1, 1, p.value)
