@@ -144,12 +144,20 @@ shapiro.wilk.exponentiality.test <- function(x, alternative = c("two.sided", "le
   W <- sample.size*(x.bar-x.min)^2/((sample.size-1)*sse)
   
   p.value <- .shapiro.wilk.exponentiality.fn[[sample.size]](W)
+  gt.50.pct <- W > .shapiro.wilk.exponentiality.table[sample.size, 6]
+
+  p.value <- ifelse(p.value < 0, 0, p.value)
+  p.value <- ifelse(p.value > 1, 1, p.value)
+  
+  if (gt.50.pct) {
+    p.value <- 1-p.value
+  }
   
   if (alternative[1] == "two.sided") {
     #See pg 359 for method illustration in Shapiro/Wilk 1972.
-    p.value <- p.value
-  } else { #Per testing 9/2018
-    p.value <- p.value/2
+    p.value <- 2* p.value
+  } else { 
+    
   }
   
   p.value <- ifelse(p.value < 0, 0, p.value)
