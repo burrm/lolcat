@@ -1,10 +1,10 @@
 table.dist.hypergeometric <- function( 
-  success.count
+  pop.success.count
   ,total.count
   ,sample.size
 ) {
   
-  m <- success.count
+  m <- pop.success.count
   n <- total.count - m
   
   d              <- data.frame(x=0:sample.size)
@@ -13,7 +13,7 @@ table.dist.hypergeometric <- function(
   d$eq.and.below <- phyper(0:sample.size, m = m, n = n, k = sample.size)
   
   rownames(d) <- d$x
-  names(d)[1] <- "success.count"
+  names(d)[1] <- "pop.success.count"
   
   d
 }
