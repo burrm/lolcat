@@ -13,7 +13,7 @@ table.dist.hypergeometric <- function(
   d$eq.and.below <- phyper(0:sample.size, m = m, n = n, k = sample.size)
   
   rownames(d) <- d$x
-  names(d)[1] <- "pop.success.count"
+  names(d)[1] <- "success.count"
   
   d
 }
