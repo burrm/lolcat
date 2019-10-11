@@ -17,13 +17,18 @@ shapiro.wilk.exponentiality.test <- function(x, alternative = c("two.sided", "le
   x.min <- min(x)
   sse <- sum((x-x.bar)^2)
   
+
+  W <- sample.size*(x.bar-x.min)^2/((sample.size-1)*sse)
   
   if (sample.size > 100) {
     sample.size <- 100
-    warn("shapiro.wilk.exponentiality.test should be used for sample sizes 3 to 100")
+    warning("shapiro.wilk.exponentiality.test should be used for sample sizes 3 to 100, sample size 100 used")
   }
-  
-  W <- sample.size*(x.bar-x.min)^2/((sample.size-1)*sse)
+
+  if (sample.size < 3) {
+    sample.size <- 3
+    warning("shapiro.wilk.exponentiality.test should be used for sample sizes 3 to 100, sample size 3 used")
+  }
   
   shapiro.wilk.exponentiality.test.simple(W = W, sample.size = sample.size, alternative = alternative)
 }

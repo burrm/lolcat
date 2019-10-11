@@ -139,7 +139,7 @@ shapiro.wilk.exponentiality.test.simple <- function(W, sample.size, alternative 
   validate.htest.alternative(alternative = alternative)
   
   p.value <- .shapiro.wilk.exponentiality.fn[[sample.size]](W)
-  gt.50.pct <- W > .shapiro.wilk.exponentiality.table[sample.size, 6]
+  gt.50.pct <- W > .shapiro.wilk.exponentiality.table[(sample.size-2), 7]
   
   p.value <- ifelse(p.value < 0, 0, p.value)
   p.value <- ifelse(p.value > 1, 1, p.value)
