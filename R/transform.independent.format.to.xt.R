@@ -15,6 +15,14 @@ transform.independent.format.to.xt <-function(x_row
     
   }
   
+  if (is.factor(x_row)) {
+    x_row <- levels(x_row)[x_row]
+  }
+  
+  if (is.factor(x_col)) {
+    x_col <- levels(x_col)[x_col]
+  }
+  
   unique_x_row <- unique(x_row)
   unique_x_col <- unique(x_col)
   
