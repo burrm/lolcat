@@ -53,3 +53,5 @@ transform.independent.format.to.xt <-function(x_row
 
   ret
 }
+
+transform.individual.format.to.xt <- transform.independent.format.to.xt
