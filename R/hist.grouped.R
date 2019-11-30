@@ -1,12 +1,22 @@
-hist.grouped <- function(x
-                         ,interval.size = NA
-                         ,width.consider = lolcat.default.width.consider
-                         ,anchor.value = NA
-                         ,col="lightblue"
-                         ,main="Grouped Histogram"
-                         ,right=F
-                         ,include.lowest = T
-                         ,...) {
+hist.grouped <- function(
+  x
+  ,interval.size = NA
+  ,width.consider = lolcat.default.width.consider
+  ,anchor.value = NA
+  ,col="lightblue"
+  ,main="Grouped Histogram"
+  ,right=F
+  ,include.lowest = T
+  ,stat.lsl               = NA
+  ,stat.lsl.label         = "LSL"
+  ,stat.target            = NA
+  ,stat.target.label      = "TGT"
+  ,stat.usl               = NA
+  ,stat.usl.label         = "USL"
+  ,after.plot             = function (x, ...) {}
+  ,freq = T
+  ,...
+) {
   
   argext <- list(...)
   
@@ -32,7 +42,7 @@ hist.grouped <- function(x
   labels.tentative <-c(labels.tentative[1] - resolution, labels.tentative)
   labels.tentative <-c(labels.tentative, labels.tentative[length(labels.tentative)] + resolution)
   
-  ret <- hist(x, col=col, breaks= breaks.tentative, main=main, xaxt="n", right=right, include.lowest = include.lowest, ...)
+  ret <- hist(x, col=col, breaks= breaks.tentative, main=main, xaxt="n", right=right, include.lowest = include.lowest, freq = freq, ...)
   
   if (length(argext[["xaxt"]]) && "n" == argext[["xaxt"]]) {
     
@@ -48,5 +58,19 @@ hist.grouped <- function(x
          , labels = labels.tentative)
   }
   
+  if (!is.na(stat.lsl)) {
+    hist.add.spec.line.simple(at = stat.lsl, label = stat.lsl.label)
+  }
+
+  if (!is.na(stat.target)) {
+    hist.add.spec.line.simple(at = stat.target, label = stat.target.label)
+  }
+
+  if (!is.na(stat.usl)) {
+    hist.add.spec.line.simple(at = stat.usl, label = stat.usl.label)
+  }
+
+  after.plot(x, freq = freq, resolution = resolution)
+
   invisible(ret)
 }
