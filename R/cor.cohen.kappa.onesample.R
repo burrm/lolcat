@@ -36,10 +36,24 @@ cor.cohen.kappa.onesample <- function(
     NA
   }
   
+  prop.observed <- observed.frequencies / n
+
+  prop.row.sums <- rowSums(prop.observed)
+  prop.col.sums <- colSums(prop.observed)
+  
+  p.o <- sum(diag(prop.observed))
+  p.c <- sum(prop.row.sums * prop.col.sums) 
+  p.om <- sum(pmin(prop.row.sums, prop.col.sums))
+  k.max <- (p.om - p.c) / (1 - p.c)
+  
+
   retval<-list(data.name   = "agreement contingency table",
                statistic   = z, 
                estimate    = c(kappa = kappa 
                                ,se.kappa = se.kappa
+                               ,kappa.max = k.max
+                               ,p.o = p.o
+                               ,p.c = p.c
                ),
                parameter   = 0,
                p.value     = p.value,
