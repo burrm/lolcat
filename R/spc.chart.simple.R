@@ -8,17 +8,19 @@ spc.chart.simple <- function(
   ,chart1.xlab     = "Time"
   ,chart1.xlim     = c(1,length(chart1.series))
   ,chart1.ylab     = "Criterion Measure"
-  ,chart1.ylim     = c(min(c(chart1.series, chart1.center.line, chart1.control.limits), na.rm = T)
-                      ,max(c(chart1.series, chart1.center.line, chart1.control.limits), na.rm = T)
+  ,chart1.ylim     = c(min(c(chart1.series, chart1.center.line, chart1.control.limits.ucl, chart1.control.limits.lcl), na.rm = T)
+                      ,max(c(chart1.series, chart1.center.line, chart1.control.limits.ucl, chart1.control.limits.lcl), na.rm = T)
                        )
-  ,chart1.col      = c("blue", "orange")
-  ,chart1.line.col = "grey"
-  ,chart1.pch      = c(19,19)
+  ,chart1.col      = ifelse(chart1.is.control.violation, "orange", "blue")
+  ,chart1.line.col = rep("grey",length(x))
+  ,chart1.pch      = ifelse(chart1.is.control.violation, 19, 19)
   ,chart1.is.control.violation = rep(F, length(chart1.series)) #Is control violation
-  ,chart1.center.line = NA
-  ,chart1.center.line.col   = "lightblue"
-  ,chart1.control.limits = c(NA, NA)
-  ,chart1.control.limits.col = c("orange", "orange") #(Lim1, Lim2)
+  ,chart1.center.line = rep(NA,length(x))
+  ,chart1.center.line.col   = rep("lightblue",length(x))
+  ,chart1.control.limits.ucl = rep(NA, length(x))
+  ,chart1.control.limits.ucl.col = rep("orange", length(x))
+  ,chart1.control.limits.lcl = rep(NA, length(x))
+  ,chart1.control.limits.lcl.col = rep("orange", length(x))
   ,chart1.after.plot = function () {} #After chart 1 plot
   
   
@@ -29,17 +31,19 @@ spc.chart.simple <- function(
   ,chart2.xlab      = "Time"
   ,chart2.xlim      = chart1.xlim
   ,chart2.ylab      = "Variability"
-  ,chart2.ylim      = c(min(c(chart2.series, chart2.center.line, chart2.control.limits), na.rm = T)
-                       ,max(c(chart2.series, chart2.center.line, chart2.control.limits), na.rm = T)
+  ,chart2.ylim      = c(min(c(chart2.series, chart2.center.line, chart2.control.limits.ucl, chart2.control.limits.lcl), na.rm = T)
+                       ,max(c(chart2.series, chart2.center.line, chart2.control.limits.ucl, chart2.control.limits.lcl), na.rm = T)
                       )
-  ,chart2.col       = c("blue", "orange")
-  ,chart2.line.col  = "grey"
-  ,chart2.pch       = c(19,19)
+  ,chart2.col       = ifelse(chart2.is.control.violation,"orange","blue")
+  ,chart2.line.col  = rep("grey",length(x))
+  ,chart2.pch       = ifelse(chart2.is.control.violation,19,19)
   ,chart2.is.control.violation = rep(F, length(chart2.series)) #Is control violation
-  ,chart2.center.line = NA
-  ,chart2.center.line.col   = "lightblue"
-  ,chart2.control.limits.col = c("orange", "orange") #(Lim1, Lim2)
-  ,chart2.control.limits = c(NA,NA) 
+  ,chart2.center.line = rep(NA,length(x))
+  ,chart2.center.line.col   = rep("lightblue",length(x))
+  ,chart2.control.limits.ucl = rep(NA, length(x))
+  ,chart2.control.limits.ucl.col = rep("orange", length(x))
+  ,chart2.control.limits.lcl = rep(NA, length(x))
+  ,chart2.control.limits.lcl.col = rep("orange", length(x)) 
   ,chart2.after.plot = function () {} #After chart 2 plot
   
   ,combine.charts   = c("combine.charts", "separate", "leave.par.alone")
@@ -61,6 +65,43 @@ spc.chart.simple <- function(
   
   
   if (chart1.display) {
+    #normalize lengths for chart 1
+    if (length(x) != length(chart1.col)) {
+      chart1.col <- rep_len(chart1.col, length(x))
+    }
+
+    if (length(x) != length(chart1.line.col)) {
+      chart1.line.col <- rep_len(chart1.line.col, length(x))
+    }
+    
+    if (length(x) != length(chart1.center.line)) {
+      chart1.center.line <- rep_len(chart1.center.line, length(x))
+    }
+
+    if (length(x) != length(chart1.center.line.col)) {
+      chart1.center.line.col <- rep_len(chart1.center.line.col, length(x))
+    }
+
+    if (length(x) != length(chart1.pch)) {
+      chart1.pch <- rep_len(chart1.pch, length(x))
+    }
+
+    if (length(x) != length(chart1.control.limits.ucl)) {
+      chart1.control.limits.ucl <- rep_len(chart1.control.limits.ucl, length(x))
+    }
+
+    if (length(x) != length(chart1.control.limits.ucl.col)) {
+      chart1.control.limits.ucl.col <- rep_len(chart1.control.limits.ucl.col, length(x))
+    }
+
+    if (length(x) != length(chart1.control.limits.lcl)) {
+      chart1.control.limits.lcl <- rep_len(chart1.control.limits.lcl, length(x))
+    }
+
+    if (length(x) != length(chart1.control.limits.lcl.col)) {
+      chart1.control.limits.lcl.col <- rep_len(chart1.control.limits.lcl.col, length(x))
+    }
+
     plot(1:length(x), 
          chart1.series, 
          main = chart1.main, 
@@ -73,25 +114,24 @@ spc.chart.simple <- function(
          xaxt="n",
          ...)
     
-    if (!is.na(chart1.center.line)) {
-      abline(h=chart1.center.line, col = chart1.center.line.col)
+    if (any(!is.na(chart1.center.line))) {
+      lines(1:length(x), chart1.center.line, col = chart1.center.line.col)
     }
     
-    for (i in 1:length(chart1.control.limits)) {
-      if (!is.na(chart1.control.limits[i])) {
-        abline(
-          h=chart1.control.limits[i]
-          ,col = chart1.control.limits.col[i]
-        )
-      }
+    if (any(!is.na(chart1.control.limits.ucl))) {
+      lines(1:length(x), chart1.control.limits.ucl, col = chart1.control.limits.ucl.col)     
     }
     
+    if (any(!is.na(chart1.control.limits.lcl))) {
+      lines(1:length(x), chart1.control.limits.lcl, col = chart1.control.limits.lcl.col)     
+    }
+
     axis(1,at=1:length(x),labels = if (is.factor(x)) { levels(x)[x] } else {x})
     
     points(1:length(x)
            ,chart1.series
-           ,col = chart1.col[as.numeric(chart1.is.control.violation)+1]
-           ,pch = chart1.pch[as.numeric(chart1.is.control.violation)+1]
+           ,col = chart1.col
+           ,pch = chart1.pch
            )
     
     chart1.after.plot()
@@ -99,6 +139,44 @@ spc.chart.simple <- function(
    
   
   if (chart2.display) {
+    #normalize lengths for chart 2
+    if (length(x) != length(chart2.col)) {
+      chart2.col <- rep_len(chart2.col, length(x))
+    }
+
+    if (length(x) != length(chart2.line.col)) {
+      chart2.line.col <- rep_len(chart2.line.col, length(x))
+    }
+    
+    if (length(x) != length(chart2.center.line)) {
+      chart2.center.line <- rep_len(chart2.center.line, length(x))
+    }
+
+    if (length(x) != length(chart2.center.line.col)) {
+      chart2.center.line.col <- rep_len(chart2.center.line.col, length(x))
+    }
+
+    if (length(x) != length(chart2.pch)) {
+      chart2.pch <- rep_len(chart2.pch, length(x))
+    }
+
+    if (length(x) != length(chart2.control.limits.ucl)) {
+      chart2.control.limits.ucl <- rep_len(chart2.control.limits.ucl, length(x))
+    }
+
+    if (length(x) != length(chart2.control.limits.ucl.col)) {
+      chart2.control.limits.ucl.col <- rep_len(chart2.control.limits.ucl.col, length(x))
+    }
+
+    if (length(x) != length(chart2.control.limits.lcl)) {
+      chart2.control.limits.lcl <- rep_len(chart2.control.limits.lcl, length(x))
+    }
+
+    if (length(x) != length(chart2.control.limits.lcl.col)) {
+      chart2.control.limits.lcl.col <- rep_len(chart2.control.limits.lcl.col, length(x))
+    }
+
+
     plot(1:length(x), 
          chart2.series, 
          main = chart2.main, 
@@ -111,25 +189,24 @@ spc.chart.simple <- function(
          xaxt="n",
          ...)
     
-    if (!is.na(chart2.center.line)) {
-      abline(h=chart2.center.line, col = chart2.center.line.col)
+    if (any(!is.na(chart2.center.line))) {
+      lines(1:length(x), chart2.center.line, col = chart2.center.line.col)
     }
     
-    for (i in 1:length(chart2.control.limits)) {
-      if (!is.na(chart2.control.limits[i])) {
-        abline(
-          h=chart2.control.limits[i]
-          ,col = chart2.control.limits.col[i]
-        )
-      }
+    if (any(!is.na(chart2.control.limits.ucl))) {
+      lines(1:length(x), chart2.control.limits.ucl, col = chart2.control.limits.ucl.col)     
+    }
+    
+    if (any(!is.na(chart2.control.limits.lcl))) {
+      lines(1:length(x), chart2.control.limits.lcl, col = chart2.control.limits.lcl.col)     
     }
     
     axis(1,at=1:length(x),labels = if (is.factor(x)) { levels(x)[x] } else {x})
     
     points(1:length(x)
            ,chart2.series
-           ,col = chart2.col[as.numeric(chart2.is.control.violation)+1]
-           ,pch = chart2.pch[as.numeric(chart2.is.control.violation)+1]
+           ,col = chart2.col
+           ,pch = chart2.pch
     )
     
     chart2.after.plot()

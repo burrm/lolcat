@@ -1,3 +1,6 @@
 spc.constant.calculation.c2 <- function(sample.size) {
-  sqrt(2/sample.size)*gamma(sample.size/2)/gamma((sample.size-1)/2)
+  sapply(sample.size, FUN = function(i) {
+    sqrt(2/i)*gamma(i/2)/gamma((i-1)/2)
+  })
+
 }

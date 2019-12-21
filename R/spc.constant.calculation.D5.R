@@ -1,29 +1,30 @@
 spc.constant.calculation.D5 <- function(sample.size, n.sigma = 3, negative.as.NA = T) {
-  ret <- NA
-  if (sample.size < 11 & n.sigma == 3) {
-    ret <-  if (sample.size == 2) {
+  sapply(sample.size, FUN = function(i) {
+      ret <- NA
+  if (i < 11 & n.sigma == 3) {
+    ret <-  if (i == 2) {
       NA
-    }else if (sample.size == 3) {
+    }else if (i == 3) {
       NA
-    }else if (sample.size == 4) {
+    }else if (i == 4) {
       NA
-    }else if (sample.size == 5) {
+    }else if (i == 5) {
       NA
-    }else if (sample.size == 6) {
+    }else if (i == 6) {
       NA
-    }else if (sample.size == 7) {
+    }else if (i == 7) {
       0.078
-    }else if (sample.size == 8) {
+    }else if (i == 8) {
       0.139
-    }else if (sample.size == 9) {
+    }else if (i == 9) {
       0.187
-    }else if (sample.size == 10) {
+    }else if (i == 10) {
       0.227
     } 
     
   } else {
   
-  ret <- 1 - n.sigma * (3.07/3) * spc.constant.calculation.d3(sample.size) / spc.constant.calculation.d4(sample.size)
+  ret <- 1 - n.sigma * (3.07/3) * spc.constant.calculation.d3(i) / spc.constant.calculation.d4(i)
   
   }
   if (!is.na(ret)) {
@@ -33,4 +34,6 @@ spc.constant.calculation.D5 <- function(sample.size, n.sigma = 3, negative.as.NA
   }
   
   ret
+  })
+
 }
