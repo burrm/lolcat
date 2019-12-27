@@ -1,10 +1,10 @@
 Package: lolcat
 Type: Package
 Title: Miscellaneous Useful Functions
-Version: 1.1
+Version: 1.2.1
 Date: 2015-09-14
 Author: Mike Burr
-Maintainer: Mike Burr <michael.burr@colorado.edu>
-Description: Miscellaneous statistical functions written/ported by Mike Burr
+Maintainer: Mike Burr <michael.burr@burrandsons.com>
+Description: Statistical tests, statistical process control, power analysis, data transformation, education/visualization tools, and other functions. 
 License: MIT License
 Suggests: testthat
