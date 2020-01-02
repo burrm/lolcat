@@ -18,6 +18,7 @@ spc.controlviolation.evaluate.rules <- function(
     ...
 ) {
     ret <- rep(F, length(chart.series))
+    out <- list()
 
     if (length(control.rules) > 0) {
         #correct lengths
@@ -86,5 +87,5 @@ spc.controlviolation.evaluate.rules <- function(
         }
     }
 
-    ret
+    list(rule.results = out, overall.results = ret)
 }

@@ -36,5 +36,7 @@ spc.controlviolation.nelson.1984.test3.trends.increasing <- function(
     ret<-c(ret[1],ret)
     ret[pmax(1,(which(ret == T)-1))]<-T
     
+    ret[which(is.na(ret))] <- F
+
     ret 
 }

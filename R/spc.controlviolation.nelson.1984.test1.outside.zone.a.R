@@ -31,5 +31,6 @@ spc.controlviolation.nelson.1984.test1.outside.zone.a <- function(
 #        pt
 #    })
 
+    ret[which(is.na(ret))] <- F
     ret 
 }

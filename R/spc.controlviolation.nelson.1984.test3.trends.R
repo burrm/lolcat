@@ -59,5 +59,8 @@ spc.controlviolation.nelson.1984.test3.trends <- function(
       ... 
       )
   
-  ret.1 | ret.2 
+  ret <- ret.1 | ret.2 
+  ret[which(is.na(ret))] <- F
+  ret
+
 }

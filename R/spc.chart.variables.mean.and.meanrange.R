@@ -2,16 +2,9 @@ spc.chart.variables.mean.and.meanrange <- function(
     data, 
     sample, 
     
-    chart1.control.rules = list(
-      outside.limits = spc.controlviolation.nelson.1984.test1.outside.zone.a,
-      runs = spc.controlviolation.nelson.1984.test2.runs,
-      trends = spc.controlviolation.nelson.1984.test3.trends,
-      alternating = spc.controlviolation.nelson.1984.test4.alternating
-    ),
+    chart1.control.rules = spc.rulesets.nelson.1984.test.1.2.3.4(),
 
-    chart2.control.rules = list(
-      outside.limits = spc.controlviolation.nelson.1984.test1.outside.zone.a
-    ),
+    chart2.control.rules = spc.rulesets.outside.limits(),
 
     ...
 ) {

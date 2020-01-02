@@ -37,5 +37,8 @@ spc.controlviolation.nelson.1984.test4.alternating <- function(
     ret <- c(ret, rep(is.run.violation, observed.run.lengths$lengths[i]))
   }
   
+  ret[which(is.na(ret))] <- F
+
   ret    
+
 }
