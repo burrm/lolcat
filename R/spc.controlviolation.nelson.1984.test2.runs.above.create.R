@@ -1,6 +1,8 @@
 spc.controlviolation.nelson.1984.test2.runs.above.create <- function(
     point.count = 9
 ) {
+    p <- point.count
+
     fn <- function(
         chart.series = NA,
 
@@ -16,7 +18,7 @@ spc.controlviolation.nelson.1984.test2.runs.above.create <- function(
         zone.ab.lower = NA,
         zone.bc.lower = NA,
 
-        point.count = point.count,
+        point.count = p,
 
         ...
     ) {

@@ -1,6 +1,8 @@
 spc.controlviolation.nelson.1984.test4.alternating.create <- function(
     point.count = 14
 ) {
+    p <- point.count
+
     fn <- function(
         chart.series = NA,
 
@@ -16,7 +18,7 @@ spc.controlviolation.nelson.1984.test4.alternating.create <- function(
         zone.ab.lower = NA,
         zone.bc.lower = NA,
 
-        point.count = point.count,
+        point.count = p,
 
         ...
     ) {

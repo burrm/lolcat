@@ -2,6 +2,9 @@ spc.controlviolation.nelson.1984.test5.zone.a.create <- function(
     point.count = 2,
     outof = 3
 ) {
+    p <- point.count
+    o <- outof 
+
     fn <- function(
         chart.series = NA,
 
@@ -17,8 +20,8 @@ spc.controlviolation.nelson.1984.test5.zone.a.create <- function(
         zone.ab.lower = NA,
         zone.bc.lower = NA,
 
-        point.count = point.count,
-        outof = outof,
+        point.count = p,
+        outof = o,
 
         ...
     ) {

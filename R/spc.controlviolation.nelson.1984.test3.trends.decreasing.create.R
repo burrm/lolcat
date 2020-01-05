@@ -2,6 +2,9 @@ spc.controlviolation.nelson.1984.test3.trends.decreasing.create <- function(
     point.count = 6,
     strictly.decreasing = T
 ) {
+    p <- point.count
+    s1 <- strictly.decreasing
+
     fn <- function(
         chart.series = NA,
 
@@ -17,8 +20,8 @@ spc.controlviolation.nelson.1984.test3.trends.decreasing.create <- function(
         zone.ab.lower = NA,
         zone.bc.lower = NA,
 
-        point.count = point.count,
-        strictly.decreasing = strictly.decreasing,
+        point.count = p,
+        strictly.decreasing = s1,
         ...
     ) {
       spc.controlviolation.nelson.1984.test3.trends.decreasing(
