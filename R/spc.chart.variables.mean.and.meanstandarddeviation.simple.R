@@ -46,9 +46,11 @@ spc.chart.variables.mean.and.meanstandarddeviation.simple <- function(
 #    print(argg)
 
 ret <- list(
-  description = "Mean and Standard Deviation Chart Information",
-  x.labels = x #label series
-  
+  description = "Mean and Standard Deviation Chart Information"
+  ,parameter.means = means
+  ,parameter.standard.deviations = standard.deviations
+  ,parameter.sample.size = sample.size
+  ,x.labels = x #label series
   ,chart1.series = means   #data series
   ,chart1.main     = chart1.main
   ,chart1.ylab     = chart1.ylab
@@ -106,7 +108,7 @@ ret <- list(
 spc.chart.simple(
   x = x #label series
   
-  ,chart1.series = means   #data series
+  ,chart1.series = ret$chart1.series   #data series
   ,chart1.main     = chart1.main
   ,chart1.ylab     = chart1.ylab
   ,chart1.center.line = chart1.center.line
@@ -114,7 +116,7 @@ spc.chart.simple(
   ,chart1.control.limits.lcl = chart1.control.limits.lcl
   ,chart1.is.control.violation = ret$chart1.is.control.violation$overall.results
 
-  ,chart2.series     = standard.deviations
+  ,chart2.series     = ret$chart2.series
   ,chart2.main       = chart2.main
   ,chart2.ylab       = chart2.ylab
   ,chart2.center.line = chart2.center.line

@@ -9,7 +9,7 @@ spc.chart.variables.individual.and.movingrange.normal.simple <- function(
 
     ,sample.size               = rep(2, length(individuals))
 
-    ,chart1.main               = "Individuals Chart (Normal Distribution)"
+    ,chart1.main               = "Individuals Chart\n(Normal Distribution)"
     ,chart1.ylab               = "Individual"
     ,chart1.center.line        = rep(mean(individuals), length(x))
     ,chart1.control.limits.ucl = chart1.center.line + 2.6587*3*chart2.center.line/3
@@ -47,9 +47,11 @@ spc.chart.variables.individual.and.movingrange.normal.simple <- function(
 #    print(argg)
 
 ret <- list(
-  description = "Individual and Moving Range Chart Information",
-  x.labels = x #label series
-  
+  description = "Individual and Moving Range Chart Information"
+  ,parameter.individuals = individuals
+  ,parameter.movingranges = movingranges
+  ,parameter.sample.size = sample.size
+  ,x.labels = x #label series
   ,chart1.series = individuals   #data series
   ,chart1.main     = chart1.main
   ,chart1.ylab     = chart1.ylab

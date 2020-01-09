@@ -9,7 +9,7 @@ spc.chart.variables.individual.and.movingrange.exponential.simple <- function(
 
     ,sample.size               = rep(2, length(individuals))
 
-    ,chart1.main               = "Individuals Chart (Exponential(0) Distribution)"
+    ,chart1.main               = "Individuals Chart\n(Exponential(0) Distribution)"
     ,chart1.ylab               = "Individual"
     ,chart1.center.line        = rep(mean(individuals), length(x))
     ,chart1.control.limits.ucl = NA #Calculate for NA
@@ -94,10 +94,13 @@ if (is.na(chart1.zone.bc.upper) | is.na(chart1.zone.bc.lower)) {
 
 
 ret <- list(
-  description = "Individual and Moving Range Chart Information",
-  x.labels = x #label series
-  ,distribution.parameters.low = 0
-  ,distribution.parameters.rate = rate
+  description = "Individual and Moving Range Chart Information"
+  ,parameter.low = 0
+  ,parameter.rate = rate
+  ,parameter.individuals = individuals
+  ,parameter.movingranges = movingranges
+  ,parameter.sample.size = sample.size
+  ,x.labels = x #label series
   ,chart1.series = individuals   #data series
   ,chart1.main     = chart1.main
   ,chart1.ylab     = chart1.ylab

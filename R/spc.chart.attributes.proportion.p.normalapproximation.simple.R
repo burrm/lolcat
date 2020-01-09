@@ -46,11 +46,11 @@ chart1.zone.ab.lower <- sapply(rep_len(chart1.zone.ab.lower, length(proportions)
 chart1.zone.bc.lower <- sapply(rep_len(chart1.zone.bc.lower, length(proportions)), FUN = function(x) { ifelse(x > 1 | x < 0, NA, x) })
 
 ret <- list(
-  description = "Proportion (p) Chart Information",
-  x.labels = x #label series
-  
+  description = "Proportion (p) Chart Information"
+  ,x.labels = x #label series
+  ,parameter.proportions = proportions
+  ,parameter.sample.size = sample.size
   ,chart1.series = proportions   #data series
-  ,sample.sizes = sample.size
   ,chart1.main     = chart1.main
   ,chart1.ylab     = chart1.ylab
   ,chart1.center.line = chart1.center.line

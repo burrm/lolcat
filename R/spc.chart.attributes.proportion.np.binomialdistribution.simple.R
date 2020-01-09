@@ -111,11 +111,11 @@ chart1.zone.bc.lower <- rep_len(chart1.zone.bc.lower, length(nonconforming))
 chart1.zone.bc.lower <- fn.clean(chart1.zone.bc.lower)
 
 ret <- list(
-  description = "Proportion (np) Chart Information",
-  x.labels = x #label series
-  
+  description = "Proportion (np) Chart Information"
+  ,parameter.nonconforming = nonconforming
+  ,parameter.sample.size = sample.size
+  ,x.labels = x #label series
   ,chart1.series = nonconforming   #data series
-  ,sample.sizes = sample.size
   ,chart1.main     = chart1.main
   ,chart1.ylab     = chart1.ylab
   ,chart1.center.line = chart1.center.line

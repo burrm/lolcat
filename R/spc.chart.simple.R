@@ -115,15 +115,36 @@ spc.chart.simple <- function(
          ...)
     
     if (any(!is.na(chart1.center.line))) {
-      lines(1:length(x), chart1.center.line, col = chart1.center.line.col)
+      sapply(1:length(x), FUN = function(i) {
+        lines(c(i-.5,i+.5), c(chart1.center.line[i], chart1.center.line[i]), col = chart1.center.line.col[i])
+
+        if (i > 1 & all(!is.na(c(chart1.center.line[i-1], chart1.center.line[i])))) {
+          lines(c(i-.5,i-.5), c(chart1.center.line[i-1], chart1.center.line[i]), col = chart1.center.line.col[i-1])
+        }
+      })
+      #lines(1:length(x), chart1.center.line, col = chart1.center.line.col)
     }
     
     if (any(!is.na(chart1.control.limits.ucl))) {
-      lines(1:length(x), chart1.control.limits.ucl, col = chart1.control.limits.ucl.col)     
+      sapply(1:length(x), FUN = function(i) {
+        lines(c(i-.5,i+.5), c(chart1.control.limits.ucl[i], chart1.control.limits.ucl[i]), col = chart1.control.limits.ucl.col[i])
+
+        if (i > 1 & all(!is.na(c(chart1.control.limits.ucl[i-1], chart1.control.limits.ucl[i])))) {
+          lines(c(i-.5,i-.5), c(chart1.control.limits.ucl[i-1], chart1.control.limits.ucl[i]), col = chart1.control.limits.ucl.col[i-1])
+        }
+      })
+      #lines(1:length(x), chart1.control.limits.ucl, col = chart1.control.limits.ucl.col, type="S")     
     }
     
     if (any(!is.na(chart1.control.limits.lcl))) {
-      lines(1:length(x), chart1.control.limits.lcl, col = chart1.control.limits.lcl.col)     
+      sapply(1:length(x), FUN = function(i) {
+        lines(c(i-.5,i+.5), c(chart1.control.limits.lcl[i], chart1.control.limits.lcl[i]), col = chart1.control.limits.lcl.col[i])
+      
+        if (i > 1 & all(!is.na(c(chart1.control.limits.lcl[i-1], chart1.control.limits.lcl[i])))) {
+          lines(c(i-.5,i-.5), c(chart1.control.limits.lcl[i-1], chart1.control.limits.lcl[i]), col = chart1.control.limits.lcl.col[i-1])
+        }
+      })
+      #lines(1:length(x), chart1.control.limits.lcl, col = chart1.control.limits.lcl.col, type="S")     
     }
 
     axis(1,at=1:length(x),labels = if (is.factor(x)) { levels(x)[x] } else {x})
@@ -189,16 +210,38 @@ spc.chart.simple <- function(
          xaxt="n",
          ...)
     
+    
     if (any(!is.na(chart2.center.line))) {
-      lines(1:length(x), chart2.center.line, col = chart2.center.line.col)
+      sapply(1:length(x), FUN = function(i) {
+        lines(c(i-.5,i+.5), c(chart2.center.line[i], chart2.center.line[i]), col = chart2.center.line.col[i])
+
+        if (i > 1 & all(!is.na(c(chart2.center.line[i-1], chart2.center.line[i])))) {
+          lines(c(i-.5,i-.5), c(chart2.center.line[i-1], chart2.center.line[i]), col = chart2.center.line.col[i-1])
+        }
+      })
+      #lines(1:length(x), chart2.center.line, col = chart2.center.line.col)
     }
     
     if (any(!is.na(chart2.control.limits.ucl))) {
-      lines(1:length(x), chart2.control.limits.ucl, col = chart2.control.limits.ucl.col)     
+      sapply(1:length(x), FUN = function(i) {
+        lines(c(i-.5,i+.5), c(chart2.control.limits.ucl[i], chart2.control.limits.ucl[i]), col = chart2.control.limits.ucl.col[i])
+
+        if (i > 1 & all(!is.na(c(chart2.control.limits.ucl[i-1], chart2.control.limits.ucl[i])))) {
+          lines(c(i-.5,i-.5), c(chart2.control.limits.ucl[i-1], chart2.control.limits.ucl[i]), col = chart2.control.limits.ucl.col[i-1])
+        }
+      })
+      #lines(1:length(x), chart2.control.limits.ucl, col = chart2.control.limits.ucl.col, type="S")     
     }
     
     if (any(!is.na(chart2.control.limits.lcl))) {
-      lines(1:length(x), chart2.control.limits.lcl, col = chart2.control.limits.lcl.col)     
+      sapply(1:length(x), FUN = function(i) {
+        lines(c(i-.5,i+.5), c(chart2.control.limits.lcl[i], chart2.control.limits.lcl[i]), col = chart2.control.limits.lcl.col[i])
+      
+        if (i > 1 & all(!is.na(c(chart2.control.limits.lcl[i-1], chart2.control.limits.lcl[i])))) {
+          lines(c(i-.5,i-.5), c(chart2.control.limits.lcl[i-1], chart2.control.limits.lcl[i]), col = chart2.control.limits.lcl.col[i-1])
+        }
+      })
+      #lines(1:length(x), chart2.control.limits.lcl, col = chart2.control.limits.lcl.col, type="S")     
     }
     
     axis(1,at=1:length(x),labels = if (is.factor(x)) { levels(x)[x] } else {x})

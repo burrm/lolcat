@@ -25,25 +25,25 @@ spc.controlviolation.zones.classify <- function(
 
     ...
 ) {
-    ret <- sapply(chart.series, FUN = function(x) {
-        if (x > center.line) {
-            if (x > zone.a.upper) {
+    ret <- sapply(1:length(chart.series), FUN = function(i) {
+        if (chart.series[i] > center.line[i]) {
+            if (chart.series[i] > zone.a.upper[i]) {
                 "UU"
-            } else if (x <= zone.a.upper & x > zone.ab.upper) {
+            } else if (chart.series[i] <= zone.a.upper[i] & chart.series[i] > zone.ab.upper[i]) {
                 "UA"
-            } else if (x <= zone.ab.upper & x > zone.bc.upper ) {
+            } else if (chart.series[i] <= zone.ab.upper[i] & chart.series[i] > zone.bc.upper[i]) {
                 "UB"
-            } else if (x <= zone.bc.upper) {
+            } else if (chart.series[i] <= zone.bc.upper[i]) {
                 "UC"
             }
-        } else if (x < center.line) {
-            if (x < zone.a.lower) {
+        } else if (chart.series[i] < center.line[i]) {
+            if (chart.series[i] < zone.a.lower[i]) {
                 "LL"
-            } else if (x >= zone.a.lower & x < zone.ab.lower) {
+            } else if (chart.series[i] >= zone.a.lower[i] & chart.series[i] < zone.ab.lower[i]) {
                 "LA"
-            } else if (x >= zone.ab.lower & x < zone.bc.lower ) {
+            } else if (chart.series[i] >= zone.ab.lower[i] & chart.series[i] < zone.bc.lower[i]) {
                 "LB"
-            } else if (x >= zone.bc.lower) {
+            } else if (chart.series[i] >= zone.bc.lower[i]) {
                 "LC"
             }
         } else {

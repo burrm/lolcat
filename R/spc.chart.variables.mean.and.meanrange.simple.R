@@ -46,9 +46,11 @@ spc.chart.variables.mean.and.meanrange.simple <- function(
 #    print(argg)
 
 ret <- list(
-  description = "Mean and Range Chart Information",
-  x.labels = x #label series
-  
+  description = "Mean and Range Chart Information"
+  ,parameter.means = means
+  ,parameter.rages = ranges
+  ,parameter.sample.size = sample.size
+  ,x.labels = x #label series
   ,chart1.series = means   #data series
   ,chart1.main     = chart1.main
   ,chart1.ylab     = chart1.ylab
