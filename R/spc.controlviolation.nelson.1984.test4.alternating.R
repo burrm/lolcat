@@ -17,28 +17,29 @@ spc.controlviolation.nelson.1984.test4.alternating <- function(
 
     ...
 ) {
-  signdiffs<-sign(diff(chart.series))
-  
-  alt<-logical(length(signdiffs))
-  
-  for (i in 2:length(signdiffs)) {
-    alt[i] <- signdiffs[i-1] != 0 & signdiffs[i-1] == -1*signdiffs[i]
-  }
-  
-  alt[1] <- alt[2]
-  alt<-c(alt[1],alt)
-  
-  observed.run.lengths<-rle(alt)
-  
-  ret<-logical(0)
-  
-  for (i in 1:length(observed.run.lengths$lengths)) {
-    is.run.violation <- observed.run.lengths$lengths[i] >= point.count & observed.run.lengths$values[i]
-    ret <- c(ret, rep(is.run.violation, observed.run.lengths$lengths[i]))
-  }
-  
-  ret[which(is.na(ret))] <- F
+ signdiffs<-sign(diff(chart.series))
+ alt<-rep(F,length(signdiffs))
 
-  ret    
+ alt.count <- 1
+
+
+ for (i in 2:length(signdiffs)) {
+  if (signdiffs[i-1] != 0 & signdiffs[i-1] == -1*signdiffs[i]) {
+    alt.count <- alt.count +1
+    
+    if (alt.count >= (point.count-1)) {
+      alt[(i-(point.count-1)):i] <- T
+    }
+  } else {
+    alt.count <- 1
+  }
+ }
+
+ alt<-c(alt[1],alt)
+
+
+ alt[which(is.na(alt))] <- F
+
+ alt
 
 }

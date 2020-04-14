@@ -18,6 +18,7 @@ spc.controlviolation.nelson.1984.test3.trends.increasing <- function(
 
     ...
 ) {
+    point.count <- point.count - 1 #5 positive differences is 6 points
     ret <- logical(0)
   
     run.lengths <- if (strictly.increasing) {
