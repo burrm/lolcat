@@ -1,7 +1,7 @@
 Package: lolcat
 Type: Package
 Title: Miscellaneous Useful Functions
-Version: 1.2.5
+Version: 1.2.6
 Date: 2015-09-14
 Author: Mike Burr
 Maintainer: Mike Burr <michael.burr@burrandsons.com>
