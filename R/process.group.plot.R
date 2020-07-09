@@ -8,6 +8,9 @@ process.group.plot <- function(
   ,right = F
   ,hist.correct.label = isTRUE(all.equal(FUN,hist.grouped))
   #,call.dev.off = T
+  ,constant.x.axis = T
+  ,constant.y.axis = T
+  
 ) {
   par.orig <- par(no.readonly = T)
   par(mar=c(2.5,2.5,1,1))
