@@ -20,18 +20,13 @@ frequency.polygon.ungrouped <- function (
   
   resolution <- min(diff(unique(sort(dist.ungrouped$value))))
   
-  x <- seq(min(dist.ungrouped$value)-resolution, max(dist.ungrouped$value) + resolution, resolution)
-  y <- sapply(x, FUN = function(x) {
-    idx <- which(dist.ungrouped$value == x)
-    if (length(idx) > 0) {
-      dist.ungrouped$freq[idx[1]]
-    } else {
-      0
-    }
-  })
+  dist.ungrouped <- frequency.dist.grouped(x, anchor.value = (min(x)-resolution), width.consider = resolution)
+  
+  x <- dist.ungrouped$midpoint
+  y <- dist.ungrouped$freq
   
   
-  plot(x,y, type="l", main = main, ylab = ylab, col = col, xaxt = "n", ...)
+  ret <- plot(x,y, type="l", main = main, ylab = ylab, col = col, xaxt = "n", ...)
   axis(1, at=x, labels = x)
 
       if (!is.na(stat.lsl)) {
@@ -47,4 +42,6 @@ frequency.polygon.ungrouped <- function (
     }
 
     after.plot(x, freq = freq, resolution = resolution)
+    
+    invisible(ret)
 }

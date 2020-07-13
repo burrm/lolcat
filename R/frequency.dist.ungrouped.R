@@ -4,7 +4,11 @@ frequency.dist.ungrouped <- function(x, na.rm = T) {
   d <- data.frame(value = names(tbl.x), count = rmnames(as.vector(tbl.x)))
   names(d) <- c("value", "freq")
   
-  d$value <- as.numeric(levels(d$value)[d$value])
+  if (is.factor(d$value)) {
+    d$value <- as.numeric(levels(d$value)[d$value])
+  } else if (is.character(d$value)) {
+    d$value <- as.numeric(d$value)
+  }
   
   total.n <- sum(d$freq)
   

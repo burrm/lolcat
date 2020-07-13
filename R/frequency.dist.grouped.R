@@ -20,8 +20,10 @@ frequency.dist.grouped <- function(
   }
   
   x.min <- floor(min(x)) 
-  while (x.min %% interval.size != 0) {
-    x.min <- x.min - min(1, interval.size)
+  if (interval.size >= 1) {
+    while (x.min %% interval.size != 0) {
+      x.min <- x.min - min(1, interval.size)
+    }
   }
   
   if (!is.na(anchor.value)) {
