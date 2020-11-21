@@ -54,6 +54,8 @@ cor.cohen.kappa.onesample.1960.cohen <- function(
                                ,kappa.max = k.max
                                ,p.o = p.o
                                ,p.c = p.c
+                               ,n.agree = sum.diag.observed
+                               ,n.disagree = (n-sum.diag.observed)
                ),
                parameter   = 0,
                p.value     = p.value,
