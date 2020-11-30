@@ -9,44 +9,52 @@ summary.lolcat.msa.nominal.internalconsistency <- function(object, ...) {
   ret <- data.frame(Description = names(comp), stringsAsFactors = F)
   
   n.agree <- unlist(lapply(comp, FUN = function(o) { 
-      utility.extract.named.value(o$estimate, "n.agree")
+      utility.extract.named.value(o$agreement$estimate, "n.agree")
   }))
   
   n.disagree <- unlist(lapply(comp, FUN = function(o) { 
-    utility.extract.named.value(o$estimate, "n.disagree")
+    utility.extract.named.value(o$agreement$estimate, "n.disagree")
   }))
   
   n <- n.agree + n.disagree
   
   kappa.max <- unlist(lapply(comp, FUN = function(o) { 
-    utility.extract.named.value(o$estimate, "kappa.max")
+    utility.extract.named.value(o$agreement$estimate, "kappa.max")
   }))
 
   kappa <- unlist(lapply(comp, FUN = function(o) { 
-    utility.extract.named.value(o$estimate, "kappa")
+    utility.extract.named.value(o$agreement$estimate, "kappa")
   }))
   
   p.value <-  unlist(lapply(comp, FUN = function(o) { 
-    o$p.value
+    o$agreement$p.value
   }))
 
   p.chance <- unlist(lapply(comp, FUN = function(o) { 
-    utility.extract.named.value(o$estimate, "p.c")
+    utility.extract.named.value(o$agreement$estimate, "p.c")
   }))
   
     
   ci.low <- unlist(lapply(comp, FUN = function(o) { 
-    o$conf.int[1]
+    o$agreement$conf.int[1]
   }))
   
   ci.high <- unlist(lapply(comp, FUN = function(o) { 
-    o$conf.int[2]
+    o$agreement$conf.int[2]
+  }))
+  
+  symmetry.chisq <- unlist(lapply(comp, FUN = function(o) { 
+    o$symmetry$statistic
+  }))
+  
+  symmetry.p.value <- unlist(lapply(comp, FUN = function(o) { 
+    o$symmetry$p.value
   }))
   
   ret$kappa      <- rmnames(kappa)
-  ret$p.value    <- rmnames(p.value)
-  ret$ci.low     <- rmnames(ci.low)
-  ret$ci.high    <- rmnames(ci.high)
+  ret$kappa.p.value    <- rmnames(p.value)
+  ret$kappa.ci.low     <- rmnames(ci.low)
+  ret$kappa.ci.high    <- rmnames(ci.high)
   ret$kappa.max  <- rmnames(kappa.max)
   ret$n          <- rmnames(n)
   ret$n.agree    <- rmnames(n.agree)
@@ -54,6 +62,8 @@ summary.lolcat.msa.nominal.internalconsistency <- function(object, ...) {
   ret$p.agree    <- ret$n.agree / ret$n
   ret$p.disagree <- ret$n.disagree / ret$n
   ret$p.chance   <- rmnames(p.chance)
+  ret$symmetry.chisq <- rmnames(symmetry.chisq)
+  ret$symmetry.p.value <- rmnames(symmetry.p.value)
   
   ret
 }
