@@ -55,16 +55,14 @@ frequency.dist.grouped <- function(
   labels.split <- strsplit(labels, ",")
   
   if (!right) {
-  d$min <- unlist(lapply(labels.split, FUN = function(x) {
-    as.numeric(sub("[","", x[1],fixed = T))
-  }))
+    d$min <- unlist(lapply(labels.split, FUN = function(x) {
+      as.numeric(sub("[","", x[1],fixed = T))
+    }))
   
-  d$max <- unlist(lapply(labels.split, FUN = function(x) {
-    as.numeric(sub(")","", x[2],fixed = T))
-  }))
-
+    d$max <- unlist(lapply(labels.split, FUN = function(x) {
+      as.numeric(sub(")","", x[2],fixed = T))
+    }))
   } else {
-
     d$min <- unlist(lapply(labels.split, FUN = function(x) {
       as.numeric(sub("(","", x[1],fixed = T))
     }))
@@ -72,7 +70,6 @@ frequency.dist.grouped <- function(
     d$max <- unlist(lapply(labels.split, FUN = function(x) {
       as.numeric(sub("]","", x[2],fixed = T))
     }))
-    
   }
   
   d <- data.frame(l = rep(ifelse(!right,"[", "("), nrow(d)) 

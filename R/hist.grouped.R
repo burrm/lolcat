@@ -36,13 +36,49 @@ hist.grouped <- function(
     1
   }
   
-  breaks.tentative <- seq(min(breaks.tentative)-resolution, max(breaks.tentative)+resolution,resolution)
-  
+  breaks.tentative <- #seq(min(breaks.tentative)-resolution, max(breaks.tentative)+resolution,resolution)
+                      c(dist.grouped$max[1]-resolution, dist.grouped$max, dist.grouped$max[length(dist.grouped$max)] + resolution)
+    
   labels.tentative <- dist.grouped$midpoint
-  labels.tentative <-c(labels.tentative[1] - resolution, labels.tentative)
-  labels.tentative <-c(labels.tentative, labels.tentative[length(labels.tentative)] + resolution)
+  labels.tentative <- c(labels.tentative[1] - resolution, labels.tentative)
+  labels.tentative <- c(labels.tentative, labels.tentative[length(labels.tentative)] + resolution)
   
-  ret <- hist(x, col=col, breaks= breaks.tentative, main=main, xaxt="n", right=right, include.lowest = include.lowest, freq = freq, ...)
+  
+  if (!is.na(stat.lsl)) {
+    current.min.bin <- min(breaks.tentative) 
+    current.label   <- min(labels.tentative)
+    
+    while (stat.lsl <= current.min.bin) {
+      current.min.bin <- current.min.bin - resolution
+      current.label <- current.label - resolution
+      
+      breaks.tentative <- c(current.min.bin, breaks.tentative)
+      labels.tentative <- c(current.label, labels.tentative)
+    }
+  }
+  
+  if (!is.na(stat.usl)) {
+    current.max.bin <- max(breaks.tentative) 
+    current.label   <- max(labels.tentative)
+    
+    while (stat.usl >= current.max.bin) {
+      current.max.bin <- current.max.bin + resolution
+      current.label   <- current.label + resolution
+      
+      breaks.tentative <- c(breaks.tentative, current.max.bin)
+      labels.tentative <- c(labels.tentative, current.label)
+    }
+  }
+  
+  
+  ret <- hist(x, 
+              col=col, 
+              breaks= breaks.tentative, 
+              main=main, xaxt="n", 
+              right=right, 
+              include.lowest = include.lowest, 
+              freq = freq, 
+              ...)
   
   if (length(argext[["xaxt"]]) && "n" == argext[["xaxt"]]) {
     
@@ -61,15 +97,16 @@ hist.grouped <- function(
   if (!is.na(stat.lsl)) {
     hist.add.spec.line.simple(at = stat.lsl, label = stat.lsl.label)
   }
-
+  
   if (!is.na(stat.target)) {
     hist.add.spec.line.simple(at = stat.target, label = stat.target.label)
   }
-
+  
   if (!is.na(stat.usl)) {
     hist.add.spec.line.simple(at = stat.usl, label = stat.usl.label)
   }
-
+  
+  
   after.plot(x, freq = freq, resolution = resolution)
 
   invisible(ret)
