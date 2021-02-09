@@ -156,6 +156,7 @@ spc.chart.simple(
   ,chart1.is.control.violation = ret$chart1.is.control.violation$overall.results
 
   ,chart2.display = chart2.display
+  ,...
 )
     
   invisible(ret)

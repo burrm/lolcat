@@ -124,6 +124,7 @@ spc.chart.simple(
   ,chart2.control.limits.lcl = chart2.control.limits.lcl 
   ,chart2.is.control.violation = ret$chart2.is.control.violation$overall.results
 
+  ,...
 )
     
   invisible(ret)

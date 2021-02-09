@@ -13,7 +13,9 @@ spc.chart.simple <- function(
                        )
   ,chart1.col      = ifelse(chart1.is.control.violation, "orange", "blue")
   ,chart1.line.col = rep("grey",length(x))
+  ,chart1.line.lwd = NA
   ,chart1.pch      = ifelse(chart1.is.control.violation, 19, 19)
+  ,chart1.point.cex = NA
   ,chart1.is.control.violation = rep(F, length(chart1.series)) #Is control violation
   ,chart1.center.line = rep(NA,length(x))
   ,chart1.center.line.col   = rep("lightblue",length(x))
@@ -36,7 +38,9 @@ spc.chart.simple <- function(
                       )
   ,chart2.col       = ifelse(chart2.is.control.violation,"orange","blue")
   ,chart2.line.col  = rep("grey",length(x))
+  ,chart2.line.lwd  = NA
   ,chart2.pch       = ifelse(chart2.is.control.violation,19,19)
+  ,chart2.point.cex = NA
   ,chart2.is.control.violation = rep(F, length(chart2.series)) #Is control violation
   ,chart2.center.line = rep(NA,length(x))
   ,chart2.center.line.col   = rep("lightblue",length(x))
@@ -52,6 +56,21 @@ spc.chart.simple <- function(
 ) {
   par.backup <- par(no.readonly = T)
   
+  if (is.na(chart1.line.lwd)) {
+    chart1.line.lwd <- par()$lwd
+  }
+
+  if (is.na(chart1.point.cex)) {
+    chart1.point.cex <- par()$cex
+  }
+
+  if (is.na(chart2.line.lwd)) {
+    chart2.line.lwd <- par()$lwd
+  }
+
+  if (is.na(chart2.point.cex)) {
+    chart2.point.cex <- par()$cex
+  }
 
   if (combine.charts[1] == "leave.par.alone") {
     
@@ -112,14 +131,26 @@ spc.chart.simple <- function(
          type = "l", 
          col = chart1.line.col, 
          xaxt="n",
+         lwd = chart1.line.lwd,
          ...)
     
     if (any(!is.na(chart1.center.line))) {
       sapply(1:length(x), FUN = function(i) {
-        lines(c(i-.5,i+.5), c(chart1.center.line[i], chart1.center.line[i]), col = chart1.center.line.col[i])
+        lines(
+          c(i-.5,i+.5), 
+          c(chart1.center.line[i], 
+          chart1.center.line[i]), 
+          col = chart1.center.line.col[i],
+          lwd = chart1.line.lwd
+        )
 
         if (i > 1 & all(!is.na(c(chart1.center.line[i-1], chart1.center.line[i])))) {
-          lines(c(i-.5,i-.5), c(chart1.center.line[i-1], chart1.center.line[i]), col = chart1.center.line.col[i-1])
+          lines(
+            c(i-.5,i-.5), 
+            c(chart1.center.line[i-1], 
+            chart1.center.line[i]), 
+            col = chart1.center.line.col[i-1],
+            lwd = chart1.line.lwd)
         }
       })
       #lines(1:length(x), chart1.center.line, col = chart1.center.line.col)
@@ -127,10 +158,20 @@ spc.chart.simple <- function(
     
     if (any(!is.na(chart1.control.limits.ucl))) {
       sapply(1:length(x), FUN = function(i) {
-        lines(c(i-.5,i+.5), c(chart1.control.limits.ucl[i], chart1.control.limits.ucl[i]), col = chart1.control.limits.ucl.col[i])
+        lines(
+          c(i-.5,i+.5), 
+          c(chart1.control.limits.ucl[i], chart1.control.limits.ucl[i]), 
+          col = chart1.control.limits.ucl.col[i],
+          lwd = chart1.line.lwd
+        )
 
         if (i > 1 & all(!is.na(c(chart1.control.limits.ucl[i-1], chart1.control.limits.ucl[i])))) {
-          lines(c(i-.5,i-.5), c(chart1.control.limits.ucl[i-1], chart1.control.limits.ucl[i]), col = chart1.control.limits.ucl.col[i-1])
+          lines(
+            c(i-.5,i-.5), 
+            c(chart1.control.limits.ucl[i-1], chart1.control.limits.ucl[i]), 
+            col = chart1.control.limits.ucl.col[i-1],
+            lwd = chart1.line.lwd
+            )
         }
       })
       #lines(1:length(x), chart1.control.limits.ucl, col = chart1.control.limits.ucl.col, type="S")     
@@ -138,10 +179,21 @@ spc.chart.simple <- function(
     
     if (any(!is.na(chart1.control.limits.lcl))) {
       sapply(1:length(x), FUN = function(i) {
-        lines(c(i-.5,i+.5), c(chart1.control.limits.lcl[i], chart1.control.limits.lcl[i]), col = chart1.control.limits.lcl.col[i])
+        lines(
+          c(i-.5,i+.5), 
+          c(chart1.control.limits.lcl[i], 
+          chart1.control.limits.lcl[i]), 
+          col = chart1.control.limits.lcl.col[i],
+          lwd = chart1.line.lwd
+        )
       
         if (i > 1 & all(!is.na(c(chart1.control.limits.lcl[i-1], chart1.control.limits.lcl[i])))) {
-          lines(c(i-.5,i-.5), c(chart1.control.limits.lcl[i-1], chart1.control.limits.lcl[i]), col = chart1.control.limits.lcl.col[i-1])
+          lines(
+            c(i-.5,i-.5), 
+            c(chart1.control.limits.lcl[i-1], chart1.control.limits.lcl[i]), 
+            col = chart1.control.limits.lcl.col[i-1],
+            lwd = chart1.line.lwd
+          )
         }
       })
       #lines(1:length(x), chart1.control.limits.lcl, col = chart1.control.limits.lcl.col, type="S")     
@@ -153,6 +205,7 @@ spc.chart.simple <- function(
            ,chart1.series
            ,col = chart1.col
            ,pch = chart1.pch
+           ,cex = chart1.point.cex
            )
     
     chart1.after.plot()
@@ -208,15 +261,26 @@ spc.chart.simple <- function(
          type = "l", 
          col = chart2.line.col, 
          xaxt="n",
+         lwd = chart2.line.lwd,
          ...)
     
     
     if (any(!is.na(chart2.center.line))) {
       sapply(1:length(x), FUN = function(i) {
-        lines(c(i-.5,i+.5), c(chart2.center.line[i], chart2.center.line[i]), col = chart2.center.line.col[i])
+        lines(
+          c(i-.5,i+.5), 
+          c(chart2.center.line[i], chart2.center.line[i]), 
+          col = chart2.center.line.col[i],
+          lwd = chart2.line.lwd
+          )
 
         if (i > 1 & all(!is.na(c(chart2.center.line[i-1], chart2.center.line[i])))) {
-          lines(c(i-.5,i-.5), c(chart2.center.line[i-1], chart2.center.line[i]), col = chart2.center.line.col[i-1])
+          lines(
+            c(i-.5,i-.5), 
+            c(chart2.center.line[i-1], chart2.center.line[i]), 
+            col = chart2.center.line.col[i-1],
+            lwd = chart2.line.lwd
+            )
         }
       })
       #lines(1:length(x), chart2.center.line, col = chart2.center.line.col)
@@ -224,10 +288,20 @@ spc.chart.simple <- function(
     
     if (any(!is.na(chart2.control.limits.ucl))) {
       sapply(1:length(x), FUN = function(i) {
-        lines(c(i-.5,i+.5), c(chart2.control.limits.ucl[i], chart2.control.limits.ucl[i]), col = chart2.control.limits.ucl.col[i])
+        lines(
+          c(i-.5,i+.5), 
+          c(chart2.control.limits.ucl[i], chart2.control.limits.ucl[i]), 
+          col = chart2.control.limits.ucl.col[i],
+          lwd = chart2.line.lwd
+        )
 
         if (i > 1 & all(!is.na(c(chart2.control.limits.ucl[i-1], chart2.control.limits.ucl[i])))) {
-          lines(c(i-.5,i-.5), c(chart2.control.limits.ucl[i-1], chart2.control.limits.ucl[i]), col = chart2.control.limits.ucl.col[i-1])
+          lines(
+            c(i-.5,i-.5), 
+            c(chart2.control.limits.ucl[i-1], chart2.control.limits.ucl[i]), 
+            col = chart2.control.limits.ucl.col[i-1],
+            lwd = chart2.line.lwd
+            )
         }
       })
       #lines(1:length(x), chart2.control.limits.ucl, col = chart2.control.limits.ucl.col, type="S")     
@@ -235,10 +309,20 @@ spc.chart.simple <- function(
     
     if (any(!is.na(chart2.control.limits.lcl))) {
       sapply(1:length(x), FUN = function(i) {
-        lines(c(i-.5,i+.5), c(chart2.control.limits.lcl[i], chart2.control.limits.lcl[i]), col = chart2.control.limits.lcl.col[i])
+        lines(
+          c(i-.5,i+.5), 
+          c(chart2.control.limits.lcl[i], chart2.control.limits.lcl[i]), 
+          col = chart2.control.limits.lcl.col[i],
+          lwd = chart2.line.lwd
+        )
       
         if (i > 1 & all(!is.na(c(chart2.control.limits.lcl[i-1], chart2.control.limits.lcl[i])))) {
-          lines(c(i-.5,i-.5), c(chart2.control.limits.lcl[i-1], chart2.control.limits.lcl[i]), col = chart2.control.limits.lcl.col[i-1])
+          lines(
+            c(i-.5,i-.5), 
+            c(chart2.control.limits.lcl[i-1], chart2.control.limits.lcl[i]), 
+            col = chart2.control.limits.lcl.col[i-1],
+            lwd = chart2.line.lwd
+          )
         }
       })
       #lines(1:length(x), chart2.control.limits.lcl, col = chart2.control.limits.lcl.col, type="S")     
@@ -250,6 +334,8 @@ spc.chart.simple <- function(
            ,chart2.series
            ,col = chart2.col
            ,pch = chart2.pch
+           ,cex = chart2.point.cex
+
     )
     
     chart2.after.plot()
