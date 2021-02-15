@@ -15,6 +15,7 @@ hist.grouped <- function(
   ,stat.usl.label         = "USL"
   ,after.plot             = function (x, ...) {}
   ,freq = T
+  ,xlim = c(min(na.omit(c(x,stat.lsl,anchor.value))), max(na.omit(c(x,stat.usl,anchor.value))))
   ,...
 ) {
   
@@ -44,31 +45,33 @@ hist.grouped <- function(
   labels.tentative <- c(labels.tentative, labels.tentative[length(labels.tentative)] + resolution)
   
   
-  if (!is.na(stat.lsl)) {
+  #if (!is.na(stat.lsl)) {
+    target.min <- xlim[1]
     current.min.bin <- min(breaks.tentative) 
     current.label   <- min(labels.tentative)
     
-    while (stat.lsl <= current.min.bin) {
+    while (target.min <= current.min.bin) {
       current.min.bin <- current.min.bin - resolution
       current.label <- current.label - resolution
       
       breaks.tentative <- c(current.min.bin, breaks.tentative)
       labels.tentative <- c(current.label, labels.tentative)
     }
-  }
+  #}
   
-  if (!is.na(stat.usl)) {
+  #if (!is.na(stat.usl)) {
+    target.max <- xlim[2]
     current.max.bin <- max(breaks.tentative) 
     current.label   <- max(labels.tentative)
     
-    while (stat.usl >= current.max.bin) {
+    while (target.max >= current.max.bin) {
       current.max.bin <- current.max.bin + resolution
       current.label   <- current.label + resolution
       
       breaks.tentative <- c(breaks.tentative, current.max.bin)
       labels.tentative <- c(labels.tentative, current.label)
     }
-  }
+  #}
   
   
   ret <- hist(x, 
