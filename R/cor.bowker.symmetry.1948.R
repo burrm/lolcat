@@ -16,7 +16,11 @@ cor.bowker.symmetry.1948 <- function(
         n_ij <- observed.frequencies[i,j]
         n_ji <- observed.frequencies[j,i]
         
-        chi.square.statistic <- chi.square.statistic + ( (n_ij - n_ji)^2 / (n_ij + n_ji) )
+        add_to <- ( (n_ij - n_ji)^2 / (n_ij + n_ji) )
+        
+        if (is.finite(add_to)) {
+           chi.square.statistic <- chi.square.statistic + add_to
+        }
       }
     }
   }
