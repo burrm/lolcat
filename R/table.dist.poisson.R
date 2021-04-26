@@ -1,5 +1,8 @@
 table.dist.poisson <- function(lambda = 5
-                               ,include.lambda = max(5, 5/lambda)
+                               ,include.lambda = ifelse(
+                                                 abs(1-lambda)<.3,
+                                                 max(10,10/lambda),
+                                                 max(5, 5/lambda))
 ) {
   n<-ceiling(include.lambda*lambda)
   
