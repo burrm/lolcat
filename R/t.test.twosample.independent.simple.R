@@ -17,6 +17,10 @@ t.test.twosample.independent.simple<-function(sample.mean.g1
   validate.htest.alternative(alternative = alternative)
   if (is.na(var.test.conf.level)) {var.test.conf.level <- conf.level}
   
+  if (!is.character(assume.equal.variances[1]) & is.logical(assume.equal.variances[1])) {
+    assume.equal.variances <- ifelse(assume.equal.variances[1], "yes", "no")
+  }
+
   if (assume.equal.variances[1] == "auto" | var.test.details) {
     var.equality.test.out <- variance.test.twosample.independent.simple(
       sample.variance.g1,

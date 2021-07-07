@@ -4,7 +4,9 @@ spc.capability.cpk.simple <- function(lower.specification
                                       ,process.center
                                       ,n.sigma = 6) {
   
-  min(spc.capability.cpU.simple(
+  cpk <- NA
+  
+  cpk <- min(na.omit(c(spc.capability.cpU.simple(
     upper.specification
     ,process.center
     ,process.variability #Usually Expressed as Variance
@@ -15,7 +17,9 @@ spc.capability.cpk.simple <- function(lower.specification
     ,process.center
     ,process.variability #Usually Expressed as Variance
     ,n.sigma)  
-  )
+  )))
+
+  cpk
 }
 
 spc.capability.cpU.simple <- function (upper.specification

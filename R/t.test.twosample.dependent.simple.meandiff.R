@@ -16,6 +16,11 @@ t.test.twosample.dependent.simple.meandiff<-function(
   ,g2.details = T #Include point estimates and confidence intervals for mean, variance, and sd
 ) {
   validate.htest.alternative(alternative = alternative)
+
+  if (!is.character(assume.equal.variances[1]) & is.logical(assume.equal.variances[1])) {
+    assume.equal.variances <- ifelse(assume.equal.variances[1], "yes", "no")
+  }
+
   if (is.na(var.test.conf.level)) {var.test.conf.level <- conf.level}
   
   if (assume.equal.variances[1] == "auto" | var.test.details) {
