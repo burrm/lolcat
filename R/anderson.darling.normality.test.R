@@ -1,3 +1,12 @@
+#' Anderson-Darling Normality Test  
+#' 
+#' Performs the Anderson Darling normality test on a vector of data. 
+#' Null hypothesis is that normal distribution can beused to model sample. 
+#' Low p-value (rejection) indicates non-normality.
+#'
+#' @param x A vector of values to be tested against the normal distribution
+#'
+#' @return An htest object including results from Anderson Darling normality test.
 anderson.darling.normality.test <-
   function(x
            #,conf.level = .95

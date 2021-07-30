@@ -1,3 +1,14 @@
+#' Kruskal-Wallis One-Way Analysis of Variance By Ranks  
+#' 
+#' Perform Kruskal-Wallis One-Way Analysis of Variance By Ranks (sometimes called Kruskal-Wallis H test).
+#'
+#' @param fx A formula defining groups and a dependent variable
+#' @param data A data frame that corresponds to the formulas in fx.
+#' @param tie.correct Tie correction (T/F) 
+#' @param alternative Alternative hypothesis to be tested
+#' @param conf.level Confidence level for test
+#'
+#' @return htest object containing results of the test. 
 anova.independent.kruskal.wallis <- function(
   fx 
   ,data = NULL 

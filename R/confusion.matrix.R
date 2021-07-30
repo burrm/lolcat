@@ -1,3 +1,14 @@
+#' Create a confusion matrix 
+#' 
+#' Create a confusion matrix from actual and predicted values
+#'
+#' @param actual A vector of values identifying the actual value (default 0,1 or use actual.positive.fn to convert)
+#' @param predicted A vector of values identifying the predicted value (default 0,1 or use predicted.positive.fn to convert)
+#' @param actual.positive.fn A function that takes values present in actual and converts them to 0,1
+#' @param predicted.positive.fn A function that takes values in predicted and converts them to 0,1
+#'
+#' @return A 2x2 matrix showing agreement between actual and predicted. 
+
 confusion.matrix <- function(
   actual
   ,predicted

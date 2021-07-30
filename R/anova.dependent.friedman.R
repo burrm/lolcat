@@ -1,3 +1,15 @@
+#' Friedman Two-Way Analysis of Variance By Ranks  
+#' 
+#' Perform Friedman's Analysis of Variance by Ranks.
+#'
+#' @param fx A formula defining groups and a dependent variable
+#' @param data A data frame that corresponds to the formulas in fx.
+#' @param order.by ordering vector for the data, does not need to be unique
+#' @param tie.correct Tie correction (T/F) 
+#' @param alternative Alternative hypothesis to be tested
+#' @param conf.level Confidence level for test
+#'
+#' @return htest object containing results of the test. 
 anova.dependent.friedman <- function(
   fx           #Grouping Function
   ,data = NULL #Data Frame

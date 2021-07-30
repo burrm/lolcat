@@ -1,6 +1,6 @@
 chi.square.goodness.of.fit.simple <- function(
   observed.frequencies
-  ,expected.frequencies
+  ,expected.frequencies = chi.square.2d.expected.frequencies(observed.frequencies)
   ,alternative = c("two.sided", "greater", "less")
   ,conf.level = .95
 ) {

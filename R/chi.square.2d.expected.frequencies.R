@@ -1,4 +1,13 @@
-chi.square.2d.expected.frequencies <- function(observed.frequencies) {
+#' Expected Cell Frequencies  
+#' 
+#' Calculates expected cell frequencies for a given matrix.
+#'
+#' @param observed.frequencies A matrix of values to use to calculate expected cell frequencies.
+#'
+#' @return A matrix with expected cell frequencies matching the dimensions of observed.frequencies.
+chi.square.2d.expected.frequencies <- function(
+  observed.frequencies
+) {
   ret <- observed.frequencies
 
   nc <- ncol(observed.frequencies)
