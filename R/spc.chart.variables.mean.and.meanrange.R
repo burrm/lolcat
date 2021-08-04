@@ -6,26 +6,46 @@ spc.chart.variables.mean.and.meanrange <- function(
 
     chart2.control.rules = spc.rulesets.outside.limits(),
 
+    stat.lsl = NA,
+    stat.target = NA,
+    stat.usl = NA,
+
     ...
 ) {
-    out <- spc.preprocess.data(
-        data = data
-        ,sample = sample
-        ,stat.n = T
-        ,stat.mean = T
-        ,stat.range = T
+  out <- spc.preprocess.data(
+      data = data
+      ,sample = sample
+      ,stat.n = T
+      ,stat.mean = T
+      ,stat.range = T
+  )
+
+  ret <- spc.chart.variables.mean.and.meanrange.simple(
+    means = out$mean
+    ,ranges = out$range
+    ,sample.size = out$n
+    ,x = out$g
+
+    ,chart1.control.rules = chart1.control.rules
+    ,chart2.control.rules = chart2.control.rules
+
+    ,...
+  )
+
+  if (any(!is.na(c(stat.lsl, stat.target, stat.usl)))) {
+    #calculate capability
+    ret$capability <- spc.capability.summary.normal.simple(
+      stat.lsl = stat.lsl,
+      stat.target = stat.target,
+      stat.usl = stat.usl,
+      process.center = mean(data),
+      process.variability.estimate = (mean(ret$parameter.ranges)/spc.constant.calculation.d2(median(out$n)))^2,
+      process.variability.overall = var(data),
+      process.n = length(data),
+      process.n.upper = ifelse(!is.na(stat.usl), sum(data > stat.usl),NA),
+      process.n.lower = ifelse(!is.na(stat.lsl), sum(data < stat.lsl),NA)
     )
-
-    spc.chart.variables.mean.and.meanrange.simple(
-        means = out$mean
-        ,ranges = out$range
-        ,sample.size = out$n
-        ,x = out$g
-
-        ,chart1.control.rules = chart1.control.rules
-        ,chart2.control.rules = chart2.control.rules
-
-        ,...
-    )
-
+  }
+  
+  ret
 }

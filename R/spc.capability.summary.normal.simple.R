@@ -1,3 +1,21 @@
+#' Calculate Capability Measures - Normally Distributed Data  
+#' 
+#' Calculate capability measures and potential out of specification parts per million. 
+#'
+#' @param stat.lsl Lower specification limit (if applicable)
+#' @param stat.target Target for process 
+#' @param stat.usl Upper specification limit (if applicable)
+#' @param process.center Estimate of process center
+#' @param process.variability.estimate Estimate of process variability, expressed as variance, usually estimated based on within-group variability. 
+#' @param process.variability.overall Estimate of process variability for performance measures, expressed as variance, usually estimated based on overall variability. 
+#' @param process.n.upper Observed count above upper specification limit, used to calculate PPM (parts per million).
+#' @param process.n.lower Observed count below lower specification limit, used to calculate PPM (parts per million).
+#' @param process.n Total count of subjects/objects, used to calculate PPM (parts per million).
+#' @param process.ppm.upper Observed parts per million (PPM) above upper specification limit.
+#' @param process.ppm.lower Observed parts per million (PPM) below lower specification limit.
+#'
+#' @return A data frame with computed measures. 
+
 spc.capability.summary.normal.simple <- function(
   stat.lsl = NA,                     #Lower specification limit
   stat.target = NA,                  #Nominal process center - target median/mean

@@ -40,6 +40,10 @@ spc.chart.variables.individual.and.movingrange.normal.simple <- function(
 
     ,chart2.control.rules      = spc.rulesets.outside.limits()
 
+    ,stat.lsl = NA
+    ,stat.target = NA
+    ,stat.usl = NA
+   
     ,...
 ) {
 
@@ -105,6 +109,21 @@ ret <- list(
     zone.bc.lower      = chart2.zone.bc.lower,
    )
 )
+
+if (any(!is.na(c(stat.lsl, stat.target, stat.usl)))) {
+  #calculate capability
+  ret$capability <- spc.capability.summary.normal.simple(
+    stat.lsl = stat.lsl,
+    stat.target = stat.target,
+    stat.usl = stat.usl,
+    process.center = mean(individuals),
+    process.variability.estimate = (mean(na.omit(movingranges))/spc.constant.calculation.d2(2))^2,
+    process.variability.overall = var(individuals),
+    process.n = length(individuals),
+    process.n.upper = ifelse(!is.na(stat.usl), sum(individuals > stat.usl),NA),
+    process.n.lower = ifelse(!is.na(stat.lsl), sum(individuals < stat.lsl),NA)
+  )
+}
 
 spc.chart.simple(
   x = x #label series
