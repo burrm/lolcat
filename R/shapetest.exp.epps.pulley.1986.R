@@ -1,3 +1,12 @@
+#' Epps-Pulley Exponentiality Test  
+#' 
+#' Calculate Epps-Pulley exponentiality test for a variable. 
+#' Low p-values indicate rejection of assumption of exponential distribution.
+#'
+#' @param x A vector of values
+#'
+#' @return An htest object with results of test. 
+
 shapetest.exp.epps.pulley.1986 <- function(
     x
 ) {
@@ -12,7 +21,7 @@ shapetest.exp.epps.pulley.1986 <- function(
   sample.mean <- mean(x)
 
   x.ep <- exp(-1*x/sample.mean)
-  z       <- sqrt(48*sample.size)*(sum(x.ep)/sample.size - .5)
+  z    <- sqrt(48*sample.size)*(sum(x.ep)/sample.size - .5)
   
   p.value <- if (alternative[1] == "two.sided") {
     tmp<-pnorm(z)

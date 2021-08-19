@@ -8,7 +8,10 @@
 # Author(s): S. S. Shapiro and M. B. Wilk 
 # Source: Technometrics, Vol. 14, No. 2 (May, 1972), pp. 355-370
 
-shapiro.wilk.exponentiality.test <- function(x, alternative = c("two.sided", "less") ) {
+shapiro.wilk.exponentiality.test <- function(
+  x, 
+  alternative = c("two.sided", "less") 
+) {
   validate.htest.alternative(alternative = alternative)
   x <- na.omit(x)
   sample.size <- max(length(x),1)

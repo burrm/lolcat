@@ -1,12 +1,8 @@
 natural.tolerance.exp.low <- function(
     x, 
-    low = NA,
+    low = min(x),
     ...
 ) {
-    if (is.na(low)) {
-        low <- min(x)
-    }
-
     rate <- 1/mean(x - low)
 
     natural.tolerance.exp.low.simple(

@@ -1,3 +1,11 @@
+#' Bowker's Symmetry Test  
+#' 
+#' Calculates Bowker's Symmetry Test test for given contingency table.
+#'
+#' @param observed.frequencies A matrix of observed frequency values to test.
+#' @param alternative The alternative hypothesis to use for the test computation.
+#'
+#' @return The results of the statistical test.
 cor.bowker.symmetry.1948 <- function(
   observed.frequencies #matrix
   ,alternative = c("greater", "two.sided", "less") #Paper identifies it as a one-tail (greater) test

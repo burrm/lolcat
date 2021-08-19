@@ -13,12 +13,13 @@ natural.tolerance <- function(f #quantile function/closure
   if (!details) {
     natural.tolerance
   } else {
-    data.frame(natural.tolerance = natural.tolerance
-               ,lower.limit = lower.limit
-               ,upper.limit = upper.limit
-               ,lower.area = lower.tail
-               ,upper.area = upper.tail 
-               )
+    data.frame(
+      natural.tolerance = natural.tolerance
+      ,lower.limit = lower.limit
+      ,upper.limit = upper.limit
+      ,lower.area = lower.tail
+      ,upper.area = upper.tail 
+     )
   }
   
 }

@@ -1,12 +1,12 @@
 #Zar 1999 version from Sheskin
 #Equivalent to D'Agostino Skewness Test
 
-skewness.test.zar.simple <-
-  function(skewness
-           ,sample.size
-           ,input = c("fisher") #todo - pearson
-           ,conf.level = .95
-           ,alternative = c("two.sided","less","greater")
+skewness.test.zar.simple <- function(
+  skewness
+  ,sample.size
+  ,input = c("fisher") #todo - pearson
+  ,conf.level = .95
+  ,alternative = c("two.sided","less","greater")
   )
   {
     validate.htest.alternative(alternative = alternative)

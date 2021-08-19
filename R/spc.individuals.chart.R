@@ -35,6 +35,7 @@ spc.individuals.chart<-function(x
                                 ,combine.charts   = c("combine.charts", "separate", "leave.par.alone")
                                 
                                 ,...) {
+  warning("Deprecated: Use spc.chart.* functions instead.")
   par.backup <- par(no.readonly = T)
 
   if (combine.charts[1] == "leave.par.alone") {

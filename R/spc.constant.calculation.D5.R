@@ -1,4 +1,17 @@
-spc.constant.calculation.D5 <- function(sample.size, n.sigma = 3, negative.as.NA = T) {
+#' Control Chart Constant D5  
+#' 
+#' Calculate D5 control chart constant from Wheeler's SPC books.
+#'
+#' @param sample.size A scalar or vector of sample sizes
+#' @param n.sigma Scalar - How many standard errors to use (default 3 for most control charts)
+#' @param negative.as.NA Logical - negative values are possible from the calculation, but not useful. Set to false to obtain negative values instead of NA.
+#'
+#' @return A scalar or vector with computed constants. 
+spc.constant.calculation.D5 <- function(
+  sample.size
+  ,n.sigma = 3
+  ,negative.as.NA = T
+) {
   sapply(sample.size, FUN = function(i) {
       ret <- NA
   if (i < 11 & n.sigma == 3) {

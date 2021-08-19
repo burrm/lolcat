@@ -12,7 +12,7 @@ chi.square.independence.test.simple(
 )
 }
 \arguments{
-\item{observed.frequencies}{A matrix of values to the test.}
+\item{observed.frequencies}{A matrix of values to test.}
 
 \item{expected.frequencies}{A matrix of values to compare with observed.frequencies.}
 

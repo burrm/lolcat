@@ -1,3 +1,13 @@
+#' Calculate Subgroup Variable
+#' 
+#' Calculate subgroup variable using an arbitrary function.
+#'
+#' @param fx Formula - defines formula for dependent variable and subgroups ( dv ~ v1 + v2 + ...)
+#' @param data Data Frame - data frame with columns corresponding to variables in fx. 
+#' @param FUN Function - A function(x) where x is subgroup values that returns a vector that is the same length as x. 
+#'
+#' @return A vector the same length as rows in data containing the results of the subgroup calculation. 
+
 compute.group.variable <- function(
    fx          #Formula defining groups
   ,data = NULL #data frame

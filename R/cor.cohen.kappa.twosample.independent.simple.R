@@ -1,3 +1,16 @@
+#' Two-Sample Test for Differences in Cohen's Kappa   
+#' 
+#' Calculate test to determine if two calculations of Cohen's kappa differ statistically.
+#'
+#' @param kappa.g1 Scalar - Kappa from the first calculation.
+#' @param se.kappa.g1 Scalar - Standard error from first calculation of kappa.
+#' @param kappa.g2 Scalar - Kappa from the second calculation.
+#' @param se.kappa.g2 Scalar - Standard error from second calculation of kappa.
+#' @param alternative The alternative hypothesis to use for the test computation.
+#' @param conf.level The confidence level for this test, between 0 and 1.
+#'
+#' @return The results of the statistical test.
+
 cor.cohen.kappa.twosample.independent.simple <- function(
   kappa.g1
   ,se.kappa.g1

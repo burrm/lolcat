@@ -1,3 +1,16 @@
+#' Power - Single Sample Poisson Test  
+#' 
+#' Power calculation utilizes the square root transformation (approximate sample size/power).
+#'
+#' @param sample.size Scalar - sample size 
+#' @param lambda.null.hypothesis Scalar - null hypothesis lambda parameter
+#' @param lambda.alternative.hypothesis Scalar - alternative hypothesis lambda parameter
+#' @param alpha Scalar - Type I error rate
+#' @param alternative Scalar (character) - alternative hypothesis 
+#' @param details Logical - Return calculation details (default) or return only power (details = FALSE)
+#'
+#' @return A data frame with details about the calculation or a single value with power (details = F). 
+
 power.count.poisson.onesample.approximate <- function(
   sample.size
   ,lambda.null.hypothesis

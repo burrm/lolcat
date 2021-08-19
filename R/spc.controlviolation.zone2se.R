@@ -6,6 +6,8 @@ spc.controlviolation.zone2se <- function(x
                                          ,zone2se.upper.bound = center.line + 2*standard.error
                                          ,zone2se.lower.bound = center.line - 2*standard.error
                                          ,...) {
+  warning("Deprecated - will be removed in future release.")
+
   spc.controlviolation.zone1se(x = x 
                                ,zone1se.point.count = zone2se.point.count
                                ,zone1se.out.of = zone2se.out.of

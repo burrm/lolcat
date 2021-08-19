@@ -3,6 +3,19 @@
 # Psychological Bulletin. 1979 86-5. pg 974-977 
 #
 
+#' Cohen's Kappa   
+#' 
+#' Calculate Fleiss' extension of Cohen's Kappa based on Fleiss', Nee's, and Landis' 1979 paper.
+#'
+#' @param subject A vector identifying subjects.
+#' @param rater A vector identifying raters. Not used in this calculation.
+#' @param rating A vector identifying ratings.
+#' @param weight A vector identifying weights.
+#' @param alternative The alternative hypothesis to use for the test computation.
+#' @param conf.level The confidence level for this test, between 0 and 1.
+#'
+#' @return The results of the statistical test.
+
 cor.cohen.kappa.onesample.1979.fleiss <- function(
     subject #
    ,rater  #not used, standardized data input for kappa and Light's G

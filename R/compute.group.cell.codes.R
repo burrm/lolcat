@@ -1,3 +1,14 @@
+#' Calculate Unique Subgroup Codes
+#' 
+#' Calculate subgroup codes. Useful for input into other grouping functions and for performing specific tests (ex. one-way ANOVA on multivariate data).
+#'
+#' @param fx Formula - defines formula for dependent variable and subgroups ( dv ~ v1 + v2 + ...)
+#' @param data Data Frame - data frame with columns corresponding to variables in fx. 
+#' @param start.at Scalar - A number to start numbering at. 
+#'
+#' @return A vector the same length as rows in data containing the results the subgroup code. 
+
+
 compute.group.cell.codes <- function(
    fx          #Formula defining groups
   ,data = NULL #data frame

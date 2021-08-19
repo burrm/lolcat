@@ -1,4 +1,8 @@
-spc.controlviolation.alternating <- function(x, alternating.value.count = 14, ...) {
+spc.controlviolation.alternating <- function(
+  x
+  ,alternating.value.count = 14
+  ,...
+) {
   signdiffs<-sign(diff(x))
   
   alt<-logical(length(signdiffs))

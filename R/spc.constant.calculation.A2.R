@@ -1,3 +1,13 @@
+#' Control Chart Constant A2  
+#' 
+#' Calculate A2 control chart constant from Wheeler's SPC books.
+#'
+#' @param sample.size A scalar or vector of sample sizes
+#' @param n.sigma How many standard errors to use (default 3 for most control charts)
+#'
+#' @return A scalar or vector with computed constants. 
+
+
 # .spc.cached.constant.A2 <- data.frame(
 #   sample.size = 2:15,
 #   A2 = c(1.880, 1.023, 0.729, 0.577,
@@ -6,7 +16,10 @@
 #          0.235, 0.223)
 # )
 
-spc.constant.calculation.A2 <- function(sample.size, n.sigma = 3) {
+spc.constant.calculation.A2 <- function(
+  sample.size, 
+  n.sigma = 3
+) {
   # ret <- NA
   # 
   # idx <- which(.spc.cached.constant.A2$sample.size == sample.size)

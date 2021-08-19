@@ -1,4 +1,5 @@
 spc.controlviolation.run.above <- function(x, run.length=8, center.line = 0, ...) {
+  warning("Deprecated - will be removed in future release.")
   ret <- logical(0)
   
   observed.run.lengths <- rle(x > center.line)
@@ -13,6 +14,7 @@ spc.controlviolation.run.above <- function(x, run.length=8, center.line = 0, ...
 
 
 spc.controlviolation.run.below <- function(x, run.length=8, center.line = 0, ...) {
+  warning("Deprecated - will be removed in future release.")
   ret <- logical(0)
   
   observed.run.lengths <- rle(x < center.line)
@@ -27,6 +29,7 @@ spc.controlviolation.run.below <- function(x, run.length=8, center.line = 0, ...
 
 
 spc.controlviolation.runs <- function(x, run.length=8, center.line = 0, ...) {
+  warning("Deprecated - will be removed in future release.")
   ret.1 <- spc.controlviolation.run.above(x = x, run.length = run.length, center.line = center.line)
   ret.2 <- spc.controlviolation.run.below(x = x, run.length = run.length, center.line = center.line)
   

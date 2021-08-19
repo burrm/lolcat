@@ -1,3 +1,14 @@
+#' Cohen's Kappa   
+#' 
+#' Calculate Cohen's Kappa based on Fleiss' 1969 paper.
+#'
+#' @param observed.frequencies A matrix of values to test.
+#' @param expected.frequencies A matrix of values to compare with observed.frequencies.
+#' @param alternative The alternative hypothesis to use for the test computation.
+#' @param conf.level The confidence level for this test, between 0 and 1.
+#'
+#' @return The results of the statistical test.
+
 cor.cohen.kappa.onesample.1969.fleiss <- function(
   observed.frequencies #matrix
   ,expected.frequencies = chi.square.2d.expected.frequencies(observed.frequencies)

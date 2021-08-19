@@ -1,4 +1,5 @@
 spc.controlviolation.trend.positive <- function(x, trend.length=6, strict = T, ...) {
+  warning("Deprecated - will be removed in future release.")
   ret <- logical(0)
   
   run.lengths <- if (strict) {
@@ -22,6 +23,7 @@ spc.controlviolation.trend.positive <- function(x, trend.length=6, strict = T, .
 
 
 spc.controlviolation.trend.negative <- function(x, trend.length=6, strict = T, ...) {
+  warning("Deprecated - will be removed in future release.")
   ret <- logical(0)
   
   run.lengths <- if (strict) {
@@ -45,6 +47,7 @@ spc.controlviolation.trend.negative <- function(x, trend.length=6, strict = T, .
 }
 
 spc.controlviolation.trends <- function(x, trend.length=6, strict = T, ...) {
+  warning("Deprecated - will be removed in future release.")
   p <- spc.controlviolation.trend.positive(x = x,trend.length = trend.length, strict = strict, ...)
   n <- spc.controlviolation.trend.negative(x = x,trend.length = trend.length, strict = strict, ...)
   n | p

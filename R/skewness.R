@@ -1,3 +1,12 @@
+#' Skewness  
+#' 
+#' Calculate skewness for a variable.
+#'
+#' @param x A vector of values
+#' @param method The method to use to compute skewness. Methods due to Pearson and Fisher are available.
+#'
+#' @return A scalar containing the skewness estimate. 
+
 skewness <- function(x
                      ,method = c("fisher", "pearson")
                      ) {

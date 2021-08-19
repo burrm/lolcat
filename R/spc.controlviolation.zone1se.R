@@ -6,6 +6,7 @@ spc.controlviolation.zone1se <- function(x
                                          ,zone1se.upper.bound = center.line + standard.error
                                          ,zone1se.lower.bound = center.line - standard.error
                                          ,...) {
+  warning("Deprecated - will be removed in future release.")
   out.of.limits <- as.integer(x > zone1se.upper.bound | x < zone1se.lower.bound)
 
   ret<-rep(F,length(x))
