@@ -68,8 +68,8 @@ spc.capability.summary.normal.simple <- function(
 
   natural.tolerance.overall <- 6*sqrt(process.variability.overall)
   stat.pp <- spc.capability.cp.simple(
-    lower.specification = LSL, 
-    upper.specification = USL, 
+    lower.specification = stat.lsl, 
+    upper.specification = stat.usl, 
     process.natural.tolerance = natural.tolerance.overall
   )
 

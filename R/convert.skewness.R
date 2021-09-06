@@ -1,3 +1,13 @@
+#' Convert Skewness  
+#' 
+#' Convert between Fisher's and Pearson's calculations for skewness.
+#'
+#' @param x Scalar/Vector - One or more skewness values to convert.
+#' @param sample.size Scalar/Vector - One or more sample sizes used in calculation of skewness.
+#' @param from Scalar/Character - Identify which skewness calculation is used for input.
+#' @param to Scalar/Character - Identify which skewness calculation is used for output.
+#'
+#' @return Scalar/Vector - Converted skewness values.
 convert.skewness <- function(x
                              ,sample.size
                              ,from = c("fisher", "pearson")

@@ -7,10 +7,10 @@
 dispersion.ADMn1(x)
 }
 \arguments{
-\item{x}{Vector to compute $ADM_{n-1}$ values for.}
+\item{x}{Vector to compute \eqn{ADM_{n-1}}{ADMn-1} values for.}
 }
 \value{
-Vector with results of $ADM_{n-1}$ calculation.
+Vector with results of \eqn{ADM_{n-1}}{ADMn-1} calculation.
 }
 \description{
 Calculates absolute deviation from median (ADM) while removing the midpoint.
