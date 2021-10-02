@@ -1,3 +1,57 @@
+#' Summarize a Data Frame  
+#' 
+#' Calculate various summary measures for subgroups defined in a data frame by defining a dependent variable and one or more grouping variables.
+#'
+#' @param fx Formula - variable to be summarized and grouping variables, usually like "dependent.var ~ group1 + group2 + group3 + ...""
+#' @param data Data Frame - Data frame to be summarized using names specified in fx
+#' @param stat.n Logical - return non-NA counts 
+#' @param stat.total.n Logical - return subgroup counts including NAs 
+#' @param stat.miss Logical - return NA counts in subgoups
+#' @param stat.sum Logical - return subgroup sum 
+#' @param stat.mean Logical - return subgroup mean 
+#' @param stat.var Logical - return subgroup sample variance 
+#' @param stat.sd Logical - return subgroup sample standard deviation 
+#' @param stat.mean.ADA Logical - return subgroup mean absolute deviation 
+#' @param stat.mean.ADM Logical - return subgroup median absolute deviation 
+#' @param stat.mean.ADMn1 Logical - return subgroup median absolute deviation with midpoint removed, see also dispersion.ADMn1 
+#' @param stat.quantiles Vector - return quantiles (input is values between 0 and 1 indicating quantiles, ex .25 for first quartile)
+#' @param stat.five.number Logical - return subgroup five number summary (min, Q1, median, Q3, max)
+#' @param stat.min Logical - return subgroup minimum 
+#' @param stat.q1 Logical - return subgroup 1st quartile (25th percentile) 
+#' @param stat.median Logical - return subgroup median (50th percentile)
+#' @param stat.q3 Logical - return subgroup third quartile (75th percentile) 
+#' @param stat.max Logical - return subgroup maximum 
+#' @param stat.range Logical - return subgroup range (max - min) 
+#' @param stat.iqr Logical - return subgroup interquartile range, abbreviated IQR, defined as (q3 - q1) 
+#' @param stat.psd Logical - return subgroup pseudo standard deviation (IQR / 1.35) 
+#' @param stat.sir Logical - return subgroup semi-interquartile range (IQR / 2) 
+#' @param stat.coefvar Logical - return subgroup coefficient of variation (standard deviation / mean) 
+#' @param stat.distinct Logical - return subgroup count of distinct values excluding NA 
+#' @param stat.distinct.withna Logical - return subgroup count of distinct values including NA as a distinct value 
+#' @param stat.true.mode Logical - return subgroup "true mode", defined as  3*median-2*mean
+#' @param stat.shape.rejection.conf.level Numeric - confidence level for rejection for shape tests
+#' @param stat.shape.text.rej Character - Text to identify rejected null hypothesis for shape test
+#' @param stat.shape.text.ftr Character - Text to identify null hypothesis not rejected for shape test
+#' @param stat.ad.test Numeric - Return Anderson Darling test for normality (0=off, 1=if n<25, 2=on)
+#' @param stat.sw.test Numeric - Return Shapiro Wilk test for normality (0=off, 1=if n<25, 2=on)
+#' @param stat.skew.test Numeric - Return D'Agostino test for skewness (normality) (0=off, 1=if n>=20, 2=on)
+#' @param stat.kurt.test Numeric - Return D'Agostino test for kurtosis (normality) (0=off, 1=if n>=20, 2=on)
+#' @param stat.dago.test Numeric - Return D'Agostino omnibus test for normality (0=off, 1=if n>=20, 2=on)
+#' @param stat.pois.dist.test Logical - Return test for Poisson distribution
+#' @param stat.sw.exp.test Logical - Return Shapiro-Wilk exponentiality test
+#' @param stat.sd.report Vector - return multiples of subgroup standard deviation
+#' @param stat.lsl Numeric - Lower specification limit
+#' @param stat.target Numeric - Target value for distribution
+#' @param stat.usl Numeric - Upper specification limit
+#' @param stat.nonconform.nbelow Logical - Return count of subgroup values below lower specification limit
+#' @param stat.nonconform.nabove Logical - Return count of subgroup values above upper specification limit
+#' @param stat.nonconform.nout Logical - Return count of subgroup values outside of specification limits
+#' @param stat.nonconform.pbelow Logical - Return percentage of subgroup values below lower specification limit
+#' @param stat.nonconform.pabove Logical - Return percentage of subgroup values above upper specification limit
+#' @param stat.nonconform.pout Logical - Return percentage of subgroup values outside of specification limits
+#' @param format.generate.cellcodes Logical - Calculate/return group cell codes 
+#'
+#' @return A data frame with subgroups and selected measures 
 summary.impl <- function(fx 
                          ,data             = NULL
                          ,stat.n           = F
@@ -10,7 +64,7 @@ summary.impl <- function(fx
                          ,stat.mean.ADA    = F
                          ,stat.mean.ADM    = F
                          ,stat.mean.ADMn1  = F
-                         
+
                          #Ordinal things
                          ,stat.quantiles   = NULL # vector of values between 0 and 1
                          ,stat.five.number = F
@@ -294,7 +348,7 @@ summary.impl <- function(fx
   if (stat.sd)      { agg<-c(agg,sd      = saved.sd) } 
   if (stat.mean.ADA) { agg <- c(agg,mean.ADA = mean(dispersion.ADA(clean_x))) }
   if (stat.mean.ADM) { agg <- c(agg,mean.ADM = mean(dispersion.ADM(clean_x))) }
-  if (stat.mean.ADMn1) { agg <- c(agg,mean.ADMn1 = mean(dispersion.ADMn1(clean_x))) }
+  if (stat.mean.ADMn1) { agg <- c(agg,mean.ADMn1 = mean(na.omit(dispersion.ADMn1(clean_x)))) }
   
   #Ordinal Stuff
   if (stat.min | stat.five.number)  { agg<-c(agg,min=min(clean_x)) }

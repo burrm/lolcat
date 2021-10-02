@@ -1,3 +1,11 @@
+#' Confusion Matrix Measures - Accuracy  
+#' 
+#' Calculate Accuracy, defined as (TP+TN)/(P+N), for a given confusion matrix. 
+#'
+#' @param confusion.matrix Matrix - confusion matrix.
+#'
+#' @return A scalar with computed accuracy value. 
+
 confusion.matrix.accuracy <- function(
   confusion.matrix
 ) {

@@ -1,3 +1,23 @@
+#' Confusion Matrix Measures - Diagnostic Odds Ratio  
+#' 
+#' Calculate Diagnostic Odds Ratio, defined as Positive Likelihood Ratio / Negative Likelihood Ratio, for a given confusion matrix. 
+#'
+#' @param true.positive Scalar - Cases identified as true positive
+#' @param false.positive Scalar - Cases identified as false positive 
+#' @param true.negative Scalar - Cases identified as true negative
+#' @param false.negative Scalar - Cases identified as false negative 
+#' @param count.positive Scalar - Total cases identified as positive - optional if first four parameters are used. 
+#' @param count.negative Scalar - Total cases identified as negative - optional if first four parameters are used.
+#' @param true.positive.rate Scalar - True positive rate, overrides other parameters used to calculate TPR.
+#' @param false.positive.rate Scalar - False positive rate, overrides other parameters used to calculate FPR.
+#' @param true.negative.rate Scalar - True negative rate, overrides other parameters used to calculate TNR.
+#' @param false.negative.rate Scalar - False negative rate, overrides other parameters used to calculate FNR.
+#' @param positive.likelihood.ratio Scalar - Positive Likelihood Ratio, overrides other parameters used to calculate positive likelihood ratio.
+#' @param negative.likelihood.ratio Scalar - Negative Likelihood Ratio, overrides other parameters used to calculate negative likelihood ratio.
+#'
+#' @return A scalar with computed value. 
+
+
 confusion.matrix.diagnostic.odds.ratio.simple <- function(
   #TPR inputs
   true.positive = 0
