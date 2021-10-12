@@ -62,7 +62,7 @@ msa.postprocess.aov.continuous.explained.variability <- function(
     #2+ reduced model (no interaction)
     n.part      <- aov.tbl$Df[1]+1
     n.appraiser <- aov.tbl$Df[2]+1
-    n.within    <- sum(aov.tbl$Df,1)/(n.part*n.appraiser)
+    n.within    <- sum(aov.tbl$Df[1:(nrow(aov.tbl)-1)],1)/(n.part*n.appraiser)
 
     ev[repeatability,             calculated_value] <- aov.tbl[3, 3] ## Repeatability: MS Repeatability
     ev[reproducibility_appraiser, calculated_value] <- max(c((aov.tbl[2, 3] - aov.tbl[3, 3])/(n.part * n.within), 0))  ## Appraiser Reproducibility: (MSap - MSrepe)/(a*n)
@@ -75,7 +75,11 @@ msa.postprocess.aov.continuous.explained.variability <- function(
     #2+ full model (with interaction)
     n.part      <- aov.tbl$Df[1]+1
     n.appraiser <- aov.tbl$Df[2]+1
-    n.within    <- sum(aov.tbl$Df,1)/(n.part*n.appraiser)
+    n.within    <- sum(aov.tbl$Df[1:(nrow(aov.tbl)-1)],1)/(n.part*n.appraiser)
+
+    #print(paste0("n.part      = ",n.part))
+    #print(paste0("n.appraiser = ",n.appraiser))
+    #print(paste0("n.within    = ",n.within))
 
     ev[repeatability,             calculated_value] <- aov.tbl[4, 3] # repeatability
     ev[reproducibility_appraiser, calculated_value] <- max(c((aov.tbl[2, 3] - aov.tbl[3, 3])/(n.part * n.within), 0))  # Appraiser Reproducibility
