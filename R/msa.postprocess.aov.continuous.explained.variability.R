@@ -51,7 +51,7 @@ msa.postprocess.aov.continuous.explained.variability <- function(
     #single appraiser
     n.part      <- aov.tbl$Df[1]+1
     n.appraiser <- 1
-    n.within    <- sum(aov.tbl$Df,1)/n.part
+    n.within    <- sum(aov.tbl$Df[1:(nrow(aov.tbl)-1)],1)/n.part
 
     ev[repeatability,         calculated_value] <- aov.tbl[2, 3] # repeatability
     ev[variability_part_part, calculated_value] <- max(c((aov.tbl[1, 3] - aov.tbl[2, 3])/(n.appraiser * n.within),0)) # part to part
