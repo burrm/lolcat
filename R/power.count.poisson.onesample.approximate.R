@@ -27,10 +27,10 @@ power.count.poisson.onesample.approximate <- function(
   
   z.beta <- 2*sqrt(sample.size)*(sqrt(lambda.alternative.hypothesis)-sqrt(lambda.null.hypothesis))
 
-  print(paste0("z.upper + z.beta = ",z.upper + z.beta))
-  print(paste0("z.upper - z.beta = ",z.upper - z.beta))
-  print(paste0("z.lower + z.beta = ",z.lower + z.beta))
-  print(paste0("z.lower - z.beta = ",z.lower - z.beta))
+  #print(paste0("z.upper + z.beta = ",z.upper + z.beta))
+  #print(paste0("z.upper - z.beta = ",z.upper - z.beta))
+  #print(paste0("z.lower + z.beta = ",z.lower + z.beta))
+  #print(paste0("z.lower - z.beta = ",z.lower - z.beta))
 
 
   beta <- NA
