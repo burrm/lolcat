@@ -40,7 +40,7 @@ power.count.poisson.onesample.exact <- function(
         ,details = T
       )
       
-      alpha <- rmnames(pow$alpha[1])
+      alpha <- 2*rmnames(pow$alpha[1])
       pow   <- rmnames(pow$power[1])
     }
   } else if (alternative[1] == "greater") {
