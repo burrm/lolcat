@@ -11,7 +11,12 @@ sample.size.count.poisson.onesample.exact(
   beta = 0.1,
   alternative = c("two.sided", "less", "greater"),
   details = TRUE,
-  power.from.actual = F
+  power.from.actual = F,
+  n.initial = sample.size.count.poisson.onesample.approximate(lambda.null.hypothesis =
+    lambda.null.hypothesis, lambda.alternative.hypothesis =
+    lambda.alternative.hypothesis, alpha = alpha, beta = beta, alternative = alternative,
+    details = FALSE),
+  max.iteration = 10000
 )
 }
 \arguments{
@@ -28,10 +33,14 @@ sample.size.count.poisson.onesample.exact(
 \item{details}{Logical - Return calculation details (default) or return only sample size (details = FALSE)}
 
 \item{power.from.actual}{Logical - If true, return 1-beta, if false, calculate power using calculated sample size.}
+
+\item{n.initial}{Scalar - Integer with initial sample size guess.}
+
+\item{max.iteration}{Scalar - Maximum iterations to perform before declaring failure.}
 }
 \value{
 A data frame with details about the calculation or a single value with sample size (details = F).
 }
 \description{
-Sample size calculation utilizes the square root transformation (approximate sample size/power).
+Sample size calculation utilizes the exact power calculation.
 }

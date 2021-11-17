@@ -1,12 +1,14 @@
 #' Sample Size - Single Sample Poisson Test  
 #' 
-#' Sample size calculation utilizes the square root transformation (approximate sample size/power).
+#' Sample size calculation utilizes the exact power calculation.
 #'
 #' @param lambda.null.hypothesis Scalar - null hypothesis lambda parameter
 #' @param lambda.alternative.hypothesis Scalar - alternative hypothesis lambda parameter
 #' @param alpha Scalar - Type I error rate
 #' @param beta Scalar - Type II error rate
 #' @param alternative Scalar (character) - alternative hypothesis 
+#' @param n.initial Scalar - Integer with initial sample size guess.
+#' @param max.iteration Scalar - Maximum iterations to perform before declaring failure.
 #' @param details Logical - Return calculation details (default) or return only sample size (details = FALSE)
 #' @param power.from.actual Logical - If true, return 1-beta, if false, calculate power using calculated sample size.
 #'
@@ -20,13 +22,85 @@ sample.size.count.poisson.onesample.exact <- function(
   ,alternative = c("two.sided","less","greater")
   ,details = TRUE
   ,power.from.actual = F #report parameter power instead of true power
+
+  ,n.initial = sample.size.count.poisson.onesample.approximate(
+      lambda.null.hypothesis = lambda.null.hypothesis,
+      lambda.alternative.hypothesis = lambda.alternative.hypothesis,
+      alpha = alpha,
+      beta = beta,
+      alternative = alternative,
+      details = FALSE
+    )
+  ,max.iteration = 10000
 ) {
   validate.htest.alternative(alternative = alternative)
   
-  n         <- NA
+  n         <- n.initial
 
-  warning("Method Stub: Not implemented Yet...")
-  #TODO: Calculate sample size
+  if (alternative[1] == "greater" && lambda.alternative.hypothesis < lambda.null.hypothesis) {
+    stop("bad alternative hypothesis specified for given null and alternative hypothesis lambdas, try \"less\"")
+  }
+  
+  if (alternative[1] == "less" && lambda.alternative.hypothesis > lambda.null.hypothesis) {
+    stop("bad alternative hypothesis specified for given null and alternative hypothesis lambdas, try \"greater\"")
+  }
+
+  if (!is.finite(n)) {
+    n <- 1
+  }
+
+  
+  
+  iter <- 0
+  this.beta <- power.count.poisson.onesample.exact(
+      sample.size                    = n 
+      ,lambda.null.hypothesis        = lambda.null.hypothesis
+      ,lambda.alternative.hypothesis = lambda.alternative.hypothesis
+      ,alpha                         = alpha
+      ,alternative                   = alternative
+      ,details                       = TRUE
+  )$beta[1]
+
+  if (this.beta > beta) {
+    #increase sample size
+
+    while (this.beta > beta & iter < max.iteration) {
+      iter <- iter + 1
+      n <- n + 1
+
+      this.beta <- power.count.poisson.onesample.exact(
+        sample.size                    = n 
+        ,lambda.null.hypothesis        = lambda.null.hypothesis
+        ,lambda.alternative.hypothesis = lambda.alternative.hypothesis
+        ,alpha                         = alpha
+        ,alternative                   = alternative
+        ,details                       = TRUE
+      )$beta[1]
+    }
+  } else if (this.beta < beta) {
+    #try decreasing sample size
+    while (n > 1 & this.beta < beta & iter < max.iteration) {
+      iter <- iter + 1
+      n <- n - 1
+
+      this.beta <- power.count.poisson.onesample.exact(
+        sample.size                    = n 
+        ,lambda.null.hypothesis        = lambda.null.hypothesis
+        ,lambda.alternative.hypothesis = lambda.alternative.hypothesis
+        ,alpha                         = alpha
+        ,alternative                   = alternative
+        ,details                       = TRUE
+      )$beta[1]
+    }
+
+    if (this.beta >= beta) {
+      n <- n+1
+    }
+  }
+
+  if (iter >= max.iteration-1) {
+    warning("max.iteration reached without beta converging.")
+  }
 
   n.rounded <- ceiling(n)
   
@@ -35,7 +109,7 @@ sample.size.count.poisson.onesample.exact <- function(
     power <- 1-beta
     
   } else {
-      
+        
     power <- power.count.poisson.onesample.exact(
       sample.size                    = n.rounded 
       ,lambda.null.hypothesis        = lambda.null.hypothesis
@@ -44,7 +118,7 @@ sample.size.count.poisson.onesample.exact <- function(
       ,alternative                   = alternative
       ,details                       = FALSE
     )
-    
+
     beta <- 1-power
     
   }

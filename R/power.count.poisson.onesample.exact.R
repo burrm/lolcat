@@ -1,6 +1,6 @@
 #' Power - Single Sample Poisson Test  
 #' 
-#' Power calculation utilizes the Poisson distribution ("exact"" sample size/power).
+#' Power calculation utilizes the Poisson distribution ("exact" sample size/power).
 #'
 #' @param sample.size Scalar - sample size 
 #' @param lambda.null.hypothesis Scalar - null hypothesis lambda parameter
@@ -21,26 +21,63 @@ power.count.poisson.onesample.exact <- function(
 ) {
   validate.htest.alternative(alternative = alternative)
 
-  beta <- NA
-  warning("Method Stub: Not implemented Yet...")
+  pow <- NA
 
   if (alternative[1] == "two.sided") {
-    #TODO
+    if (lambda.alternative.hypothesis == lambda.null.hypothesis) {
+      #NA
+    } else {
+      pow <- power.count.poisson.onesample.exact <- function(
+        sample.size = sample.size
+        ,lambda.null.hypothesis = lambda.null.hypothesis
+        ,lambda.alternative.hypothesis = lambda.alternative.hypothesis
+        ,alpha = alpha/2
+        ,alternative = ifelse(
+                          lambda.alternative.hypothesis < lambda.null.hypothesis,
+                          "less",
+                          "greater"
+                       )
+        ,details = T
+      )
+      
+      alpha <- rmnames(pow$alpha[1])
+      pow   <- rmnames(pow$power[1])
+    }
   } else if (alternative[1] == "greater") {
     if (lambda.alternative.hypothesis <= lambda.null.hypothesis) {
       #NA
     } else {
-      #TODO
+      table.lambda.alternative.hypothesis <- table.dist.poisson(
+        lambda = sample.size*lambda.alternative.hypothesis
+      )
+      table.lambda.null.hypothesis        <- table.dist.poisson(
+        lambda = sample.size*lambda.null.hypothesis,
+        include.x = nrow(table.lambda.alternative.hypothesis)
+      )
+
+      idx   <- which(table.lambda.null.hypothesis$eq.and.above <= alpha)
+      pow   <- table.lambda.alternative.hypothesis$eq.and.above[min(idx)+1]
+      alpha <- table.lambda.null.hypothesis$eq.and.above[min(idx)]
     }
   } else if (alternative[1] == "less") {
     if (lambda.alternative.hypothesis >= lambda.null.hypothesis) {
       #NA
     } else {
-      #TODO
+      table.lambda.null.hypothesis        <- table.dist.poisson(
+        lambda = sample.size*lambda.null.hypothesis
+      )
+      table.lambda.alternative.hypothesis <- table.dist.poisson(
+        lambda = sample.size*lambda.alternative.hypothesis,
+        include.x = nrow(table.lambda.null.hypothesis)
+      )
+
+      idx   <- which(table.lambda.null.hypothesis$eq.and.below <= alpha)
+      alpha <- table.lambda.null.hypothesis$eq.and.below[length(idx)]
+      pow   <- table.lambda.alternative.hypothesis$eq.and.below[length(idx)-1]
     }
   }
   
-  pow <- 1-beta
+  beta <- 1-pow
   
   if (details) {
     as.data.frame(list(test="poisson"
@@ -61,8 +98,4 @@ power.count.poisson.onesample.exact <- function(
     pow
   }
   
-  
-  
 }
-
-#power.mean.z.onesample(sample.size = 4, effect.size = .5, variance =  1)

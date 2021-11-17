@@ -30,5 +30,5 @@ power.count.poisson.onesample.exact(
 A data frame with details about the calculation or a single value with power (details = F).
 }
 \description{
-Power calculation utilizes the Poisson distribution ("exact"" sample size/power).
+Power calculation utilizes the Poisson distribution ("exact" sample size/power).
 }

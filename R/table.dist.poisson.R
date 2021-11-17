@@ -3,8 +3,9 @@ table.dist.poisson <- function(lambda = 5
                                                  abs(1-lambda)<.3,
                                                  max(10,10/lambda),
                                                  max(5, 5/lambda))
+                               ,include.x = ceiling(include.lambda*lambda)
 ) {
-  n<-ceiling(include.lambda*lambda)
+  n <- include.x
   
   d              <- data.frame(x=0:n)
   d$p.at.x       <- dpois(0:n, lambda = lambda)
