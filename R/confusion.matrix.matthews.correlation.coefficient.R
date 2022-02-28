@@ -1,3 +1,4 @@
+#' @rdname confusion.matrix.matthews.correlation.coefficient.simple
 confusion.matrix.matthews.correlation.coefficient <- function(
   confusion.matrix
 ) {
@@ -10,4 +11,5 @@ confusion.matrix.matthews.correlation.coefficient.simple(
 ) 
 }
 
+#' @rdname confusion.matrix.matthews.correlation.coefficient.simple
 cor.matthews <- confusion.matrix.matthews.correlation.coefficient

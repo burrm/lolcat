@@ -1,3 +1,4 @@
+#' @rdname confusion.matrix.negative.predictive.value.simple
 confusion.matrix.negative.predictive.value <- function(
   confusion.matrix
 ) {

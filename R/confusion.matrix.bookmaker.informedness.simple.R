@@ -10,6 +10,7 @@
 #' @param count.negative Scalar - Total cases identified as negative - optional if first four parameters are used.
 #' @param true.positive.rate Scalar - True positive rate, overrides other parameters used to calculate TPR.
 #' @param true.negative.rate Scalar - True negative rate, overrides other parameters used to calculate TNR.
+#' @param confusion.matrix Matrix - confusion matrix.
 #'
 #' @return A scalar with computed value. 
 

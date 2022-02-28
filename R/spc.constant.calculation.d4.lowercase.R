@@ -1,10 +1,4 @@
-#' Control Chart Constant d4  
-#' 
-#' Calculate d4 control chart constant from Wheeler's SPC books.
-#'
-#' @param sample.size A scalar or vector of sample sizes
-#'
-#' @return A scalar or vector with computed constants. 
+#' @rdname spc.constant.calculation.D4
 
 #OK for n <=35, but 3-4 decimal places after n=35
 #Long term - implement better numerics for qtukey...

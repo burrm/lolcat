@@ -5,6 +5,7 @@
 #' @param true.positive Scalar - Cases identified as true positive
 #' @param false.positive Scalar - Cases identified as false positive 
 #' @param false.negative Scalar - Cases identified as false negative 
+#' @param confusion.matrix Matrix - confusion matrix.
 #'
 #' @return A scalar with computed value. 
 confusion.matrix.f1.score.simple <- function(

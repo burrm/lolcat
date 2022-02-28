@@ -1,83 +1,103 @@
-#' Cohen's Kappa   
+#' Cohen's Kappa (Fleiss 1969)  
 #' 
 #' Calculate Cohen's Kappa based on Fleiss' 1969 paper.
 #'
 #' @param observed.frequencies A matrix of values to test.
-#' @param expected.frequencies A matrix of values to compare with observed.frequencies.
 #' @param alternative The alternative hypothesis to use for the test computation.
 #' @param conf.level The confidence level for this test, between 0 and 1.
 #'
+#' @aliases cor.cohen.kappa.onesample
+#' 
 #' @return The results of the statistical test.
 
 cor.cohen.kappa.onesample.1969.fleiss <- function(
   observed.frequencies #matrix
-  ,expected.frequencies = chi.square.2d.expected.frequencies(observed.frequencies)
   ,alternative = c("two.sided", "greater", "less")
   ,conf.level = .95
 ) {
   validate.htest.alternative(alternative = alternative)
-  diag.observed <- diag(observed.frequencies)
-  sum.diag.observed <- sum(diag.observed)
-  
-  diag.expected <- diag(expected.frequencies)
-  sum.diag.expected <- sum(diag.expected)
-  
+    
   n <- sum(observed.frequencies)
   
-  # Kappa
-  kappa    <- (sum.diag.observed - sum.diag.expected)/(n - sum.diag.expected)
+  i.set <- 1:nrow(observed.frequencies)
+  j.set <- 1:ncol(observed.frequencies)
 
-  # Kappa Max
+  p_ij <- observed.frequencies/n 
+  p_i. <- rowSums(p_ij) #eq [1]
+  p_.j <- colSums(p_ij) #eq [2]
 
-  prop.observed <- observed.frequencies / n
+  p_o <- sum(diag(p_ij)) #eq [10]
+  p_c <- sum(
+    #sum over rows
+    sapply(i.set, FUN = function(i) {
+      sum(
+        #sum over cols
+        sapply(j.set, FUN = function(j) {
+           if( i == j) {
+             p_i.[i] * p_.j[j]
+           } else {
+             0
+           }
+        })
+      )
+    })
+  ) # eq [11]
 
-  prop.row.sums <- rowSums(prop.observed)
-  prop.col.sums <- colSums(prop.observed)
-  prop.diag     <- diag(prop.observed)
+  kappa <- (p_o - p_c) / (1-p_c) #eq [12]
+
+  var_kappa <- (1/(n*(1-p_c)^4)) * (
+    #sum over diagonal
+    sum(sapply(i.set,FUN = function(i) {
+      p_ij[i,i]*((1-p_c)-(p_i.[i]+p_.j[i])*(1-p_o))^2
+    })) +
+    #sum over rows
+    ((1-p_o)^2)*sum(sapply(i.set,FUN = function(i) {
+      #sum over cols
+      sum(sapply(j.set, FUN = function(j) {
+        #non diagonal elements only
+        if (i != j) {
+          p_ij[i,j]*(p_.j[i]+p_i.[j])^2
+        } else {
+          0
+        }
+      }))
+    }))
+    - (p_o*p_c - 2*p_c + p_o)^2
+  ) # eq [13]
+
   
-  p.o <- sum(diag(prop.observed))
-  p.c <- sum(prop.row.sums * prop.col.sums) 
-  p.om <- sum(pmin(prop.row.sums, prop.col.sums))
-  k.max <- (p.om - p.c) / (1 - p.c)
 
-  #SE Kappa and CI
 
-  #no association SE
-  #se.kappa <- sqrt(p.c+p.c*p.c-(sum((prop.row.sums + prop.col.sums)*prop.row.sums*prop.col.sums)))/(1-p.c)/sqrt(n)
-  
-  #association SE
-  diag.1     <- sum(prop.diag*(1-(prop.row.sums+prop.col.sums)*(1-kappa))^2)
+  var_0_kappa <- (1/(n*(1-p_c)^2)) * (
+    #sum over diagonal
+    sum(sapply(i.set,FUN = function(i) {
+      p_i.[i]*p_.j[i]*(1-(p_.j[i]+p_i.[i]))^2
+    })) +
+    #sum over rows
+    sum(sapply(i.set,FUN = function(i) {
+      #sum over cols
+      sum(sapply(j.set, FUN = function(j) {
+        #non diagonal elements only
+        if (i != j) {
+          p_i.[i]*p_.j[j]*(p_.j[i]+p_i.[j])^2
+        } else {
+          0
+        }
+      }))
+    })) - p_c^2
+  ) #eq [14]
 
-  #print(paste0("diag 1 = ", diag.1))
+  # Kappa Max 
+  p.om <- sum(pmin(p_i., p_.j))
+  k_max <- (p.om - p_c) / (1 - p_c)
 
-  off.diag.1 <- (1-kappa)^2*sum(
-    sapply(1:length(prop.row.sums),
-      FUN = function(row.i) {
-        sum(
-          sapply(1:length(prop.col.sums), FUN= function(col.i) {
-            if (row.i == col.i) {
-              0
-            } else {
-              prop.observed[row.i, col.i]*(prop.row.sums[row.i] + prop.col.sums[col.i])^2
-            }
-          })
-        )
-      }
-    )
-  )
+  se_kappa   <- sqrt(var_kappa)
+  se_0_kappa <- sqrt(var_0_kappa)
 
-  #print(paste0("off diag 1 = ", off.diag.1))
-
-  p.star.c <- (kappa - p.c *(1-kappa))^2
-
-  #print(paste0("p star c = ", p.star.c))
-
-  se.kappa <- sqrt(diag.1+off.diag.1-p.star.c)/(1-p.c)/sqrt(n)
-
-  z <- kappa/se.kappa
+  z <- kappa/se_kappa
  
   cv      <- qnorm(conf.level+(1-conf.level)/2)
-  ci.add  <- cv*se.kappa
+  ci.add  <- cv*se_0_kappa
   
   ci.lower <- max(-1,kappa-ci.add)
   ci.upper <- min(1,kappa+ci.add)
@@ -99,18 +119,21 @@ cor.cohen.kappa.onesample.1969.fleiss <- function(
   retval<-list(data.name   = "agreement contingency table",
                statistic   = z, 
                estimate    = c(kappa = kappa 
-                               ,se.kappa = se.kappa
-                               ,kappa.max = k.max
-                               ,p.o = p.o
-                               ,p.c = p.c
-                               ,n.agree = sum.diag.observed
-                               ,n.disagree = (n-sum.diag.observed)
+                               ,var_kappa = var_kappa
+                               ,se_kappa = se_kappa
+                               ,var_0_kappa = var_0_kappa
+                               ,se_0_kappa = se_0_kappa
+                               ,kappa.max = k_max
+                               ,p_o = p_o
+                               ,p_c = p_c
+                               #,n.agree = sum.diag.observed
+                               #,n.disagree = (n-sum.diag.observed)
                ),
                parameter   = 0,
                p.value     = p.value,
                null.value  = 0,
                alternative = alternative[1],
-               method      = "Cohen's Kappa (Fleiss, et. al 1969 Confidence Intervals)",
+               method      = "Cohen's Kappa (Fleiss, et. al. 1969 Confidence Intervals)",
                conf.int    = c(ci.lower, ci.upper)
   )
   
@@ -125,5 +148,5 @@ cor.cohen.kappa.onesample.1969.fleiss <- function(
 }
 
 
-
+#' @rdname cor.cohen.kappa.onesample.1969.fleiss
 cor.cohen.kappa.onesample <- cor.cohen.kappa.onesample.1969.fleiss

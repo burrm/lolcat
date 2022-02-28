@@ -1,3 +1,13 @@
+#' Biserial Correlation Coefficient 
+#' 
+#' Calculate the biserial correlation coefficient, a correlation between a discrete/nominal variable and a continuous measure.
+#'
+#' @param discrete_var A vector of values corresponding to the discrete/nominal variable
+#' @param continuous_var A vector of values corresponding to the continuous variable
+#' @param alternative Alternative hypothesis directionality
+#' @param conf.level Confidence level for calculating confidence intervals
+#'
+#' @return Hypothesis test result showing results of test. 
 cor.biserial <- function(discrete_var
                          ,continuous_var
                          ,alternative = c("two.sided","less","greater")

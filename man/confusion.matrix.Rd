@@ -24,5 +24,7 @@ confusion.matrix(
 A 2x2 matrix showing agreement between actual and predicted.
 }
 \description{
-Create a confusion matrix from actual and predicted values
+Create a confusion matrix from actual and predicted values. Note that this function follows the convention 
+of placing "Predicted" as the row variable and "Actual/Correct" as the column variable for the returned contingency 
+table. This is unlikely to be a compatible format with other packages that use the reverse convention for predicted/actual.
 }

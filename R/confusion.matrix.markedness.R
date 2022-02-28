@@ -1,3 +1,4 @@
+#' @rdname confusion.matrix.markedness.simple
 confusion.matrix.markedness <- function(
   confusion.matrix
 ) {

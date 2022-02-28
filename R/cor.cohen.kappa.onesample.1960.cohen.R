@@ -33,7 +33,7 @@ cor.cohen.kappa.onesample.1960.cohen <- function(
   ci.lower <- kappa-ci.add
   ci.upper <- kappa+ci.add
   
-  se.kappa.dist <- sqrt(sum.diag.expected/(n*(n-sum.diag.expected)))
+  se.kappa.dist <- sqrt(sum.diag.expected/(n*(n-sum.diag.expected))) #\sigma_{\kappa 0}
   z <- kappa/se.kappa.dist
   
   p.value <- if (alternative[1] == "two.sided") {

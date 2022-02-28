@@ -1,4 +1,9 @@
-spc.constant.calculation.B3 <- function(sample.size, n.sigma = 3, negative.as.NA = T, exact = T) {
+spc.constant.calculation.B3 <- function(
+  sample.size, 
+  n.sigma = 3, 
+  negative.as.NA = T, 
+  exact = T
+) {
   sapply(sample.size, FUN = function(i) {
     ret <- if (exact) {
       c2 <- spc.constant.calculation.c2(i)

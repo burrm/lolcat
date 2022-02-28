@@ -1,12 +1,12 @@
 frequency.dist.grouped <- function(
-                       x
-                       ,interval.size = NA
-                       ,anchor.value  = NA
-                       ,width.consider = lolcat.default.width.consider 
-                       ,na.rm = T
-                       ,clean.leading.zeroes = T
-                       ,clean.trailing.zeroes = T
-                       ,right = F
+ x
+ ,interval.size = NA
+ ,anchor.value  = NA
+ ,width.consider = lolcat.default.width.consider 
+ ,na.rm = T
+ ,clean.leading.zeroes = T
+ ,clean.trailing.zeroes = T
+ ,right = F
 ) {
   x <- na.omit(x)
   x <- x[is.finite(x)]

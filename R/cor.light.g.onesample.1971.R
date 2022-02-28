@@ -1,8 +1,3 @@
-#
-# Light. Measurements of Response agreement for Qualitative Data: Some Generalizations and Alternatives. 
-# Psychological Bulletin. 1971 76-5. pg 365-377 
-#
-
 #' Light's G   
 #' 
 #' Calculate Light's G based on Light's 1971 paper. Used to compare multiple raters with standard.
@@ -14,6 +9,10 @@
 #' @param alternative The alternative hypothesis to use for the test computation.
 #' @param conf.level The confidence level for this test, between 0 and 1.
 #'
+#' @references
+#' Light. Measurements of Response agreement for Qualitative Data: Some Generalizations and Alternatives. 
+#' Psychological Bulletin. 1971 76-5. pg 365-377 
+#'  
 #' @return The results of the statistical test.
 
 #Note: Include standard as a rater in the data and identify it with rater.standard

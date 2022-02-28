@@ -1,3 +1,4 @@
+#' @rdname confusion.matrix.bookmaker.informedness.simple
 confusion.matrix.bookmaker.informedness <- function(
   confusion.matrix
 ) {

@@ -1,3 +1,4 @@
+#' @rdname confusion.matrix.false.discovery.rate.simple
 confusion.matrix.false.discovery.rate <- function(
   confusion.matrix
 ) {

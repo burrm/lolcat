@@ -1,3 +1,11 @@
+#' Cramer's V/Phi 
+#' 
+#' Calculate the Cramer's V (sometimes referred to as Cramer's phi).
+#'
+#' @param observed.frequencies A matrix of values to test.
+#' @param expected.frequencies A matrix of values to compare with observed.frequencies.
+#'
+#' @return Hypothesis test result showing results of test. 
 cor.cramer.phi <- function(
   observed.frequencies, 
   expected.frequencies = chi.square.2d.expected.frequencies(observed.frequencies)
@@ -52,4 +60,5 @@ cor.cramer.phi <- function(
   retval
 }
 
+#' @rdname cor.cramer.phi
 cor.cramer.v <- cor.cramer.phi

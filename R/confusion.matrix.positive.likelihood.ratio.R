@@ -1,3 +1,4 @@
+#' @rdname confusion.matrix.positive.likelihood.ratio.simple
 confusion.matrix.positive.likelihood.ratio <- function(
   confusion.matrix
 ) {

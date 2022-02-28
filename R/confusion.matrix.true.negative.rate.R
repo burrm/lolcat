@@ -1,3 +1,4 @@
+#' @rdname confusion.matrix.true.negative.rate.simple 
 confusion.matrix.true.negative.rate <- function(
   confusion.matrix
 ) {
@@ -8,4 +9,5 @@ confusion.matrix.true.negative.rate.simple(
 ) 
 }
 
+#' @rdname confusion.matrix.true.negative.rate.simple 
 confusion.matrix.specificity <- confusion.matrix.true.negative.rate

@@ -4,6 +4,9 @@
 #'
 #' @param true.positive Scalar - Cases identified as true positive
 #' @param false.positive Scalar - Cases identified as false positive 
+#' @param confusion.matrix Matrix - confusion matrix.
+#'
+#' @aliases confusion.matrix.false.discovery.rate
 #'
 #' @return A scalar with computed value. 
 confusion.matrix.false.discovery.rate.simple <- function(

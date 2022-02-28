@@ -1,3 +1,4 @@
+#' @rdname confusion.matrix.f1.score.simple
 confusion.matrix.f1.score <- function(
    confusion.matrix
 ) {

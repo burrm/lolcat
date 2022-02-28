@@ -14,6 +14,7 @@
 #' @param false.negative.rate Scalar - False negative rate, overrides other parameters used to calculate FNR.
 #' @param positive.likelihood.ratio Scalar - Positive Likelihood Ratio, overrides other parameters used to calculate positive likelihood ratio.
 #' @param negative.likelihood.ratio Scalar - Negative Likelihood Ratio, overrides other parameters used to calculate negative likelihood ratio.
+#' @param confusion.matrix Matrix - confusion matrix.
 #'
 #' @return A scalar with computed value. 
 

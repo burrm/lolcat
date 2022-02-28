@@ -1,10 +1,4 @@
-#' Control Chart Constant d3  
-#' 
-#' Calculate d3 control chart constant from Wheeler's SPC books.
-#'
-#' @param sample.size A scalar or vector of sample sizes
-#'
-#' @return A scalar or vector with computed constants. 
+#' @rdname spc.constant.calculation.D3
 
 # d3 originally borrowed from SixSigma package
 spc.constant.calculation.d3 <- function(

@@ -2,19 +2,23 @@
 % Please edit documentation in R/cor.cohen.kappa.onesample.1969.fleiss.R
 \name{cor.cohen.kappa.onesample.1969.fleiss}
 \alias{cor.cohen.kappa.onesample.1969.fleiss}
-\title{Cohen's Kappa}
+\alias{cor.cohen.kappa.onesample}
+\title{Cohen's Kappa (Fleiss 1969)}
 \usage{
 cor.cohen.kappa.onesample.1969.fleiss(
   observed.frequencies,
-  expected.frequencies = chi.square.2d.expected.frequencies(observed.frequencies),
+  alternative = c("two.sided", "greater", "less"),
+  conf.level = 0.95
+)
+
+cor.cohen.kappa.onesample(
+  observed.frequencies,
   alternative = c("two.sided", "greater", "less"),
   conf.level = 0.95
 )
 }
 \arguments{
 \item{observed.frequencies}{A matrix of values to test.}
-
-\item{expected.frequencies}{A matrix of values to compare with observed.frequencies.}
 
 \item{alternative}{The alternative hypothesis to use for the test computation.}
 

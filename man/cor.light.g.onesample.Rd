@@ -32,3 +32,7 @@ The results of the statistical test.
 \description{
 Calculate Light's G based on Light's 1971 paper. Used to compare multiple raters with standard.
 }
+\references{
+Light. Measurements of Response agreement for Qualitative Data: Some Generalizations and Alternatives. 
+Psychological Bulletin. 1971 76-5. pg 365-377
+}

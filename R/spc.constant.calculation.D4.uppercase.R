@@ -1,6 +1,7 @@
-#' Control Chart Constant D4  
+#' Control Chart Constant d4 / D4  
 #' 
-#' Calculate D4 control chart constant from Wheeler's SPC books.
+#' Calculate D4 control chart constant from Wheeler's SPC books. These are in the same help file 
+#' because of a quirk of how R generates help file names, but they are different constants with different uses.
 #'
 #' @param sample.size A scalar or vector of sample sizes
 #' @param n.sigma How many standard errors to use (default 3 for most control charts)

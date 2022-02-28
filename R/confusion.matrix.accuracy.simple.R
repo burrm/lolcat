@@ -8,10 +8,12 @@
 #' @param false.negative Scalar - Cases identified as false negative - optional if count.negative is used
 #' @param count.positive Scalar - Total cases identified as positive - optional if first four parameters are used. 
 #' @param count.negative Scalar - Total cases identified as negative - optional if first four parameters are used.
+#' @param confusion.matrix Matrix - confusion matrix.
+#'
+#' @aliases confusion.matrix.accuracy
 #'
 #' @return A scalar with computed accuracy value. 
 
-#accuracy
 confusion.matrix.accuracy.simple <- function(
   true.positive = 0
   ,false.positive = 0 #optional

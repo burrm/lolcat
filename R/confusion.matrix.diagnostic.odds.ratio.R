@@ -1,3 +1,4 @@
+#' @rdname confusion.matrix.diagnostic.odds.ratio.simple
 confusion.matrix.diagnostic.odds.ratio <- function(
   confusion.matrix
 ) {
