@@ -1,3 +1,15 @@
+#' Two-Sample Goodman and Kruskal's Gamma Test 
+#' 
+#' Calculate test for two different independent Goodman and Kruskal's Gamma values.
+#'
+#' @param gamma.g1 Scalar - Group 1 gamma.
+#' @param se.est.gamma.g1 Scalar - Group 1 gamma estimated standard error.
+#' @param gamma.g2 Scalar - Group 2 gamma.
+#' @param se.est.gamma.g2 Scalar - Group 2 gamma estimated standard error.
+#' @param alternative The alternative hypothesis to use for the test computation.
+#' @param conf.level The confidence level for this test, between 0 and 1.
+#'
+#' @return Hypothesis test result showing results of test.
 cor.goodman.kruskal.gamma.twosample.independent.simple <- function(
   gamma.g1
   ,se.est.gamma.g1

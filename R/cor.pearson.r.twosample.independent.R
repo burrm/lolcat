@@ -1,3 +1,4 @@
+#' @rdname cor.pearson.r.twosample.independent.simple
 cor.pearson.r.twosample.independent <- function(
   x1
   ,x2

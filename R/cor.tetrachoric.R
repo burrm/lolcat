@@ -1,11 +1,20 @@
-#TODO: Eventually find an exact calculation
-
+#' Tetrachoric Correlation Coefficient 
+#' 
+#' Calculate Tetrachoric Correlation Coefficient on a 2x2 contingency table.
+#' 
+#' @param x Matrix - 2x2 contingency table 
+#' @param alternative The alternative hypothesis to use for the test computation.
+#' @param conf.level The confidence level for this test, between 0 and 1.
+#' @param method Method to use for calculation
+#'
+#' @return Hypothesis test result showing results of test.
 cor.tetrachoric <- function(
   x #a 2x2 contingency table - array, matrix, data.frame
   ,alternative = c("two.sided","less","greater")
   ,conf.level = .95
   ,method = c("cosine", "sine")
 ) {
+  #TODO: Eventually find an exact calculation
   validate.htest.alternative(alternative = alternative)
   
   a <- x[1,1]

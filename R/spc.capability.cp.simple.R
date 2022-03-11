@@ -10,7 +10,6 @@
 #' @param process.natural.tolerance Estimate of process natural tolerance 
 #'
 #' @return A scalar with computed Cp. 
-
 spc.capability.cp.simple <- function(lower.specification
                               ,upper.specification
                               ,process.center = NA

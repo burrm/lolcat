@@ -2,9 +2,12 @@
 % Please edit documentation in R/shapetest.exp.epps.pulley.1986.R
 \name{shapetest.exp.epps.pulley.1986}
 \alias{shapetest.exp.epps.pulley.1986}
+\alias{shapetest.exponential.epps.pulley.1986}
 \title{Epps-Pulley Exponentiality Test}
 \usage{
 shapetest.exp.epps.pulley.1986(x)
+
+shapetest.exponential.epps.pulley.1986(x)
 }
 \arguments{
 \item{x}{A vector of values}

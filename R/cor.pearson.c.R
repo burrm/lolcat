@@ -1,3 +1,10 @@
+#' Pearson's Contingency Coefficient 
+#' 
+#' Calculate Pearson's C (sometimes called Pearson's Contingency Coefficient).
+#' 
+#' @param x Matrix - contingency table 
+#'
+#' @return Hypothesis test result showing results of test.
 cor.pearson.c <- function(x) {
   
   chi.sq.result <- chisq.test(x, correct = F)

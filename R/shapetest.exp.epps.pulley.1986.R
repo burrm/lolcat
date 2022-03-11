@@ -56,3 +56,6 @@ shapetest.exp.epps.pulley.1986 <- function(
   retval
   
 }
+
+#' @rdname shapetest.exp.epps.pulley.1986
+shapetest.exponential.epps.pulley.1986 <- shapetest.exp.epps.pulley.1986

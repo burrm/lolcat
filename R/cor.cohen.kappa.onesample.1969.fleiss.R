@@ -94,10 +94,10 @@ cor.cohen.kappa.onesample.1969.fleiss <- function(
   se_kappa   <- sqrt(var_kappa)
   se_0_kappa <- sqrt(var_0_kappa)
 
-  z <- kappa/se_kappa
+  z <- kappa/se_0_kappa
  
   cv      <- qnorm(conf.level+(1-conf.level)/2)
-  ci.add  <- cv*se_0_kappa
+  ci.add  <- cv*se_kappa
   
   ci.lower <- max(-1,kappa-ci.add)
   ci.upper <- min(1,kappa+ci.add)

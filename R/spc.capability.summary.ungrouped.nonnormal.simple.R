@@ -1,3 +1,29 @@
+#' Calculate Capability Measures - Non-Normally Distributed Data  
+#' 
+#' Calculate capability measures and potential out of specification parts per million. 
+#'
+#' @param stat.lsl Lower specification limit (if applicable)
+#' @param stat.target Target for process 
+#' @param stat.usl Upper specification limit (if applicable)
+#' @param stat.lsl.capability Lower specification limit (if applicable) for capability measures
+#' @param stat.target.capability Target for process for capability measures
+#' @param stat.usl.capability Upper specification limit (if applicable) for capability measures
+#' @param stat.lsl.performance Lower specification limit (if applicable) for performance measures
+#' @param stat.target.performance Target for process for performance measures
+#' @param stat.usl.performance Upper specification limit (if applicable) for performance measures
+#' @param process.center.capability Estimate of process center for capability measures
+#' @param process.center.performance Estimate of process center for performance measures
+#' @param process.variability Estimate of process variability, expressed as variance. Used for performance measures only. 
+#' @param process.n.upper Observed count above upper specification limit, used to calculate PPM (parts per million).
+#' @param process.n.lower Observed count below lower specification limit, used to calculate PPM (parts per million).
+#' @param process.n Total count of subjects/objects, used to calculate PPM (parts per million).
+#' @param process.ppm.upper Observed parts per million (PPM) above upper specification limit.
+#' @param process.ppm.lower Observed parts per million (PPM) below lower specification limit.
+#' @param natural.tolerance Natural tolerance estimate. Used for capability measures.
+#' @param p.lower Fit distribution area below LSL.
+#' @param p.upper Fit distribution area above USL.
+#'
+#' @return A data frame with computed measures. 
 spc.capability.summary.ungrouped.nonnormal.simple.R <- function(
   stat.lsl = NA,                   #Lower specification limit
   stat.target = NA,                #Nominal process center - target median/mean

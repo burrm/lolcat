@@ -1,3 +1,12 @@
+#' J Index of Predictive Efficiency 
+#' 
+#' Calculate J Index of Predictive Efficiency for a contingency table.
+#'
+#' @param x A 2x2 matrix 
+#' @param alternative The alternative hypothesis to use for the test computation.
+#' @param conf.level The confidence level for this test, between 0 and 1.
+#'
+#' @return Hypothesis test result showing results of test.
 cor.j.index.onesample <- function(x
                                   ,conf.level = .95
                                   ,alternative = c("two.sided","less","greater")

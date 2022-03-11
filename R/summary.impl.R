@@ -50,6 +50,9 @@
 #' @param stat.nonconform.pabove Logical - Return percentage of subgroup values above upper specification limit
 #' @param stat.nonconform.pout Logical - Return percentage of subgroup values outside of specification limits
 #' @param format.generate.cellcodes Logical - Calculate/return group cell codes 
+#' @param ... Additional Parameters - additional parameters for summary.impl 
+#'
+#' @aliases summary.continuous summary.all.variables
 #'
 #' @return A data frame with subgroups and selected measures 
 summary.impl <- function(fx 

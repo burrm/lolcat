@@ -1,3 +1,11 @@
+#' Yule's Q Coefficient 
+#' 
+#' Calculate Yule's Q Coefficient. 
+#' 
+#' @param x Matrix - 2x2 contingency table
+#' @param alternative The alternative hypothesis to use for the test computation. 
+#'
+#' @return Hypothesis test result showing results of test.
 cor.yule.q <- function(
   x
   ,alternative = c("two.sided","less","greater")

@@ -1,12 +1,23 @@
-cor.point.biserial <- function(discrete_var, 
-                               continuous_var,
-                               alternative = c("two.sided","less","greater"),
-                               conf.level = .95,
-                               ordered = FALSE,
-                               method = c("pearson.exact"
-                                          #,"t.test" #TODO
-                                          )
-                               ) {
+#' Point Biserial Correlation Coefficient 
+#' 
+#' Calculate the point biserial correlation coefficient, a correlation between a binary variable and a continuous measure.
+#'
+#' @param discrete_var A vector of values corresponding to the discrete/nominal variable
+#' @param continuous_var A vector of values corresponding to the continuous variable
+#' @param alternative Alternative hypothesis directionality
+#' @param conf.level Confidence level for calculating confidence intervals
+#'
+#' @return Hypothesis test result showing results of test. 
+cor.point.biserial <- function(
+  discrete_var 
+  ,continuous_var
+  ,alternative = c("two.sided","less","greater")
+  ,conf.level = .95
+  #ordered = FALSE,
+  #method = c("pearson.exact"
+    #,"t.test" #TODO
+  #)
+) {
   validate.htest.alternative(alternative = alternative)
   if (!is.factor(discrete_var)) {
     discrete_var <- factor(discrete_var)
@@ -22,9 +33,9 @@ cor.point.biserial <- function(discrete_var,
     ,stat.sd = 1
     )
   
-  if (!ordered) {
+  #if (!ordered) {
     summary.out <- summary.out[order(summary.out$mean),]
-  }
+  #}
   
   mean.g1 <- summary.out$mean[2]
   mean.g2 <- summary.out$mean[1]

@@ -1,20 +1,21 @@
-explore.box.cox <- function(x
-                            ,lambda.min = -5
-                            ,lambda.max = 5
-                            ,step = .1
+explore.box.cox <- function(
+  x
+  ,lambda.min = -5
+  ,lambda.max = 5
+  ,step = .1
                             
-                            #Shift data for possible exponent issues
-                            ,correct.min = T
+  #Shift data for possible exponent issues
+  ,correct.min = T
                             
-                            #Tests to return
-                            ,stat.ad.test   = F
-                            ,stat.sw.test   = F
-                            ,stat.skew.test = T
-                            ,stat.kurt.test = T
-                            ,stat.pois.dist.test = F
-                            ,stat.sw.exp.test = F
+  #Tests to return
+  ,stat.ad.test   = F
+  ,stat.sw.test   = F
+  ,stat.skew.test = T
+  ,stat.kurt.test = T
+  ,stat.pois.dist.test = F
+  ,stat.sw.exp.test = F
                             
-                            ) {
+) {
   x <- na.omit(x)
   orig.warnings <- unlist(options("warn"))
   options(warn = -1)

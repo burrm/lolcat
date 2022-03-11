@@ -1,3 +1,16 @@
+#' One Sample Test of Pearson's Correlation Coefficient
+#' 
+#' Calculate test of significance for Pearson's Correlation Coefficient.
+#' 
+#' @param x Vector - Variable 1 values 
+#' @param y Vector - Variable 2 values
+#' @param sample.r Scalar - Sample correlation coefficient.
+#' @param sample.size Scalar - Sample size to use for the calculation.
+#' @param null.hypothesis.rho Scalar - The assumed value of rho to test the sample correlation coefficient against.
+#' @param alternative The alternative hypothesis to use for the test computation.
+#' @param conf.level The confidence level for this test, between 0 and 1.
+#'
+#' @return Hypothesis test result showing results of test.
 cor.pearson.r.onesample.simple <- function(
                           sample.r,
                           sample.size,

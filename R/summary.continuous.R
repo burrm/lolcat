@@ -1,3 +1,4 @@
+# @rdname summary.impl
 summary.continuous <-function(fx
                               ,data = NULL
                               ,stat.n=T

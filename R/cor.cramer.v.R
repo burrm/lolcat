@@ -1,6 +1,6 @@
 #' Cramer's V/Phi 
 #' 
-#' Calculate the Cramer's V (sometimes referred to as Cramer's phi).
+#' Calculate Cramer's V (sometimes referred to as Cramer's phi) for a contingency table.
 #'
 #' @param observed.frequencies A matrix of values to test.
 #' @param expected.frequencies A matrix of values to compare with observed.frequencies.

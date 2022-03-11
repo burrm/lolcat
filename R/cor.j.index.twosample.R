@@ -1,3 +1,13 @@
+#' Two-Sample J Index of Predictive Efficiency 
+#' 
+#' Calculate test for differences between two samples' J Index of Predictive Efficiency calculations.
+#'
+#' @param x1 A 2x2 matrix for first sample 
+#' @param x2 A 2x2 matrix for second sample 
+#' @param alternative The alternative hypothesis to use for the test computation.
+#' @param conf.level The confidence level for this test, between 0 and 1.
+#'
+#' @return Hypothesis test result showing results of test.
 cor.j.index.twosample<-function(x1
                                 ,x2
                                 #,null.hypothesis.difference = 0

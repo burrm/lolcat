@@ -1,3 +1,23 @@
+#' Control Violations - Nelson Rule 2 - Runs Above or Below Center Line 
+#'
+#' Runs are sequential points above or below the center line on a control chart.
+#' Too many sequential points above or below the center line indicates that the process
+#' may be behaving non-randomly and has one or more special causes of variation present.  
+#'
+#' @param chart.series Vector - Chart series
+#' @param center.line Vector - Chart center line
+#' @param control.limits.ucl Vector - Chart upper control limit (UCL)
+#' @param zone.a.upper Vector - Chart Zone A boundary above center line.
+#' @param zone.ab.upper Vector - Chart boundary between Zone A and Zone B above center line.
+#' @param zone.bc.upper Vector - Chart boundary between Zone B and Zone C above center line.
+#' @param control.limits.lcl Vector - Chart lower control limit (LCL)
+#' @param zone.a.lower Vector - Chart Zone A boundary below center line.
+#' @param zone.ab.lower Vector - Chart boundary between Zone A and Zone B below center line.
+#' @param zone.bc.lower Vector - Chart boundary between Zone B and Zone C below center line.
+#' @param point.count Scalar - Number of points to use for detecting violation
+#' @param ... Additional parameters
+#'
+#' @return Vector of logical values corresponding to whether points in chart.series violate this rule. 
 spc.controlviolation.nelson.1984.test2.runs <- function(
     chart.series = NA,
 

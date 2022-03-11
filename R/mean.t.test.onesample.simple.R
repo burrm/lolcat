@@ -1,10 +1,28 @@
-mean.t.test.onesample.simple<-function(sample.mean
-                                  ,sample.variance
-                                  ,sample.size
-                                  ,null.hypothesis.mean = 0
-                                  ,alternative = c("two.sided","less","greater")
-                                  ,conf.level = 0.95
-                                  ,finite.population.N = NA
+#' One Sample t Test for Mean  
+#' 
+#' Calculate one sample t test for mean.
+#'
+#' @param x Vector - sample values to be used for mean calculation.
+#' @param sample.mean Scalar - sample mean to be tested.
+#' @param sample.variance Scalar - sample variance.
+#' @param sample.size Scalar - sample size.
+#' @param null.hypothesis.mean Scalar - null hypothesis mean value, sample.mean is tested against this value.
+#' @param alternative The alternative hypothesis to use for the test computation.
+#' @param conf.level The confidence level for this test, between 0 and 1.
+#' @param finite.population.N Scalar - the population size if finite population adjustment needs to be made.
+#' @param na.rm Logical - remove NA values prior to running calculation.
+#'
+#' @aliases mean.t.test.onesample
+#'
+#' @return The results of the statistical test.
+mean.t.test.onesample.simple<-function(
+  sample.mean
+  ,sample.variance
+  ,sample.size
+  ,null.hypothesis.mean = 0
+  ,alternative = c("two.sided","less","greater")
+  ,conf.level = 0.95
+  ,finite.population.N = NA
 ) {
   validate.htest.alternative(alternative = alternative)
   se.est <- sqrt(sample.variance/sample.size)

@@ -10,5 +10,5 @@ spc.rulesets.outside.limits()
 A list with control violation evaluation functions to be used by spc.chart functions.
 }
 \description{
-Provides an SPC chart rule set that reports control violations for points outside of limits.
+Provides an SPC chart rule set that reports control violations for points outside of control limits.
 }

@@ -1,3 +1,4 @@
+#' @rdname z.test.onesample.simple
 z.test.onesample<-function(x
                            ,known.population.variance
                            ,null.hypothesis.mean

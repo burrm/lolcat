@@ -1,3 +1,4 @@
+#' @rdname cor.spearman.rank.simple
 cor.spearman.rank <- function (x1
                                ,x2
                                ,conf.level = .95

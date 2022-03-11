@@ -24,5 +24,5 @@ cor.cramer.v(
 Hypothesis test result showing results of test.
 }
 \description{
-Calculate the Cramer's V (sometimes referred to as Cramer's phi).
+Calculate Cramer's V (sometimes referred to as Cramer's phi) for a contingency table.
 }

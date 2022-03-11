@@ -1,3 +1,4 @@
+#' @rdname cor.kendall.tau.simple
 cor.kendall.tau <- function(x1
                             ,x2
                             ,alternative = c("two.sided", "greater", "less")

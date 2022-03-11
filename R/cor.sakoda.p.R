@@ -1,7 +1,16 @@
-cor.sakoda.p <- function(x) {
+#' Sakoda's p* Coefficient 
+#' 
+#' Calculate Sakoda's p* for a contingency table. 
+#' 
+#' @param x Matrix - contingency table 
+#'
+#' @return Hypothesis test result showing results of test.
+cor.sakoda.p <- function(
+  x
+) {
   
   phi.result <- cor.pearson.phi(x)
-  phi <- rmnames(chi.sq.result$statistic)
+  phi <- rmnames(phi.result$statistic)
   q <- min(nrow(x),ncol(x))
   
   p <- sqrt(q * phi^2 / ((q-1)(1+phi^2)))

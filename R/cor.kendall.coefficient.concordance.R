@@ -1,3 +1,15 @@
+#' Kendall's Coefficient of Concordance 
+#' 
+#' Calculate Kendall's Coefficient of Concordance (sometimes called Kendall's W).
+#' 
+#' @param x Matrix - matrix of ratings 
+#' @param raters.in.column.variable Logical - The raters are expected to be in the columns, if this is not the case, then set to FALSE.
+#' @param call.rank Logical - if true, rank() is called. If FALSE, then values are used as-is 
+#' @param tie.correct Logical - if true, a correction for ties is applied to the calculation. 
+#' @param alternative The alternative hypothesis to use for the test computation.
+#' @param conf.level The confidence level for this test, between 0 and 1.
+#'
+#' @return Hypothesis test result showing results of test.
 cor.kendall.coefficient.concordance <- function(
   x #A matrix of ratings
   ,raters.in.column.variable = T

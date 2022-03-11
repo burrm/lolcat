@@ -1,3 +1,22 @@
+#' Control Violation Rule Evaluation
+#' 
+#' This function is used to evaluate control rules in the SPC charting functions.
+#'
+#' @param control.rules List - list of functions following conventions in spc.controlviolation.template
+#' @param chart.series Vector - Chart series
+#' @param center.line Vector - Chart center line
+#' @param control.limits.ucl Vector - Chart upper control limit (UCL)
+#' @param zone.a.upper Vector - Chart Zone A boundary above center line.
+#' @param zone.ab.upper Vector - Chart boundary between Zone A and Zone B above center line.
+#' @param zone.bc.upper Vector - Chart boundary between Zone B and Zone C above center line.
+#' @param control.limits.lcl Vector - Chart lower control limit (LCL)
+#' @param zone.a.lower Vector - Chart Zone A boundary below center line.
+#' @param zone.ab.lower Vector - Chart boundary between Zone A and Zone B below center line.
+#' @param zone.bc.lower Vector - Chart boundary between Zone B and Zone C below center line.
+#' @param ... Additional parameters
+#'
+#' @return A data structure with individual rule violations (sharing names with control.rules) 
+#' and whether each point is subject to one or more control violations. 
 spc.controlviolation.evaluate.rules <- function(
     control.rules = list(),
 

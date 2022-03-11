@@ -1,3 +1,23 @@
+#' Two Dependent Sample Test of Pearson's Correlation Coefficient
+#' 
+#' Calculate test of significance difference for Pearson's Correlation Coefficient between three samples.
+#' Null hypothesis: No significant difference between correlation coefficient between x1 and x3 vs. 
+#' correlation coefficient between x2 and x3.
+#' Significant result: Low p value indicates that a statistically significant difference 
+#' exists between correlation coefficient between x1 and x3 vs. correlation coefficient between x2 and x3.
+#' 
+#' @param x1 Vector - Variable 1 values 
+#' @param x2 Vector - Variable 2 values
+#' @param x3 Vector - Variable 3 values
+#' @param sample.r.g1.g3 Scalar - Sample correlation coefficient between x1 and x3.
+#' @param sample.r.g2.g3 Scalar - Sample correlation coefficient between x2 and x3.
+#' @param sample.r.g1.g2 Scalar - Sample correlation coefficient between x1 and x2.
+#' @param sample.size Scalar - Sample size to use for the calculation.
+#' @param method Scalar - character string - method used in calculation. 
+#' @param alternative The alternative hypothesis to use for the test computation.
+#' @param conf.level The confidence level for this test, between 0 and 1.
+#'
+#' @return Hypothesis test result showing results of test.
 cor.pearson.r.twosample.dependent.simple <- function(
   sample.r.g1.g3,
   sample.r.g2.g3,

@@ -1,3 +1,12 @@
+#' Concordance Helper Function 
+#' 
+#' Calculates concordant and discordant pairs for Kendall's Tau.
+#' 
+#' @param x1 Vector - group 1 - scores 
+#' @param x2 Vector - group 2 - scores
+#' @param call.rank  - Scalar - Logical - all rank() on groups if it has not been called prior to running function.
+#'
+#' @return Hypothesis test result showing results of test.
 cor.concordance.helper <- function(x1, x2, call.rank = T) {
   ret <- list()
   

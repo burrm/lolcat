@@ -1,4 +1,13 @@
-cor.tschuprow.tc <- function(x) {
+#' Tschuprow's T 
+#' 
+#' Calculate Tschuprow's T on a contingency table.
+#' 
+#' @param x Matrix - contingency table 
+#'
+#' @return Hypothesis test result showing results of test.
+cor.tschuprow.tc <- function(
+  x
+) {
   
   chi.sq.result <- chisq.test(x, correct = F)
   chi <- rmnames(chi.sq.result$statistic)
@@ -32,5 +41,5 @@ cor.tschuprow.tc <- function(x) {
   retval
 }
 
- 
+#' @rdname cor.tschuprow.tc 
 cor.chuprov.tc <- cor.tschuprow.tc

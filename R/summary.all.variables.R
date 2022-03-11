@@ -1,3 +1,4 @@
+#' @rdname summary.impl
 summary.all.variables <- function(data, summary.default = summary.continuous , ...) {
   var.names <- names(data)
   

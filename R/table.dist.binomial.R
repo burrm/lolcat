@@ -1,3 +1,11 @@
+#' Table of Binomial Distribution  
+#' 
+#' Calculates probabilities for the binomial distribution and includes cumulative probabilities from each tail.
+#'
+#' @param n Scalar - sample size 
+#' @param p Scalar - probability of "success"
+#'
+#' @return A data frame with x, probability at x, and cumulative probability from each tail to x. 
 table.dist.binomial <- function(n = 10
                                 ,p = .5) {
   

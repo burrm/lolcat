@@ -1,3 +1,4 @@
+#' @rdname cor.pearson.r.onesample.simple
 cor.pearson.r.onesample <- function(
   x,
   y,

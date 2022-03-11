@@ -1,3 +1,20 @@
+#' Kendall's Tau 
+#' 
+#' Calculate Kendall's Rank Correlation Coefficient (also called Kendall's Tau).
+#' 
+#' @param x1 Vector - group 1 - scores 
+#' @param x2 Vector - group 2 - scores
+#' @param count.concordant Scalar - counts of concordant pairs between groups.
+#' @param count.discordant Scalar - counts of discordant pairs between groups.
+#' @param ties.x1 Vector - group 1 - score counts tied for a particular score.
+#' @param ties.x2 Vector - group 2 - score counts tied for a particular score.
+#' @param sample.size Scalar - sample size to use for the calculation.
+#' @param alternative The alternative hypothesis to use for the test computation.
+#' @param conf.level The confidence level for this test, between 0 and 1.
+#'
+#' @aliases cor.kendall.tau
+#'
+#' @return Hypothesis test result showing results of test.
 cor.kendall.tau.simple <- function(
    count.concordant = 0
   ,count.discordant = 0

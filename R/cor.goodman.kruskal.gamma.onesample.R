@@ -1,3 +1,13 @@
+#' Goodman and Kruskal's Gamma 
+#' 
+#' Calculate Goodman and Kruskal's Gamma for a contingency table.
+#'
+#' @param x A matrix that is an ordered contingency table.
+#' @param null.hypothesis.gamma Scalar - null hypothesis gamma.
+#' @param alternative The alternative hypothesis to use for the test computation.
+#' @param conf.level The confidence level for this test, between 0 and 1.
+#'
+#' @return Hypothesis test result showing results of test.
 cor.goodman.kruskal.gamma.onesample <- function(
   x #ordered contingency table (row and column)
   ,null.hypothesis.gamma = 0

@@ -1,4 +1,15 @@
-
+#' Spearman's Rank Correlation Coefficient
+#' 
+#' Calculate test of significance for Spearman's Rank Correlation Coefficient.
+#' 
+#' @param x1 Vector - Variable 1 values 
+#' @param x2 Vector - Variable 2 values
+#' @param r_sp Scalar - Sample rank correlation coefficient.
+#' @param sample.size Scalar - Sample size to use for the calculation.
+#' @param alternative The alternative hypothesis to use for the test computation.
+#' @param conf.level The confidence level for this test, between 0 and 1.
+#'
+#' @return Hypothesis test result showing results of test.
 cor.spearman.rank.simple <- function (
   r_sp
   ,sample.size

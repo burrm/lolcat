@@ -1,9 +1,8 @@
-skewness.test <-
-function(x
-         ,conf.level = .95
-         ,alternative = c("two.sided","less","greater")
-         )
-{
+skewness.test <- function(
+  x
+  ,conf.level = .95
+  ,alternative = c("two.sided","less","greater")
+) {
   validate.htest.alternative(alternative = alternative)
   x <- na.omit(x)
   

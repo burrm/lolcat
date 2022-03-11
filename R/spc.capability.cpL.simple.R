@@ -10,7 +10,6 @@
 #' @param n.sigma The number of standard deviations to use in the denominator of the calculation. 6 is recommended, but 5.15 has also been historically used by Automotive Industry Action Group (AIAG). 
 #'
 #' @return A scalar with computed CpL. 
-
 spc.capability.cpL.simple <- function (
   lower.specification
   ,process.center

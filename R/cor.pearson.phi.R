@@ -1,3 +1,11 @@
+#' Pearson's Phi Coefficient 
+#' 
+#' Calculate Pearson's Phi. If x is a 2x2 contingency table, Fisher's exact test is reported for significance. 
+#' For any other dimension of contingency table, a chi square test is performed and reported.
+#' 
+#' @param x Matrix - contingency table 
+#'
+#' @return Hypothesis test result showing results of test.
 cor.pearson.phi <- function(x) {
   
   chi.sq.result <- chisq.test(x, correct = F)
