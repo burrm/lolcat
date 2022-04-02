@@ -1,3 +1,11 @@
+#' Round Numeric Values in Object  
+#' 
+#' Returns the input object, but rounded. 
+#'
+#' @param x Vector - The object to remove names from
+#' @param digits Scalar - The number of digits to round to
+#'
+#' @return x, but rounded 
 round.object <- function(
   x,
   digits = 4

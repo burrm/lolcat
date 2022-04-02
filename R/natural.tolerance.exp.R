@@ -1,3 +1,4 @@
+#' @rdname natural.tolerance.exp.simple
 natural.tolerance.exp <- function(
     x, 
     ...

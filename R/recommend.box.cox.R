@@ -1,12 +1,13 @@
-recommend.box.cox <- function(x
-                            ,lambda.min = -5
-                            ,lambda.max = 5
-                            ,step = .1
+recommend.box.cox <- function(
+  x
+  ,lambda.min = -5
+  ,lambda.max = 5
+  ,step = .1
                             
-                            #Shift data for possible exponent issues
-                            ,correct.min = T
-                            ,target = c("normal")
-                            ,metric = c("skewness+kurtosis", "skewness", "kurtosis")
+  #Shift data for possible exponent issues
+  ,correct.min = T
+  ,target = c("normal")
+  ,metric = c("skewness+kurtosis", "skewness", "kurtosis")
                             
 ) {
   box.cox.out <- explore.box.cox(x

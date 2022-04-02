@@ -1,17 +1,18 @@
-explore.johnson <- function(x
-                            ,z.min = .05
-                            ,z.max = 1
-                            ,step  = .01
+explore.johnson <- function(
+  x
+  ,z.min = .05
+  ,z.max = 1
+  ,step  = .01
                             
-                            ,quantile.type = 8
+  ,quantile.type = 8
                             
-                            #Tests to return
-                            ,stat.ad.test   = F
-                            ,stat.sw.test   = F
-                            ,stat.skew.test = T
-                            ,stat.kurt.test = T
-                            ,stat.pois.dist.test = F
-                            ,stat.sw.exp.test = F
+  #Tests to return
+  ,stat.ad.test   = F
+  ,stat.sw.test   = F
+  ,stat.skew.test = T
+  ,stat.kurt.test = T
+  ,stat.pois.dist.test = F
+  ,stat.sw.exp.test = F
                             
 ) {
   opt.orig <- rmnames(unlist(options("stringsAsFactors")))

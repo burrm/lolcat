@@ -1,3 +1,4 @@
+#' @rdname natural.tolerance.normal.simple
 natural.tolerance.normal <- function(
     x, 
     ...

@@ -18,6 +18,8 @@ cor.cohen.kappa.onesample.1969.fleiss <- function(
   validate.htest.alternative(alternative = alternative)
     
   n <- sum(observed.frequencies)
+  n.agree <- sum(diag(observed.frequencies))
+  n.disagree <- n - n.agree
   
   i.set <- 1:nrow(observed.frequencies)
   j.set <- 1:ncol(observed.frequencies)
@@ -126,8 +128,9 @@ cor.cohen.kappa.onesample.1969.fleiss <- function(
                                ,kappa.max = k_max
                                ,p_o = p_o
                                ,p_c = p_c
-                               #,n.agree = sum.diag.observed
-                               #,n.disagree = (n-sum.diag.observed)
+                               ,n = n
+                               ,n.agree = n.agree
+                               ,n.disagree = n.disagree
                ),
                parameter   = 0,
                p.value     = p.value,

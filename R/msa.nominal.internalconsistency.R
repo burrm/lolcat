@@ -1,3 +1,11 @@
+#' Perform Study of Nominal Scale Rater's Internal Consistency
+#' 
+#' Evaluate two or more measurements' agreement for a set of subjects, usually within a single rater.
+#'
+#' @param ... Vectors - character or factor - One or more rater's evaluations of subjects
+#' @param conf.level Confidence level to use for the statistical tests
+#'
+#' @return A data structure including details of the tests between measurements. Use summary() to summarize results. 
 msa.nominal.internalconsistency <- function(
   ... #2 or more nominal measurements of k items
   ,conf.level = .95

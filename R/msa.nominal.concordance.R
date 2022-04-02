@@ -1,3 +1,15 @@
+#' Perform Study of Nominal Scale Agreement/Concordance With or Without Standard
+#' 
+#' Evaluate one or more rater's agreement for a set of subjects with or without a "standard" or "true" value.
+#' This is sometimes called a nominal gage study or a study of interrater agreement. 
+#' Note that all input vectors should be ordered by parts/subjects (i.e 1st value in rater 1's vector is first part, 
+#' 2nd value in rater 2's vector is 2nd part, 3rd value in standard is 3rd part, etc.)
+#'
+#' @param ... Vectors - character or factor - One or more rater's evaluations of subjects
+#' @param standard Vector - character or factor - the "standard" or "true" measurement
+#' @param conf.level Confidence level to use for the statistical tests
+#'
+#' @return A data structure including all of the details of the tests between operators/standard. Use summary() to summarize results. 
 msa.nominal.concordance <- function(
   ...            #1 or more measurements or results from msa.nominal.internalconsistency
   ,standard = NA #The standard measurement of each part

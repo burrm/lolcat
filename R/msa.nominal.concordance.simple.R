@@ -1,3 +1,12 @@
+#' Perform Comparison of Two Nominal Measurements
+#' 
+#' Evaluate statistical tests of agreement and symmetry for two measurements.
+#'
+#' @param measurement1 Vector - First operator's assessments ordered by part
+#' @param measurement2 Vector - Second operator's assessments ordered by part
+#' @param conf.level Confidence level to use for the statistical tests
+#'
+#' @return A data structure including all of the details of the tests. Use summary() to summarize results. 
 msa.nominal.concordance.simple <- function(
   measurement1,
   measurement2,

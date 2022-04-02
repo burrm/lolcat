@@ -1,7 +1,8 @@
+#' @rdname natural.tolerance.exp.low.simple
 natural.tolerance.exp.low <- function(
-    x, 
-    low = min(x),
-    ...
+ x, 
+ low = min(x),
+ ...
 ) {
     rate <- 1/mean(x - low)
 

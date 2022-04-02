@@ -31,7 +31,7 @@ summary.lolcat.msa.nominal.internalconsistency <- function(object, ...) {
   }))
 
   p.chance <- unlist(lapply(comp, FUN = function(o) { 
-    utility.extract.named.value(o$agreement$estimate, "p.c")
+    utility.extract.named.value(o$agreement$estimate, "p_c")
   }))
   
     
