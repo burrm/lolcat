@@ -1,3 +1,10 @@
+#' Calculate Sample Mode  
+#' 
+#' Calculate the mode of a data set, defined as the value(s) that occur most often. 
+#'
+#' @param x Vector - The object to remove names from
+#'
+#' @return Calculated mode value 
 sample.mode <- function(x) {
   m <- NA
 

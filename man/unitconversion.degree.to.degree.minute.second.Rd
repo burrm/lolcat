@@ -17,8 +17,7 @@ names for degrees, minutes, seconds. Sign of resulting values matches sign of in
 Performs a conversion of angle measures from degrees to degrees, minutes, and seconds. 
 Minutes (also called minutes of arc) are 1/60th of a degree.
 Seconds (also called seconds of arc) are 1/60th of a minute or 1/3600 of a degree.
-Any remaining decimal will be included in the seconds portion of the resulting data structure. 
-To avoid some rounding oddities due to floating point math, use round.object().
+Any remaining decimal will be included in the seconds portion of the resulting data structure.
 }
 \examples{
 ## Example 1 - positive and negative (3,3',5'')

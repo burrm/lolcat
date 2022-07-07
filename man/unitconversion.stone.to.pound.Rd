@@ -16,5 +16,5 @@ unitconversion.st.to.lb(x = 1)
 x, but converted to pounds
 }
 \description{
-Performs a conversion of weights from stones to pounds.
+Performs a conversion of weights from stones to pounds (avoirdupois).
 }
