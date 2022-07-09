@@ -16,4 +16,4 @@ unitconversion.peck.to.cubic.inch <- function(
 }
 
 #' @rdname unitconversion.peck.to.cubic.inch
-unitconversion.pk.to.cu.in <- unitconversion.peck.to.cu.in
+unitconversion.pk.to.cu.in <- unitconversion.peck.to.cubic.inch
