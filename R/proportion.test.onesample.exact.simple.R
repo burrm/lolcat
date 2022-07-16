@@ -11,7 +11,7 @@ proportion.test.onesample.exact.simple <- function(
   
   p.value <- if (alternative[1] == "two.sided") {
     if (sample.proportion < null.hypothesis.proportion) {
-      2*pbinom(np, sample.size, null.hypothesis.proportion)
+      2*pbinom(np, sample.size, null.hypothesis.proportion) 
     } else {
       2*(pbinom(np, sample.size, null.hypothesis.proportion, lower.tail = F) + dbinom(np, sample.size, null.hypothesis.proportion))
     }
@@ -23,6 +23,12 @@ proportion.test.onesample.exact.simple <- function(
     NA
   }
   
+  if (p.value > 1) {
+    p.value <- 1
+  } else if (p.value < 0) (
+    p.value <- 0
+  )
+
   #First guess?
   #cilower <- qbinom((1-conf.level)/2, size = sample.size, prob = sample.proportion)/sample.size
   #ciupper <- qbinom((1-conf.level)/2, size = sample.size, prob = sample.proportion, lower.tail = FALSE)/sample.size
