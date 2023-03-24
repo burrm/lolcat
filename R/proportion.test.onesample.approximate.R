@@ -1,3 +1,4 @@
+#' @rdname proportion.test.onesample.approximate.simple
 proportion.test.onesample.approximate <- function(
   x 
   ,success.value = 1 #Can be anything that compares with x with ==

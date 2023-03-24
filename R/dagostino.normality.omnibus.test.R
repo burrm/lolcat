@@ -1,3 +1,4 @@
+#' @rdname dagostino.normality.omnibus.test.simple
 dagostino.normality.omnibus.test <- function(x
                                              ,conf.level = .95
                                              ,alternative = #c("two.sided") #,"less",

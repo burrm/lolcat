@@ -1,3 +1,4 @@
+#' @rdname proportion.test.onesample.exact.simple
 proportion.test.onesample.exact <- function(
   x 
   ,success.value = 1 #Can be anything that compares with x with ==

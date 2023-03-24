@@ -1,3 +1,13 @@
+#' Calculate Ranks for Siegel-Tukey Variability Test  
+#' 
+#' Calculate ranks for the Siegel-Tukey test for variability. 
+#'
+#' @param g1 Vector - Group 1 data values
+#' @param g2 Vector - Group 2 data values
+#' @param details Scalar/logical - Whether to return full rank details or just ranks
+#' @param ties.method Scalar/character - The method used to break ties during ranking
+#'
+#' @return Rank values for g1 and g2 
 rank.siegel.tukey <- function(g1
                               ,g2
                               ,details = T

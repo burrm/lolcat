@@ -1,3 +1,18 @@
+#' One Sample Proportion Test (Exact) 
+#' 
+#' Calculates a one-sample proportion test to determine if a sample 
+#' proportion is statistically different from an assumed population proportion.
+#' 
+#'
+#' @param sample.proportion Scalar/numeric - sample proportion between 0 and 1
+#' @param sample.size Scalar/numeric - sample size.
+#' @param null.hypothesis.proportion Scalar/numeric - assumed population proportion.
+#' @param alternative The alternative hypothesis to use for the test computation.
+#' @param conf.level The confidence level for this test, between 0 and 1.
+#' @param x Vector - Sample Values
+#' @param success.value Scalar - Value compared with x using == operator to determine if a trial is a "success" 
+#'
+#' @return Hypothesis test result showing results of test. 
 proportion.test.onesample.exact.simple <- function(
                                               sample.proportion 
                                              ,sample.size

@@ -1,3 +1,15 @@
+#' D'Agostino's Normality Test - Omnibus 
+#' 
+#' Calculates a statistical test to determine if normality assumption for the sample is rejected.
+#' 
+#' @param x Vector/numeric - sample data.
+#' @param skewness Scalar/numeric - sample skewness.
+#' @param kurtosis Scalar/numeric - sample kurtosis.
+#' @param sample.size Scalar/numeric - sample size.
+#' @param alternative The alternative hypothesis to use for the test computation.
+#' @param conf.level The confidence level for this test, between 0 and 1.
+#'
+#' @return Hypothesis test result showing results of test. 
 dagostino.normality.omnibus.test.simple <- function(skewness
                                                     ,kurtosis
                                                     ,sample.size

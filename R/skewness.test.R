@@ -1,3 +1,4 @@
+#' @rdname skewness.test.simple
 skewness.test <- function(
   x
   ,conf.level = .95

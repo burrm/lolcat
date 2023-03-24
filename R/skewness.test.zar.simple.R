@@ -1,6 +1,4 @@
-#Zar 1999 version from Sheskin
-#Equivalent to D'Agostino Skewness Test
-
+#' @rdname skewness.test.simple
 skewness.test.zar.simple <- function(
   skewness
   ,sample.size

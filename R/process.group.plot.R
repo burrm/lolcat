@@ -1,3 +1,21 @@
+#' One-Way and Two-Way Histograms/Plots 
+#' 
+#' Prepares data and plots a dependent variable across one or two independent variables,
+#' yielding a matrix of plots. 
+#'
+#' @param fx Formula - grouping formula of form dv ~ iv or dv ~ iv1 + iv2
+#' @param data Data Frame - The data for the plots
+#' @param FUN Function - Plotting function compatible with parameters for hist.grouped
+#' @param interval.size Numeric - Bin size
+#' @param anchor.value Numeric - One of the breakpoints
+#' @param width.consider Numeric - Bin sizes to consider when plotting histograms
+#' @param right Logical - If TRUE, the histogram cells are right-closed (left open) intervals.
+#' @param hist.correct.label Logical - Provide better placement for labels compared with the labeled cells/bins.
+#' @param constant.x.axis Logical - If TRUE, ensure all plots have the same domains.
+#' @param constant.y.axis Logical - If TRUE, ensure all plots have the same ranges.
+#' @param ... Additional parameters - Additional parameters passed to FUN
+#'
+#' @return No return value 
 process.group.plot <- function(
   fx
   ,data = NULL
@@ -10,7 +28,7 @@ process.group.plot <- function(
   #,call.dev.off = T
   ,constant.x.axis = T
   ,constant.y.axis = T
-  
+  ,...
 ) {
   par.orig <- par(no.readonly = T)
   par(mar=c(2.5,2.5,1,1))
@@ -78,7 +96,9 @@ process.group.plot <- function(
             ,anchor.value=anchor.value
             ,interval.size=interval.size
             ,xaxt="n"
-            ,right = right)
+            ,right = right
+            ,...
+            )
         axis(1, at=at ,labels = labels )
         
       } else {

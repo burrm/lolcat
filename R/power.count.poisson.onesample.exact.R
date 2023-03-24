@@ -27,16 +27,22 @@ power.count.poisson.onesample.exact <- function(
     if (lambda.alternative.hypothesis == lambda.null.hypothesis) {
       #NA
     } else {
-      pow <- power.count.poisson.onesample.exact <- function(
-        sample.size = sample.size
-        ,lambda.null.hypothesis = lambda.null.hypothesis
-        ,lambda.alternative.hypothesis = lambda.alternative.hypothesis
-        ,alpha = alpha/2
-        ,alternative = ifelse(
-                          lambda.alternative.hypothesis < lambda.null.hypothesis,
-                          "less",
-                          "greater"
-                       )
+      a.sample.size = sample.size
+      a.lambda.null.hypothesis = lambda.null.hypothesis
+      a.lambda.alternative.hypothesis = lambda.alternative.hypothesis
+      a.alpha = alpha
+      a.alternative = if(lambda.alternative.hypothesis < lambda.null.hypothesis) {
+          "less"
+        } else {
+          "greater"
+        }
+
+      pow <- power.count.poisson.onesample.exact(
+        sample.size = a.sample.size
+        ,lambda.null.hypothesis = a.lambda.null.hypothesis
+        ,lambda.alternative.hypothesis = a.lambda.alternative.hypothesis
+        ,alpha = a.alpha/2
+        ,alternative = a.alternative
         ,details = T
       )
       

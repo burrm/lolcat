@@ -1,3 +1,27 @@
+#' Grouped Histogram 
+#' 
+#' Prepares a grouped histogram of a particular set of data. 
+#'
+#' @param x Vector/numeric - The data for the plot
+#' @param interval.size Numeric - Bin size
+#' @param width.consider Numeric - Bin sizes to consider when plotting histograms
+#' @param anchor.value Numeric - One of the breakpoints
+#' @param col Character - color of bars
+#' @param main Character - Main chart title
+#' @param right Logical - If TRUE, the histogram cells are right-closed (left open) intervals.
+#' @param include.lowest Logical - If TRUE, an x[i] equal to the breaks value will be included in the first (or last, for right = FALSE) bar. This will be ignored (with a warning) unless breaks is a vector.
+#' @param stat.lsl Numeric - Lower specification limit
+#' @param stat.lsl.label Character - Lower specification limit label
+#' @param stat.target Numeric - Process target
+#' @param stat.target.label Character - Process target label
+#' @param stat.usl Numeric - Upper specification limit
+#' @param stat.usl.label Character - Upper specification limit label
+#' @param after.plot Function - Function to perform after plotting, see hist.add.distribution.curve.normal
+#' @param freq Logical - If TRUE, use frequency instead of probability densities.
+#' @param xlim Numeric - Chart Domain, expressed as c(x.min,x.max)
+#' @param ... Additional parameters - Additional parameters passed to hist() and after.plot()
+#'
+#' @return Return value of hist() 
 hist.grouped <- function(
   x
   ,interval.size = NA

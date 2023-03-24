@@ -1,3 +1,16 @@
+#' Normalizing Transformations - Box-Cox/Ladder of Powers - Parameter Recommendation 
+#' 
+#' Recommend parameters to optimally transform sample data to normality based on the Box Cox transformation.
+#' 
+#' @param x Vector/numeric - sample data.
+#' @param lambda.min Scalar/numeric - Minimum exponent.
+#' @param lambda.max Scalar/numeric - Maximum exponent.
+#' @param step - Scalar/numeric - The step size between min and max exponent to try.
+#' @param correct.min Scalar/logical - Shift data by minimum in sample to avoid transformation/reverse transformation issues.
+#' @param target - Scalar/character - The target distribution.
+#' @param metric - Scalar/character - Which metric to use for evaluating transformations.
+#'
+#' @return Data frame with best parameters found in search. 
 recommend.box.cox <- function(
   x
   ,lambda.min = -5

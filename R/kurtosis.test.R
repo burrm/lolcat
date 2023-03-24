@@ -1,3 +1,4 @@
+#' @rdname kurtosis.test.simple
 kurtosis.test <-
   function(x
            ,conf.level = .95

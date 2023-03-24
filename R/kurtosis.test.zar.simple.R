@@ -1,6 +1,4 @@
-#Equivalent to D'Agostino
-#Presented in Sheskin
-
+#' @rdname kurtosis.test.simple
 kurtosis.test.zar.simple <-
   function(kurtosis
            ,sample.size

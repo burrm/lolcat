@@ -1,3 +1,10 @@
+#' Shape Tests - Poisson Distribution Test 
+#' 
+#' Calculates a test to see if the sample data cannot be assumed to be Poisson distributed..
+#'
+#' @param x Vector/numeric - Sample Values
+#'
+#' @return Hypothesis test result showing results of test. Low p value rejects assumption of data fitting Poisson distribution.
 poisson.dist.test <-
 function(x
          #,conf.level = .95

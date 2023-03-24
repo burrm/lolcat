@@ -1,3 +1,14 @@
+#' D'Agostino's Normality Test - Skewness 
+#' 
+#' Calculates a statistical test to determine if sample skewness differs from zero.
+#' 
+#' @param x Vector/numeric - sample data.
+#' @param skewness Scalar/numeric - sample skewness.
+#' @param sample.size Scalar/numeric - sample size.
+#' @param alternative The alternative hypothesis to use for the test computation.
+#' @param conf.level The confidence level for this test, between 0 and 1.
+#'
+#' @return Hypothesis test result showing results of test. 
 skewness.test.simple <-
   function(skewness
            ,sample.size

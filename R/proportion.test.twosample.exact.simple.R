@@ -1,3 +1,17 @@
+#' Two Sample Proportion Test (Exact) 
+#' 
+#' Calculates a two-sample proportion test to determine if a samples  
+#' come from different populations. Fisher Exact test is used for test computation.
+#' 
+#'
+#' @param sample.proportion.g1 Scalar/numeric - Group 1 - sample proportion between 0 and 1
+#' @param sample.size.g1 Scalar/numeric - Group 1 - sample size.
+#' @param sample.proportion.g2 Scalar/numeric - Group 2 - sample proportion between 0 and 1
+#' @param sample.size.g2 Scalar/numeric - Group 2 - sample size.
+#' @param alternative The alternative hypothesis to use for the test computation.
+#' @param conf.level The confidence level for this test, between 0 and 1.
+#'
+#' @return Hypothesis test result showing results of test. 
 proportion.test.twosample.exact.simple <- function(
   sample.proportion.g1 
   ,sample.size.g1

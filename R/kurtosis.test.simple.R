@@ -1,3 +1,14 @@
+#' D'Agostino's Normality Test - Kurtosis 
+#' 
+#' Calculates a statistical test to determine if sample kurtosis differs from zero.
+#' 
+#' @param x Vector/numeric - sample data.
+#' @param kurtosis Scalar/numeric - sample kurtosis.
+#' @param sample.size Scalar/numeric - sample size.
+#' @param alternative The alternative hypothesis to use for the test computation.
+#' @param conf.level The confidence level for this test, between 0 and 1.
+#'
+#' @return Hypothesis test result showing results of test. 
 kurtosis.test.simple <-
   function(kurtosis
            ,sample.size

@@ -1,3 +1,18 @@
+#' Two Sample Proportion Test (Approximate) 
+#' 
+#' Calculates a two-sample proportion test to determine if a samples  
+#' come from different populations. Z test is used for test computation.
+#' 
+#'
+#' @param sample.proportion.g1 Scalar/numeric - Group 1 - sample proportion between 0 and 1
+#' @param sample.size.g1 Scalar/numeric - Group 1 - sample size.
+#' @param sample.proportion.g2 Scalar/numeric - Group 2 - sample proportion between 0 and 1
+#' @param sample.size.g2 Scalar/numeric - Group 2 - sample size.
+#' @param alternative The alternative hypothesis to use for the test computation.
+#' @param conf.level The confidence level for this test, between 0 and 1.
+#' @param continuity.correction Scalar/logical - if TRUE, use continuity correction for the test.
+#'
+#' @return Hypothesis test result showing results of test. 
 proportion.test.twosample.approximate.simple <- function(
   sample.proportion.g1 
   ,sample.size.g1
