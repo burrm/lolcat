@@ -5,10 +5,12 @@
 \title{Two Sample Proportion Test (Exact)}
 \usage{
 proportion.test.twosample.exact.simple(
-  sample.proportion.g1,
+  sample.proportion.g1 = NA,
   sample.size.g1,
-  sample.proportion.g2,
+  np.g1 = sample.proportion.g1 * sample.size.g1,
+  sample.proportion.g2 = NA,
   sample.size.g2,
+  np.g2 = sample.proportion.g2 * sample.size.g2,
   alternative = c("two.sided", "less", "greater"),
   conf.level = 0.95
 )
@@ -18,9 +20,13 @@ proportion.test.twosample.exact.simple(
 
 \item{sample.size.g1}{Scalar/numeric - Group 1 - sample size.}
 
+\item{np.g1}{Scalar/numeric - sample size multipled by sample proportion for group 1. Required if sample.proportion not specified.}
+
 \item{sample.proportion.g2}{Scalar/numeric - Group 2 - sample proportion between 0 and 1}
 
 \item{sample.size.g2}{Scalar/numeric - Group 2 - sample size.}
+
+\item{np.g2}{Scalar/numeric - sample size multipled by sample proportion for group 2. Required if sample.proportion not specified.}
 
 \item{alternative}{The alternative hypothesis to use for the test computation.}
 

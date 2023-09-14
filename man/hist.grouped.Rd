@@ -19,7 +19,8 @@
   stat.target.label = "TGT",
   stat.usl = NA,
   stat.usl.label = "USL",
-  after.plot = function(x, ...) { },
+  after.plot = function(x, ...) {
+ },
   freq = T,
   xlim = c(min(na.omit(c(x, stat.lsl, anchor.value))), max(na.omit(c(x, stat.usl,
     anchor.value)))),

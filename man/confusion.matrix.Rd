@@ -7,8 +7,12 @@
 confusion.matrix(
   actual,
   predicted,
-  actual.positive.fn = function(actual) {     ifelse(actual == 1, 1, 0) },
-  predicted.positive.fn = function(predicted) {     ifelse(predicted == 1, 1, 0) }
+  actual.positive.fn = function(actual) {
+     ifelse(actual == 1, 1, 0)
+ },
+  predicted.positive.fn = function(predicted) {
+     ifelse(predicted == 1, 1, 0)
+ }
 )
 }
 \arguments{

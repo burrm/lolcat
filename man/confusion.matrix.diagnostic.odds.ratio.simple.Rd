@@ -23,12 +23,12 @@ confusion.matrix.diagnostic.odds.ratio.simple(
     true.negative, count.negative = count.negative),
   false.negative.rate = confusion.matrix.false.negative.rate.simple(false.negative =
     false.negative, count.positive = count.positive),
- 
-    positive.likelihood.ratio = confusion.matrix.positive.likelihood.ratio.simple(true.positive.rate
-    = true.positive.rate, false.positive.rate = false.positive.rate),
- 
-    negative.likelihood.ratio = confusion.matrix.negative.likelihood.ratio.simple(true.negative.rate
-    = true.negative.rate, false.negative.rate = false.negative.rate)
+  positive.likelihood.ratio =
+    confusion.matrix.positive.likelihood.ratio.simple(true.positive.rate =
+    true.positive.rate, false.positive.rate = false.positive.rate),
+  negative.likelihood.ratio =
+    confusion.matrix.negative.likelihood.ratio.simple(true.negative.rate =
+    true.negative.rate, false.negative.rate = false.negative.rate)
 )
 }
 \arguments{

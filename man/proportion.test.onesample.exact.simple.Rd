@@ -15,8 +15,9 @@ proportion.test.onesample.exact(
 )
 
 proportion.test.onesample.exact.simple(
-  sample.proportion,
-  sample.size,
+  sample.proportion = NA,
+  sample.size = NA,
+  np = sample.size * sample.proportion,
   null.hypothesis.proportion = 0.5,
   alternative = c("two.sided", "less", "greater"),
   conf.level = 0.95
@@ -33,9 +34,11 @@ proportion.test.onesample.exact.simple(
 
 \item{conf.level}{The confidence level for this test, between 0 and 1.}
 
-\item{sample.proportion}{Scalar/numeric - sample proportion between 0 and 1}
+\item{sample.proportion}{Scalar/numeric - sample proportion between 0 and 1. Required if np not specified.}
 
-\item{sample.size}{Scalar/numeric - sample size.}
+\item{sample.size}{Scalar/numeric - sample size. Required.}
+
+\item{np}{Scalar/numeric - sample size multipled by sample proportion. Required if sample.proportion not specified.}
 }
 \value{
 Hypothesis test result showing results of test.

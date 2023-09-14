@@ -4,8 +4,9 @@
 #' proportion is statistically different from an assumed population proportion.
 #' 
 #'
-#' @param sample.proportion Scalar/numeric - sample proportion between 0 and 1
-#' @param sample.size Scalar/numeric - sample size.
+#' @param sample.proportion Scalar/numeric - sample proportion between 0 and 1. Required if np not specified.
+#' @param sample.size Scalar/numeric - sample size. Required.
+#' @param np Scalar/numeric - sample size multipled by sample proportion. Required if sample.proportion not specified.
 #' @param null.hypothesis.proportion Scalar/numeric - assumed population proportion.
 #' @param alternative The alternative hypothesis to use for the test computation.
 #' @param conf.level The confidence level for this test, between 0 and 1.
@@ -14,16 +15,26 @@
 #'
 #' @return Hypothesis test result showing results of test. 
 proportion.test.onesample.exact.simple <- function(
-                                              sample.proportion 
-                                             ,sample.size
+                                              sample.proportion = NA
+                                             ,sample.size = NA
+                                             ,np = sample.size * sample.proportion
                                              ,null.hypothesis.proportion = .5
                                              ,alternative = c("two.sided", "less", "greater")
                                              ,conf.level = .95
 ) {
   validate.htest.alternative(alternative = alternative)
+
+  np.rounded <- round(np, 0)
+
+  if (np.rounded != np) {
+    warning("np rounded")
+    np <- np.rounded
+  }
   
-  np <- sample.proportion*sample.size
-  
+  if (is.na(sample.proportion)) {
+    sample.proportion <- np / sample.size
+  }
+
   p.value <- if (alternative[1] == "two.sided") {
     if (sample.proportion < null.hypothesis.proportion) {
       2*pbinom(np, sample.size, null.hypothesis.proportion) 

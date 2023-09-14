@@ -4,9 +4,13 @@
 \alias{compute.group.variable}
 \title{Calculate Subgroup Variable}
 \usage{
-compute.group.variable(fx, data = NULL, FUN = function(x) {
-    x
-})
+compute.group.variable(
+  fx,
+  data = NULL,
+  FUN = function(x) {
+     x
+ }
+)
 }
 \arguments{
 \item{fx}{Formula - defines formula for dependent variable and subgroups ( dv ~ v1 + v2 + ...)}
