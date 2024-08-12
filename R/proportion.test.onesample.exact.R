@@ -5,6 +5,7 @@ proportion.test.onesample.exact <- function(
   ,null.hypothesis.proportion = .5
   ,alternative = c("two.sided", "less", "greater")
   ,conf.level = .95
+  ,round.np = T
 ) {
   validate.htest.alternative(alternative = alternative)
   x <- na.omit(x)
@@ -17,5 +18,6 @@ proportion.test.onesample.exact <- function(
     ,null.hypothesis.proportion = null.hypothesis.proportion
     ,alternative = alternative
     ,conf.level = conf.level
+    ,round.np = round.np
   )
 }

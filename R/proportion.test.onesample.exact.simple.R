@@ -11,6 +11,7 @@
 #' @param alternative The alternative hypothesis to use for the test computation.
 #' @param conf.level The confidence level for this test, between 0 and 1.
 #' @param x Vector - Sample Values
+#' @param round.np Logical - Round np for calculation
 #' @param success.value Scalar - Value compared with x using == operator to determine if a trial is a "success" 
 #'
 #' @return Hypothesis test result showing results of test. 
@@ -21,14 +22,21 @@ proportion.test.onesample.exact.simple <- function(
                                              ,null.hypothesis.proportion = .5
                                              ,alternative = c("two.sided", "less", "greater")
                                              ,conf.level = .95
+                                             ,round.np = T
 ) {
   validate.htest.alternative(alternative = alternative)
 
-  np.rounded <- round(np, 0)
+  if (round.np) {
 
-  if (np.rounded != np) {
-    warning("np rounded")
-    np <- np.rounded
+    np.rounded <- round(np, 0)
+
+    if (np.rounded != np) {
+      warning("np rounded")
+      np <- np.rounded
+    }
+
+  } else {
+    np.rounded <- sample.proportion
   }
   
   if (is.na(sample.proportion)) {
