@@ -28,6 +28,7 @@ process.group.plot <- function(
   #,call.dev.off = T
   ,constant.x.axis = T
   ,constant.y.axis = T
+  ,simplify.labels = F
   ,...
 ) {
   par.orig <- par(no.readonly = T)
@@ -87,10 +88,16 @@ process.group.plot <- function(
       
       if (length(x) > 0) {
         
+        label <- paste(response, " (",iv.names[1]," = ",iv.split[[i]][1],")", sep="")
+
+        if (simplify.labels) {
+          label <- iv.split[[i]][1]
+        }
+
         FUN(x
             ,xlim=xlim
             ,ylim=ylim
-            ,main=paste(response, " (",iv.names[1]," = ",iv.split[[i]][1],")", sep="")
+            ,main=label
             ,xlab=NULL
             ,ylab=NULL
             ,anchor.value=anchor.value
