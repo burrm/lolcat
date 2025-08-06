@@ -86,7 +86,7 @@ sample.size.variance.onesample <- function(
     if (alternative[1] == "two.sided") {
       for(k in 2:max_iter) {
         n  <- k
-        df <- k - 1
+        df <- n - 1
         
         # Compute Chi-square critical values
         chi2_lower <- qchisq(alpha / 2, df)

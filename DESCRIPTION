@@ -1,11 +1,13 @@
 Package: lolcat
 Type: Package
 Title: Miscellaneous Useful Functions
-Version: 2.0.0
+Version: 2.0.1
 Date: 2015-09-14
-Author: Mike Burr
-Maintainer: Mike Burr <michael.burr@burrandsons.com>
+Authors@R: c(person("Mike", "Burr", email="michael.e.burr@gmail.com", role=c("aut","cre")), 
+             person("Wendy", "Martin", role=c("ctb")))             
+Maintainer: Mike Burr <michael.e.burr@gmail.com>
 Description: Statistical tests, statistical process control, power analysis, data transformation, education/visualization tools, and other functions. 
+URL: https://github.com/burrm/lolcat
 License: MIT License
 Suggests: testthat
 RoxygenNote: 7.2.3
