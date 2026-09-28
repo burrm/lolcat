@@ -1,100 +1,44 @@
-power.mean.t.onesample <- function(sample.size
-                                   ,effect.size
-                                   ,variance.est = 1
-                                   ,alpha = .05
-                                   ,alternative = c("two.sided","less","greater")
-                                   ,details = T
-) {
+# -----------------------------------------------------------------------------
+# power.mean.t.onesample
+# Bug: two.sided used only one t critical value.
+# Fix: beta = P(t.lower < T < t.upper | ncp).
+# -----------------------------------------------------------------------------
+power.mean.t.onesample <- function(sample.size, effect.size, variance.est = 1,
+                                   alpha = 0.05,
+                                   alternative = c("two.sided", "less", "greater"),
+                                   details = TRUE) {
   validate.htest.alternative(alternative = alternative)
   se.est <- sqrt(variance.est)
-  
-  df <- sample.size-1
-  ncp <- effect.size/(se.est/sqrt(sample.size))
-  
-  t.upper <- qt(ifelse(alternative[1] == "two.sided",alpha/2,alpha), df = sample.size-1, lower.tail = F)
-  t.lower <- qt(ifelse(alternative[1] == "two.sided",alpha/2,alpha), df = sample.size-1, lower.tail = T)
-  
-  beta <- NA
-  
-  if (effect.size < 0) {
-    if (alternative[1] == "two.sided") {
+  df <- sample.size - 1
+  ncp <- effect.size / (se.est / sqrt(sample.size))
+  t.upper <- qt(ifelse(alternative[1] == "two.sided", alpha / 2, alpha), df = df, lower.tail = FALSE)
+  t.lower <- qt(ifelse(alternative[1] == "two.sided", alpha / 2, alpha), df = df, lower.tail = TRUE)
 
-      beta <- pt(t.lower
-                 ,df = df
-                 ,ncp=ncp
-                 ,lower.tail = F)
-      
-            
-    } else if (alternative[1] == "greater") {
-
-      beta <- pt(t.upper
-                 ,df = df
-                 ,ncp=ncp
-                 ,lower.tail = T)
-      
+  if (alternative[1] == "two.sided") {
+    beta <- pt(t.upper, df = df, ncp = ncp, lower.tail = TRUE) -
+      pt(t.lower, df = df, ncp = ncp, lower.tail = TRUE)
+  } else if (effect.size < 0) {
+    if (alternative[1] == "greater") {
+      beta <- pt(t.upper, df = df, ncp = ncp, lower.tail = TRUE)
     } else {
-
-      beta <- pt(t.lower
-                 ,df = df
-                 ,ncp=ncp
-                 ,lower.tail = F)
-            
+      beta <- pt(t.lower, df = df, ncp = ncp, lower.tail = FALSE)
     }
-    
-  } else if (effect.size >= 0) {
-    if (alternative[1] == "two.sided") {
-     
-      beta <- pt(t.upper
-                ,df = df
-                ,ncp=ncp
-                ,lower.tail = T)
-      
-       
-    } else if (alternative[1] == "greater") {
-      
-      beta <- pt(t.upper
-                 ,df = df
-                 ,ncp=ncp
-                 ,lower.tail = T)
-      
+  } else {
+    if (alternative[1] == "greater") {
+      beta <- pt(t.upper, df = df, ncp = ncp, lower.tail = TRUE)
     } else {
-
-      beta <- pt(t.lower
-                 ,df = df
-                 ,ncp=ncp
-                 ,lower.tail = F)
-      
-            
+      beta <- pt(t.lower, df = df, ncp = ncp, lower.tail = FALSE)
     }
   }
-  
-  
-  
-  
-  pow <- 1-beta
-  
+  pow <- 1 - beta
   if (details) {
-    as.data.frame(list(test="t"
-                       ,type = "one.sample"
-                       ,alternative = alternative[1]
-                       ,sample.size = sample.size
-                       ,actual = sample.size
-                       ,df = df
-                       ,effect.size = effect.size
-                       ,variance = variance.est
-                       ,alpha = alpha
-                       ,conf.level = 1-alpha
-                       ,beta = beta
-                       ,power = pow
+    as.data.frame(list(
+      test = "t", type = "one.sample", alternative = alternative[1],
+      sample.size = sample.size, actual = sample.size, df = df,
+      effect.size = effect.size, variance = variance.est, alpha = alpha,
+      conf.level = 1 - alpha, beta = beta, power = pow
     ))
-    
-  }
-  else {
+  } else {
     pow
   }
-  
-  
-  
 }
-
-#power.mean.t.onesample(sample.size = 25, effect.size = .5, se.est = 1)
