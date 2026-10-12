@@ -1,7 +1,8 @@
 # -----------------------------------------------------------------------------
 # power.mean.t.onesample
-# Bug: two.sided used only one t critical value.
+# Bug (2.0.1): two.sided used only one t critical value.
 # Fix: beta = P(t.lower < T < t.upper | ncp).
+# Also: evaluate pt via sign(ncp) form so large |ncp| does not trigger pnt{final}.
 # -----------------------------------------------------------------------------
 power.mean.t.onesample <- function(sample.size, effect.size, variance.est = 1,
                                    alpha = 0.05,
@@ -15,19 +16,26 @@ power.mean.t.onesample <- function(sample.size, effect.size, variance.est = 1,
   t.lower <- qt(ifelse(alternative[1] == "two.sided", alpha / 2, alpha), df = df, lower.tail = TRUE)
 
   if (alternative[1] == "two.sided") {
-    beta <- pt(t.upper, df = df, ncp = ncp, lower.tail = TRUE) -
-      pt(t.lower, df = df, ncp = ncp, lower.tail = TRUE)
-  } else if (effect.size < 0) {
-    if (alternative[1] == "greater") {
+    # F(t|ncp) = 1 - F(-t|-ncp); choose form so both CDFs stay away from 1
+    if (ncp >= 0) {
+      beta <- pt(t.upper, df = df, ncp = ncp, lower.tail = TRUE) -
+        pt(t.lower, df = df, ncp = ncp, lower.tail = TRUE)
+    } else {
+      beta <- pt(-t.lower, df = df, ncp = -ncp, lower.tail = TRUE) -
+        pt(-t.upper, df = df, ncp = -ncp, lower.tail = TRUE)
+    }
+  } else if (alternative[1] == "greater") {
+    if (ncp >= 0) {
       beta <- pt(t.upper, df = df, ncp = ncp, lower.tail = TRUE)
     } else {
-      beta <- pt(t.lower, df = df, ncp = ncp, lower.tail = FALSE)
+      beta <- 1 - pt(-t.upper, df = df, ncp = -ncp, lower.tail = TRUE)
     }
   } else {
-    if (alternative[1] == "greater") {
-      beta <- pt(t.upper, df = df, ncp = ncp, lower.tail = TRUE)
+    # alternative == "less": P(T > t.lower | ncp) without lower.tail = FALSE
+    if (ncp <= 0) {
+      beta <- pt(-t.lower, df = df, ncp = -ncp, lower.tail = TRUE)
     } else {
-      beta <- pt(t.lower, df = df, ncp = ncp, lower.tail = FALSE)
+      beta <- 1 - pt(t.lower, df = df, ncp = ncp, lower.tail = TRUE)
     }
   }
   pow <- 1 - beta
