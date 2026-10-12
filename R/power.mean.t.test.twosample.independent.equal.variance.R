@@ -1,6 +1,6 @@
 # -----------------------------------------------------------------------------
 # power.mean.t.test.twosample.independent.equal.variance
-# Same two-sided pattern as one-sample t.
+# Same two-sided + pnt-stable pattern as one-sample t.
 # -----------------------------------------------------------------------------
 power.mean.t.test.twosample.independent.equal.variance <- function(
     mean.g1 = 0, mean.g2 = 1,
@@ -17,19 +17,24 @@ power.mean.t.test.twosample.independent.equal.variance <- function(
   t.lower <- qt(ifelse(alternative[1] == "two.sided", alpha / 2, alpha), df = df, lower.tail = TRUE)
 
   if (alternative[1] == "two.sided") {
-    beta <- pt(t.upper, df = df, ncp = ncp, lower.tail = TRUE) -
-      pt(t.lower, df = df, ncp = ncp, lower.tail = TRUE)
-  } else if (d < 0) {
-    if (alternative[1] == "greater") {
+    if (ncp >= 0) {
+      beta <- pt(t.upper, df = df, ncp = ncp, lower.tail = TRUE) -
+        pt(t.lower, df = df, ncp = ncp, lower.tail = TRUE)
+    } else {
+      beta <- pt(-t.lower, df = df, ncp = -ncp, lower.tail = TRUE) -
+        pt(-t.upper, df = df, ncp = -ncp, lower.tail = TRUE)
+    }
+  } else if (alternative[1] == "greater") {
+    if (ncp >= 0) {
       beta <- pt(t.upper, df = df, ncp = ncp, lower.tail = TRUE)
     } else {
-      beta <- pt(t.lower, df = df, ncp = ncp, lower.tail = FALSE)
+      beta <- 1 - pt(-t.upper, df = df, ncp = -ncp, lower.tail = TRUE)
     }
   } else {
-    if (alternative[1] == "greater") {
-      beta <- pt(t.upper, df = df, ncp = ncp, lower.tail = TRUE)
+    if (ncp <= 0) {
+      beta <- pt(-t.lower, df = df, ncp = -ncp, lower.tail = TRUE)
     } else {
-      beta <- pt(t.lower, df = df, ncp = ncp, lower.tail = FALSE)
+      beta <- 1 - pt(t.lower, df = df, ncp = ncp, lower.tail = TRUE)
     }
   }
   pow <- 1 - beta
