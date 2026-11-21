@@ -122,6 +122,7 @@ summary.impl <- function(fx
                          ,...
 ) {
   oldw <- getOption("warn")
+  on.exit(options(warn = oldw), add = TRUE)
   options(warn = -1)
 
   if (is.logical(stat.ad.test)) {
@@ -156,11 +157,12 @@ summary.impl <- function(fx
     
     iv.names <- unique(iv.names)
     
-    d.samplesizes<-as.integer(aggregate(fx,data = data, function(x) {length(na.omit(x))})[,(length(iv.names)+1)])
+    d.samplesizes<-as.integer(aggregate(fx, data = data, na.action = na.pass,
+                                      FUN = function(x) {length(na.omit(x))})[,(length(iv.names)+1)])
     
 
     #Process statistics selections
-    d.summary<-aggregate(fx, data = data, na.action = na.pass, FUN = function(x) {
+    d.summary<-aggregate(fx, data = data, na.action = na.pass, simplify = FALSE, FUN = function(x) {
       #agg<-numeric(0)
       clean_x <- na.omit(x)
   
@@ -179,16 +181,12 @@ summary.impl <- function(fx
     
     #print(str(d.summary))
     
-    #TODO - better way to post process :(
-    #Post-process to correct format 
-    #   - multi-return aggregate puts a matrix into data frame :/
+    # Keep named statistic vectors intact, including when only one is selected.
+    d.statistics <- as.data.frame(do.call(rbind, d.summary[[response]]))
     if (length(iv.names) > 0) {
-      d.final<-as.data.frame(d.summary[,1:length(iv.names)])
-      names(d.final)[1:length(iv.names)]<-iv.names
-      d.final<-cbind(d.final,d.summary[[(length(iv.names)+1)]])
-      names(d.final)[(length(iv.names)+1):ncol(d.final)]<-dimnames(d.summary[[(length(iv.names)+1)]])[[2]]
+      d.final <- cbind(d.summary[iv.names], d.statistics)
     } else {
-      d.final <- as.data.frame(d.summary[[response]])
+      d.final <- d.statistics
     }
     
     #d.final<-as.data.frame(d.final[[1]])
@@ -247,16 +245,16 @@ summary.impl <- function(fx
     if (length(iv.names) > 0) {
       if (length(iv.names) > 1) {
         # Sort by independent variables
-        d.final<-d.final[do.call(order,d.final[,1:length(iv.names)]),]
+        d.final<-d.final[do.call(order,d.final[,1:length(iv.names)]), , drop = FALSE]
         rownames(d.final)<-1:nrow(d.final)
       } else {
-        d.final<-d.final[order(d.final[,1]),]
+        d.final<-d.final[order(d.final[,1]), , drop = FALSE]
         rownames(d.final)<-1:nrow(d.final)
       }
       
       # Perform formatting stuff...
       if (format.generate.cellcodes) {
-        d.final<-cbind(d.final[,1:length(iv.names)],cell.code=rep(NA,nrow(d.final)),d.final[,(length(iv.names)+1):ncol(d.final)])
+        d.final<-cbind(d.final[,1:length(iv.names), drop = FALSE],cell.code=rep(NA,nrow(d.final)),d.final[,(length(iv.names)+1):ncol(d.final), drop = FALSE])
         names(d.final)[1:length(iv.names)]<-iv.names
         for (i in 1:nrow(d.final)) {
           tn<-paste("Cell ",i," - ",sep="")
@@ -279,14 +277,7 @@ summary.impl <- function(fx
         d.final[["cell.code"]]<-factor(d.final[["cell.code"]], levels=d.final[["cell.code"]])
       }
     } else {
-      #d.final <- as.data.frame(d.final[1,2])
-      
-      for (i in ncol(d.final):1) {
-        d.final[[i+1]]<-d.final[[i]]
-        names(d.final)[i+1]<-names(d.final)[i]
-      }
-      names(d.final)[1]<-"dv.name"
-      d.final[1,1]<-response
+      d.final <- cbind(dv.name = response, d.final)
     }
    
     options(warn = oldw)
