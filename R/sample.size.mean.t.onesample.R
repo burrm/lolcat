@@ -14,12 +14,12 @@ sample.size.mean.t.onesample <- function(effect.size
   df <- 1
   
   
-  if (effect.size > 0 && alternative == "less") {
+  if (effect.size > 0 && alternative[1] == "less") {
     df <- NA
     n <- NA
     actual <- NA
     power <- NA
-  } else if (effect.size < 0 && alternative == "greater") {
+  } else if (effect.size < 0 && alternative[1] == "greater") {
     df <- NA
     n <- NA
     actual <- NA
