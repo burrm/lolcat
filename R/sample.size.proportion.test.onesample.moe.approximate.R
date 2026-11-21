@@ -3,7 +3,7 @@
 #' Calculate sample size based on margin of error for proportions. 
 #'
 #' @param proportion Lower specification limit (if applicable)
-#' @param margin.of.error Margin of error (ex. .2 means ±10% margin) 
+#' @param margin.of.error Margin of error on the proportion scale (e.g. 0.2 means ±20 percentage points).
 #' @param alpha Target type I error rate
 #' @param alternative Design test type (1 or 2 tailed, if 1 tail, which tail?)
 #' @param details Return detailed information, if false, returns n only. 

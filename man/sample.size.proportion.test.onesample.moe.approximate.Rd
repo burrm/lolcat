@@ -17,7 +17,7 @@ sample.size.proportion.test.onesample.moe.approximate(
 \arguments{
 \item{proportion}{Lower specification limit (if applicable)}
 
-\item{margin.of.error}{Margin of error (ex. .2 means ±10% margin)}
+\item{margin.of.error}{Margin of error on the proportion scale (e.g. 0.2 means ±20 percentage points).}
 
 \item{alpha}{Target type I error rate}
 
