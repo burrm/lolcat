@@ -24,6 +24,7 @@ cor.point.biserial <- function(
   }
   
   data <- data.frame(disc = discrete_var, cont = continuous_var)
+  data <- na.omit(data)
   
   summary.out<- summary.impl(
     cont ~ disc

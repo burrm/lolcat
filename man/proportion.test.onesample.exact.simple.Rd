@@ -11,7 +11,8 @@ proportion.test.onesample.exact(
   success.value = 1,
   null.hypothesis.proportion = 0.5,
   alternative = c("two.sided", "less", "greater"),
-  conf.level = 0.95
+  conf.level = 0.95,
+  round.np = T
 )
 
 proportion.test.onesample.exact.simple(
@@ -20,7 +21,8 @@ proportion.test.onesample.exact.simple(
   np = sample.size * sample.proportion,
   null.hypothesis.proportion = 0.5,
   alternative = c("two.sided", "less", "greater"),
-  conf.level = 0.95
+  conf.level = 0.95,
+  round.np = T
 )
 }
 \arguments{
@@ -33,6 +35,8 @@ proportion.test.onesample.exact.simple(
 \item{alternative}{The alternative hypothesis to use for the test computation.}
 
 \item{conf.level}{The confidence level for this test, between 0 and 1.}
+
+\item{round.np}{Logical - Round np for calculation}
 
 \item{sample.proportion}{Scalar/numeric - sample proportion between 0 and 1. Required if np not specified.}
 

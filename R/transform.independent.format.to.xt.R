@@ -8,10 +8,11 @@ transform.independent.format.to.xt <-function(x_row
 ) {
   
   if (na.rm) {
-    d <- data.frame(x_row = x_row, x_col = x_col)
+    d <- data.frame(x_row = x_row, x_col = x_col, weight = weight)
     d <- na.omit(d)
     x_row <- d$x_row
     x_col <- d$x_col
+    weight <- d$weight
     
   }
   
@@ -43,8 +44,8 @@ transform.independent.format.to.xt <-function(x_row
   
   dimnames(ret) <- newnames
   
-  for (i in 1:length(unique_x_row)) {
-    for (j in 1:length(unique_x_col)) {
+  for (i in seq_along(unique_x_row)) {
+    for (j in seq_along(unique_x_col)) {
       idx <- which(x_row == unique_x_row[i] & x_col == unique_x_col[j])
       
       ret[i,j] <- sum(weight[idx])

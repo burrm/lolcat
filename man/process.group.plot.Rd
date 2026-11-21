@@ -15,6 +15,7 @@ process.group.plot(
   hist.correct.label = isTRUE(all.equal(FUN, hist.grouped)),
   constant.x.axis = T,
   constant.y.axis = T,
+  simplify.labels = F,
   ...
 )
 }

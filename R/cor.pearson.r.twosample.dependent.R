@@ -7,6 +7,11 @@ cor.pearson.r.twosample.dependent <- function(
   ,method = c("Steiger", "Hotelling")
   ,conf.level = .95
 ) {
+  # All three correlations must use the same complete observations.
+  data <- na.omit(data.frame(x1 = x1, x2 = x2, x3 = x3))
+  x1 <- data$x1
+  x2 <- data$x2
+  x3 <- data$x3
   
   cor.pearson.r.twosample.dependent.simple(
     sample.r.g1.g3 = cor(x1,x3),

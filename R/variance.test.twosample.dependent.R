@@ -8,6 +8,10 @@ variance.test.twosample.dependent <- function(
   ,non.norm.method = c("meandiff", "dbar")
 ) {
   validate.htest.alternative(alternative = alternative)
+  # Remove incomplete pairs before calculating variances or deviations.
+  data <- na.omit(data.frame(g1 = g1, g2 = g2))
+  g1 <- data$g1
+  g2 <- data$g2
   
   if (assume.normality[1] == "yes") {
     #Matched Pairs t Test for Variances

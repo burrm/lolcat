@@ -6,8 +6,9 @@ median.test.twosample.dependent.signtest <- function(
 ) {
   validate.htest.alternative(alternative = alternative)
   
-  g1 <- na.omit(g1)
-  g2 <- na.omit(g2)
+  data <- na.omit(data.frame(g1 = g1, g2 = g2))
+  g1 <- data$g1
+  g2 <- data$g2
   
   d <- g1 - g2
   
